@@ -31,6 +31,7 @@ public class BaseView {
 
 
     }
-
+public void setPosition(int left,int top){
+}
 
 }

@@ -20,6 +20,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private Context context;
     private final BaseView baseView;
     private DisplayMode view;
+    private float latestX=0;
 
 
 
@@ -44,8 +45,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                //baseView.setPosition()
+                latestX=event.getX();
         }
+
 
 
 
@@ -61,6 +63,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         baseView.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
+        Paint paint= new Paint();
+        paint.setColor(ContextCompat.getColor(context,R.color.magenta));
+        paint.setTextSize(50);
+        canvas.drawText(""+latestX,500,500,paint);
 
 
     }
