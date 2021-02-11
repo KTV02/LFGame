@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Build;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -37,6 +38,18 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         baseView = new BaseView(context);
         setFocusable(true);
         System.out.println("Game started du penis");
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch(event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                //baseView.setPosition()
+        }
+
+
+
+        return true;
     }
 
 
