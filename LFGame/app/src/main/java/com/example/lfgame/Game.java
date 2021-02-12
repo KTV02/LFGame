@@ -3,13 +3,9 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.os.Build;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-
-import java.util.LinkedList;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -20,8 +16,8 @@ import androidx.core.content.ContextCompat;
 public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private GameLoop gameLoop;
     private Context context;
-    private final BaseView baseView;
-    private DisplayMode view;
+    private Views view;
+    private DisplayMode mode;
     private String latestX="";
 
 
@@ -31,37 +27,25 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         super(context);
 
         //get surface holder and add callback
-        view = DisplayMode.BASE_VIEW;
+        mode = DisplayMode.BASE_VIEW;
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
         this.context= context;
         gameLoop= new GameLoop(this,surfaceHolder);
 
-        baseView = new BaseView(context);
+        view = new BaseView(context);
         setFocusable(true);
         System.out.println("Game started du penis");
     }
 
     @Override
+    //This Method can now be used for every touch event in every view
     public boolean onTouchEvent(MotionEvent event) {
-        switch(event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                latestX="X: "+event.getX()+"Y: "+event.getY();
-                LinkedList<Container> containers = new LinkedList<>();
-                containers=baseView.getContainer();
-                for(Container c:containers){
-                    if(c.isHere(event.getX(),event.getY())){
-                        c.changeColor();
-                    }
-                }
+            view.touched(event, this);
+            return true;
         }
 
-
-
-
-        return true;
-    }
 
 
 
@@ -69,7 +53,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     //Manager Method for drawing -> decides what is drawn
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        baseView.draw(canvas);
+        view.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
         Paint paint= new Paint();
@@ -97,6 +81,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         canvas.drawText("FPS: "+averageFPS,100,200,paint);
     }
 
+    // setter Method for use in BaseView
+    public void setLatestX(String s) {
+        latestX = s;
+    }
+
 
 
     @Override
@@ -117,7 +106,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
 
     public void update() {
         //Update game state
-        if(view==DisplayMode.BASE_VIEW)
-            baseView.update();
+        if(mode==DisplayMode.BASE_VIEW)
+            view.update();
     }
 }

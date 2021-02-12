@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Bitmap;
+import android.view.MotionEvent;
 
 public abstract class Views {
     private int widthPixels;
@@ -24,4 +25,6 @@ public abstract class Views {
     }
 
     public abstract void draw(Canvas canvas);
+    public abstract void update();
+    public abstract void touched(MotionEvent event, Game g);
 }

@@ -42,14 +42,25 @@ public class BaseView extends Views{
             c.draw(canvas);
         }
     }
+    //gets called by onTouchEvent in Game via Views
+    //contains what was previously in Game
+    public void touched(MotionEvent event, Game g){
+        switch(event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                g.setLatestX("X: "+event.getX()+"Y: "+event.getY());
+                for(Container c:containers){
+                    if(c.isHere(event.getX(),event.getY())){
+                        c.changeColor();
+                    }
+                }
+    }}
     public void update(){
-
-
     }
-
-   public LinkedList<Container> getContainer() {
-        return containers;
-   }
+    
+    // Not needed at the moment because of Refactoring, left it in anyways
+    //public LinkedList<Container> getContainer(){
+    //     return containers;
+    //}
 
 
     private void createContainer(Context context,int number){
