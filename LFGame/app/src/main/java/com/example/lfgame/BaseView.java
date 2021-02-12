@@ -81,7 +81,7 @@ public class BaseView extends Views{
         int marginColumnNumber=containerColumnNumber+1;
         //how many pixels in total of the screen height are covered by containers
         int height = getHeightPixels();
-        int containerColumnPixels=getHeightPixels()-(marginColumnNumber*marginSpace)-guiSpace;
+        int containerColumnPixels=getHeightPixels()-(marginColumnNumber*marginSpace)-2*guiSpace;
         //how big is one container vertically
         int containerHeightSpace=containerColumnPixels/containerColumnNumber;
 
@@ -92,7 +92,7 @@ public class BaseView extends Views{
         int left=marginSpace;
         int right=marginSpace+containerRowSpace;
         int top=marginSpace+guiSpace;
-        int bottom=marginSpace+containerRowSpace;
+        int bottom=top+containerRowSpace;
         for(int i=0;i<containerColumnNumber;i++) {
             for (int j = 0; j < containerRowNumber; j++) {
                 containers.add(new Container(context, left, top, right, bottom));
