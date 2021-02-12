@@ -30,7 +30,7 @@ public class BaseView {
         containers= new LinkedList<>();
         getScreen(context);
         //1 creates 1 container etc...
-        createContainer(context,1);
+        createContainer(context,10);
     }
     public void getScreen(Context context){
         widthPixels=Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -58,12 +58,28 @@ public class BaseView {
 
 
     private void createContainer(Context context,int number){
+        //How many Pixels in total of the Screens width are covered by containers
         int containerRowPixels=widthPixels/5*4;
+        //how many pixels in total of the Screens with are covered in margin space between containers
         int marginRowPixels=widthPixels/5;
-        int marginNumber= containerRowNumber+1;
-        int marginSpace=marginRowPixels/marginNumber;
+        //how many margin spaces are there
+        int marginRowNumber= containerRowNumber+1;
+        //Space per margin in pixels
+        int marginRowSpace=marginRowPixels/marginRowNumber;
+        //Space per container in pixels
+        int containerRowSpace=containerRowPixels/containerRowNumber;
+
+        //start coordinates of first container in row
+        int left=0+marginRowSpace;
+        int right=marginRowSpace+containerRowSpace;
+        int top=0+marginRowSpace;
+        int bottom=marginRowSpace+containerRowSpace;
+
         for(int i=0;i<number;i++){
-            containers.add(new Container(context,0,0,200,200));
+            containers.add(new Container(context,left,top,right,bottom));
+            //move coordinates to the right by one container and one margin
+            left+= containerRowSpace+marginRowSpace;
+            right+= marginRowSpace+ containerRowSpace;
         }
     }
 public void setPosition(int left,int top){
