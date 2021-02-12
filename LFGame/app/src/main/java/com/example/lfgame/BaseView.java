@@ -19,7 +19,7 @@ public class BaseView extends Views{
     Container topleft;
     LinkedList<Container> containers;
     int containerRowNumber=7;
-    int containerColumnNumber=4;
+    int containerColumnNumber=3;
 
 
     public BaseView(Context  context){
@@ -28,7 +28,7 @@ public class BaseView extends Views{
         containers= new LinkedList<>();
         getScreen(context);
         //1 creates 1 container etc...
-        createContainer(context,10);
+        createContainer(context);
     }
 
     public void draw(Canvas canvas) {
@@ -63,29 +63,49 @@ public class BaseView extends Views{
     //}
 
 
-    private void createContainer(Context context,int number){
-        //How many Pixels in total of the Screens width are covered by containers
+    private void createContainer(Context context){
+        //How many Pixels in total of the Screens width are covered by containers WIDTH
         int containerRowPixels=getWidthPixels()/5*4;
-        //how many pixels in total of the Screens with are covered in margin space between containers
+        //how many pixels in total of the Screens with are covered in margin space between containers WIDTH
         int marginRowPixels=getWidthPixels()/5;
-        //how many margin spaces are there
+        //how many margin spaces are there horizontally
         int marginRowNumber= containerRowNumber+1;
         //Space per margin in pixels
-        int marginRowSpace=marginRowPixels/marginRowNumber;
+        int marginSpace=marginRowPixels/marginRowNumber;
         //Space per container in pixels
         int containerRowSpace=containerRowPixels/containerRowNumber;
+        //space that is occupied by the top icons like gold etc.
+        int guiSpace=2*marginSpace;
+
+        //how many margin spaces are there vertically
+        int marginColumnNumber=containerColumnNumber+1;
+        //how many pixels in total of the screen height are covered by containers
+        int height = getHeightPixels();
+        int containerColumnPixels=getHeightPixels()-(marginColumnNumber*marginSpace)-guiSpace;
+        //how big is one container vertically
+        int containerHeightSpace=containerColumnPixels/containerColumnNumber;
+
+
+
 
         //start coordinates of first container in row
-        int left=0+marginRowSpace;
-        int right=marginRowSpace+containerRowSpace;
-        int top=0+marginRowSpace;
-        int bottom=marginRowSpace+containerRowSpace;
+        int left=marginSpace;
+        int right=marginSpace+containerRowSpace;
+        int top=marginSpace+guiSpace;
+        int bottom=marginSpace+containerRowSpace;
+        for(int i=0;i<containerColumnNumber;i++) {
+            for (int j = 0; j < containerRowNumber; j++) {
+                containers.add(new Container(context, left, top, right, bottom));
+                //move coordinates to the right by one container and one margin
+                left += containerRowSpace + marginSpace;
+                right += marginSpace + containerRowSpace;
+            }
+            left=marginSpace;
+            right=marginSpace+containerRowSpace;
+            //start next row of containers
+            top+=containerHeightSpace+marginSpace;
+            bottom+=marginSpace+containerHeightSpace;
 
-        for(int i=0;i<number;i++){
-            containers.add(new Container(context,left,top,right,bottom));
-            //move coordinates to the right by one container and one margin
-            left+= containerRowSpace+marginRowSpace;
-            right+= marginRowSpace+ containerRowSpace;
         }
     }
 public void setPosition(int left,int top){
