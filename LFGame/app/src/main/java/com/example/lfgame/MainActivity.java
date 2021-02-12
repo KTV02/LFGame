@@ -3,6 +3,7 @@ package com.example.lfgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -11,6 +12,7 @@ import android.view.WindowManager;
  */
 
 public class MainActivity extends AppCompatActivity {
+    Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,34 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
         //content view set to GAME so its objects can be rendered
-        setContentView(new Game(this));
+        game= new Game(this);
+        setContentView(game);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d("MainActivity.java","onPause()");
+        game.pause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

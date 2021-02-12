@@ -1,6 +1,7 @@
 package com.example.lfgame;
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class GameLoop extends Thread {
@@ -28,12 +29,14 @@ public class GameLoop extends Thread {
     }
 
     public void startLoop() {
+        Log.d("GameLoop.java","startLoop");
         isRunning = true;
         start();
     }
 
     @Override
     public void run() {
+        Log.d("GameLoop.java","run()");
         super.run();
 
         //Time and cycle count variables
@@ -104,6 +107,17 @@ public class GameLoop extends Thread {
 
             }
 
+        }
+    }
+
+    public void stopLoop() {
+        Log.d("GameLoop.java","stopLoop");
+        isRunning=false;
+        //Wait for gameLoop to return
+        try{
+            join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
         }
     }
 }
