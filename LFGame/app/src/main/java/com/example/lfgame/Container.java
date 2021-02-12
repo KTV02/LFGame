@@ -46,6 +46,15 @@ public class Container {
         this.right=right;
         this.bottom=bottom;
     }
+    public boolean isHere(float x, float y){
+        if(x>right||x<left){
+            return false;
+        }else if(y>bottom||y<top){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
 
 }

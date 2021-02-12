@@ -9,6 +9,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import java.util.LinkedList;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
@@ -20,7 +22,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private Context context;
     private final BaseView baseView;
     private DisplayMode view;
-    private float latestX=0;
+    private String latestX="";
 
 
 
@@ -45,7 +47,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                latestX=event.getX();
+                latestX="X: "+event.getX()+"Y: "+event.getY();
+                LinkedList<Container> containers = new LinkedList<>();
+                containers=baseView.getContainer();
+                for(Container c:containers){
+                    if(c.isHere(event.getX(),event.getY())){
+                        c.changeColor();
+                    }
+                }
         }
 
 
