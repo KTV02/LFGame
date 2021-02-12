@@ -29,7 +29,6 @@ public class Container {
     }
 
     public void draw(Canvas canvas) {
-
         canvas.drawRect(left, top, right, bottom, color);
     }
 
