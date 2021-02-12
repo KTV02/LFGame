@@ -14,15 +14,13 @@ import android.view.View;
 
 import java.util.LinkedList;
 
-public class BaseView {
+public class BaseView extends Views{
     Context context;
-    Bitmap background;
     Container topleft;
     LinkedList<Container> containers;
     int containerRowNumber=7;
     int containerColumnNumber=4;
-    private int widthPixels;
-    private int heightPixels;
+
 
     public BaseView(Context  context){
         this.context=context;
@@ -32,10 +30,7 @@ public class BaseView {
         //1 creates 1 container etc...
         createContainer(context,10);
     }
-    public void getScreen(Context context){
-        widthPixels=Resources.getSystem().getDisplayMetrics().widthPixels;
-        heightPixels=Resources.getSystem().getDisplayMetrics().heightPixels;
-    }
+
     public void draw(Canvas canvas) {
        canvas.drawBitmap(background,0,0,new Paint());
        drawContainer(canvas);
@@ -59,9 +54,9 @@ public class BaseView {
 
     private void createContainer(Context context,int number){
         //How many Pixels in total of the Screens width are covered by containers
-        int containerRowPixels=widthPixels/5*4;
+        int containerRowPixels=getWidthPixels()/5*4;
         //how many pixels in total of the Screens with are covered in margin space between containers
-        int marginRowPixels=widthPixels/5;
+        int marginRowPixels=getWidthPixels()/5;
         //how many margin spaces are there
         int marginRowNumber= containerRowNumber+1;
         //Space per margin in pixels
