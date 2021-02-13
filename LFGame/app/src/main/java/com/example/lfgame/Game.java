@@ -17,6 +17,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private GameLoop gameLoop;
     private Context context;
     private Views view;
+    private HUD hud;
     private DisplayMode mode;
     private String latestX="";
 
@@ -35,6 +36,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         gameLoop= new GameLoop(this,surfaceHolder);
 
         view = new BaseView(context);
+        hud = new HUD(context);
         setFocusable(true);
         System.out.println("Game started du penis");
     }
@@ -54,6 +56,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     public void draw(Canvas canvas) {
         super.draw(canvas);
         view.draw(canvas);
+        hud.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
         Paint paint= new Paint();

@@ -20,7 +20,7 @@ public class BaseView extends Views{
     LinkedList<Container> containers;
     int containerRowNumber=7;
     int containerColumnNumber=3;
-
+    private static int marginSpace;
 
     public BaseView(Context  context){
         this.context=context;
@@ -62,6 +62,11 @@ public class BaseView extends Views{
     //     return containers;
     //}
 
+    //I know static methods aren't great, but you are not the only one who can write ugly code
+    public static int getMarginSpace(){
+        return marginSpace;
+    }
+
 
     private void createContainer(Context context){
         //How many Pixels in total of the Screens width are covered by containers WIDTH
@@ -70,8 +75,8 @@ public class BaseView extends Views{
         int marginRowPixels=getWidthPixels()/5;
         //how many margin spaces are there horizontally
         int marginRowNumber= containerRowNumber+1;
-        //Space per margin in pixels
-        int marginSpace=marginRowPixels/marginRowNumber;
+        //Space per margin in pixels, sorry i made this ugly with global variable
+        marginSpace=marginRowPixels/marginRowNumber;
         //Space per container in pixels
         int containerRowSpace=containerRowPixels/containerRowNumber;
         //space that is occupied by the top icons like gold etc.
