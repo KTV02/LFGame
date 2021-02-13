@@ -16,7 +16,6 @@ import java.util.LinkedList;
 
 public class BaseView extends Views{
     Context context;
-    Container topleft;
     LinkedList<Container> containers;
     int containerRowNumber=7;
     int containerColumnNumber=3;
@@ -26,7 +25,6 @@ public class BaseView extends Views{
         this.context=context;
         background = BitmapFactory.decodeResource(context.getResources(),R.drawable.background);
         containers= new LinkedList<>();
-        getScreen(context);
         //1 creates 1 container etc...
         createContainer(context);
     }
@@ -71,12 +69,13 @@ public class BaseView extends Views{
     private void createContainer(Context context){
         //How many Pixels in total of the Screens width are covered by containers WIDTH
         int containerRowPixels=getWidthPixels()/5*4;
-        //how many pixels in total of the Screens with are covered in margin space between containers WIDTH
+        //how many pixels in total of the Screens width are covered in margin space between containers WIDTH
         int marginRowPixels=getWidthPixels()/5;
         //how many margin spaces are there horizontally
         int marginRowNumber= containerRowNumber+1;
         //Space per margin in pixels, sorry i made this ugly with global variable
         marginSpace=marginRowPixels/marginRowNumber;
+        Values.setMarginSpace(marginSpace);
         //Space per container in pixels
         int containerRowSpace=containerRowPixels/containerRowNumber;
         //space that is occupied by the top icons like gold etc.
@@ -115,6 +114,6 @@ public class BaseView extends Views{
     }
 public void setPosition(int left,int top){
 }
-
+//Hast du die Methode hier reingemacht Frederik? wenn ja was soll die machen?
 }
 

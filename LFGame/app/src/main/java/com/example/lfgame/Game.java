@@ -17,7 +17,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private GameLoop gameLoop;
     private Context context;
     private Views view;
-    private HUD hud;
+    private Hud hud;
     private DisplayMode mode;
     private String latestX="";
 
@@ -36,11 +36,16 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         gameLoop= new GameLoop(this,surfaceHolder);
 
         view = new BaseView(context);
-        hud = new HUD(context);
+        hud = new Hud(context);
         setFocusable(true);
         System.out.println("Game started du penis");
     }
 
+    /**
+     * Delegates touch event to the current view
+     * @param event
+     * @return if Touch event was used
+     */
     @Override
     //This Method can now be used for every touch event in every view
     public boolean onTouchEvent(MotionEvent event) {
@@ -49,24 +54,40 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         }
 
 
-
-
+    /**
+     * Manager Method for deciding whats drawn to the Screen
+     * @param canvas
+     */
     @Override
-    //Manager Method for drawing -> decides what is drawn
     public void draw(Canvas canvas) {
         super.draw(canvas);
         view.draw(canvas);
         hud.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
-        Paint paint= new Paint();
-        paint.setColor(ContextCompat.getColor(context,R.color.magenta));
-        paint.setTextSize(50);
-        canvas.drawText(""+latestX,500,500,paint);
+        showCoordinates(canvas);
+
 
 
     }
-    public void drawUPS(Canvas canvas){
+
+    /**
+     * Draw Coordinates of latest Touch to the screen
+     * @param canvas
+     */
+    private void showCoordinates(Canvas canvas){
+        Paint paint= new Paint();
+        paint.setColor(ContextCompat.getColor(context,R.color.magenta));
+        paint.setTextSize(50);
+        canvas.drawText(""+latestX,1700,100,paint);
+
+    }
+
+    /**
+     * Draw average game cycles to the screen
+     * @param canvas
+     */
+    private void drawUPS(Canvas canvas){
         String averageUPS = Double.toString(gameLoop.getAverageUPS());
         Paint paint= new Paint();
         int color = ContextCompat.getColor(context, R.color.magenta);
@@ -75,7 +96,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         canvas.drawText("UPS: "+averageUPS,200,50,paint);
     }
 
-    public void drawFPS(Canvas canvas){
+    /**
+     * Draws average FPS to the screen
+     * @param canvas
+     */
+    private void drawFPS(Canvas canvas){
         String averageFPS = Double.toString(gameLoop.getAverageFPS());
         Paint paint= new Paint();
         int color = ContextCompat.getColor(context, R.color.magenta);
@@ -85,11 +110,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     }
     public void spawnPopup(PopUp popup){
         mode=DisplayMode.POPUP_VIEW;
-        view= new PopUpView(popup,context);
-        //view.draw();
+        view= new PopUpView(view,popup,context);
     }
 
-    // setter Method for use in BaseView
+    /**
+     * setter Method for use in BaseView
+     * very fucking temporary
+     * String s Passes String of Coordinates of Latest touch
+     */
     public void setLatestX(String s) {
         latestX = s;
     }

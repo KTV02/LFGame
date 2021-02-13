@@ -7,21 +7,17 @@ import android.graphics.Bitmap;
 import android.view.MotionEvent;
 
 public abstract class Views {
-    private int widthPixels;
-    private int heightPixels;
     protected Bitmap background;
 
-    public void getScreen(Context context){
-        widthPixels = Resources.getSystem().getDisplayMetrics().widthPixels;
-        heightPixels =Resources.getSystem().getDisplayMetrics().heightPixels;
-    }
 
-    public int getWidthPixels(){
-        return widthPixels;
+
+    public int getWidthPixels()
+    {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
     public int getHeightPixels(){
-        return heightPixels;
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
     public abstract void draw(Canvas canvas);
