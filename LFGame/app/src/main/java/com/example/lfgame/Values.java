@@ -31,6 +31,8 @@ public class Values {
     }
 
 
-
-
+    public static float[] getPopupExitButtonDimensions() {
+        float[] dimensions={200f,400f,200f,400f};
+        return dimensions;
+    }
 }

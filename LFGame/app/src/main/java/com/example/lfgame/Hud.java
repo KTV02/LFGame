@@ -40,8 +40,9 @@ public class Hud extends Views{
 
     }
 
-    @Override
-    public void touched(MotionEvent event, Game g) {
 
+    @Override
+    public boolean checkAllElements(MotionEvent event, Game game) {
+        return false;
     }
 }

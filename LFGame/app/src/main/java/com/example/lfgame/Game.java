@@ -119,6 +119,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     /**
+     * Setter for the current View to be displayed
+     * @param view view to be displayed
+     */
+    public void setView(Views view){
+        this.view=view;
+    }
+
+    /**
      * setter Method for use in BaseView
      * very fucking temporary
      * String s Passes String of Coordinates of Latest touch

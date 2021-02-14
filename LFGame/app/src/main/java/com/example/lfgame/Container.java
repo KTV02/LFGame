@@ -9,7 +9,7 @@ import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
-public class Container {
+public class Container implements Clickable {
     private int left;
     private int top;
     private int right;
@@ -45,15 +45,18 @@ public class Container {
         this.right=right;
         this.bottom=bottom;
     }
-    public boolean isHere(float x, float y){
-        if(x>right||x<left){
-            return false;
-        }else if(y>bottom||y<top){
-            return false;
-        }else{
-            return true;
+
+
+    @Override
+    public boolean touched(float x, float y) {
+        {
+            if(x>right||x<left){
+                return false;
+            }else if(y>bottom||y<top){
+                return false;
+            }else{
+                return true;
+            }
         }
     }
-
-
 }

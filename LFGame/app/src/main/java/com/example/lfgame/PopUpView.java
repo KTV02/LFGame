@@ -17,12 +17,20 @@ public class PopUpView extends Views {
     Context context;
     PopUp popup;
     Views backgroundview;
+    Button exit;
     public PopUpView(Views backgroundview, PopUp popup, Context context){
         //save last View
         this.backgroundview= backgroundview;
         this.popup=popup;
         this.context=context;
+        addExitButton(context);
+
+
         background = BitmapFactory.decodeResource(context.getResources(),R.drawable.popupbackground);
+    }
+    private void addExitButton(Context context){
+        float[] dimensions=Values.getPopupExitButtonDimensions();
+        exit= new Button(context,dimensions[0],dimensions[1],dimensions[2],dimensions[3]);
     }
     @Override
     public void draw(Canvas canvas) {
@@ -38,6 +46,22 @@ public class PopUpView extends Views {
         canvas.drawRect(horizontalMargin, Hud.getHeight(),getWidthPixels()-horizontalMargin,getHeightPixels(),popupBackground);
         //draw Specific Popup
         popup.draw(canvas);
+        popupBackground.setColor(ContextCompat.getColor(context,R.color.white));
+        exit.draw(canvas,popupBackground);
+    }
+
+    @Override
+    public boolean checkAllElements(MotionEvent event,Game game) {
+        if(exit.touched(event.getX(),event.getY())){
+            close(game);
+            return true;
+        }else if(popup.touched(event.getX(),event.getY())){
+            return true;
+        }
+        return false;
+    }
+    private void close(Game game){
+        game.setView(backgroundview);
     }
 
     @Override
@@ -45,8 +69,4 @@ public class PopUpView extends Views {
 
     }
 
-    @Override
-    public void touched(MotionEvent event, Game g) {
-
-    }
 }

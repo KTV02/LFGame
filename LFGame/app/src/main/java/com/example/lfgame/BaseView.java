@@ -9,6 +9,7 @@ import android.graphics.Picture;
 import android.media.Image;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -38,6 +39,12 @@ public class BaseView extends Views{
        drawContainer(canvas);
     }
 
+    @Override
+    public boolean checkAllElements(MotionEvent event, Game game) {
+        return checkContainers(event,game);
+
+    }
+
     /**
      * Delegates Drawing of Containers to each container
      * @param canvas
@@ -51,25 +58,28 @@ public class BaseView extends Views{
     }
 
 
+
+
+
     /**
-     * gets called by onTouchEvent in Game via Views
-     * contains what was previously in Game
-     * YEAH I DONT KNOW THIS COULD LEAD TO DUPLICATE CODE
-     * @param event TouchEvent
-     * @param g The Game
+     * Checks if Motion Down event on screen was aimed at a container
+     * @param event The Motionevent
+     * @param game game to set Coordinates of latest touch
      */
-    public void touched(MotionEvent event, Game g){
-        switch(event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                g.setLatestX("X: "+event.getX()+"Y: "+event.getY());
-                for(Container c:containers){
-                    if(c.isHere(event.getX(),event.getY())){
-                        c.changeColor();
-                    }
-                }
-    }}
-    public void update(){
+    private boolean checkContainers(MotionEvent event, Game game) {
+        game.setLatestX("X: " + event.getX() + "Y: " + event.getY());
+        for (Container c : containers) {
+            if (c.touched(event.getX(), event.getY())) {
+                c.changeColor();
+                return true;
+            }
+
+        }
+        return false;
     }
+       public void update(){
+    }
+
     
     // Not needed at the moment because of Refactoring, left it in anyways
     //public LinkedList<Container> getContainer(){
