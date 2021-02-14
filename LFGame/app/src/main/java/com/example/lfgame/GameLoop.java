@@ -20,20 +20,34 @@ public class GameLoop extends Thread {
         this.surfaceHolder = surfaceHolder;
     }
 
+    /**
+     * Getter for average Updates per Second
+     * @return updates per second
+     */
     public double getAverageUPS() {
         return averageUPS;
     }
 
+    /**
+     * Getter for average Fps
+     * @return averageFPS
+     */
     public double getAverageFPS() {
         return averageFPS;
     }
 
+    /**
+     * starts the game Loop
+     */
     public void startLoop() {
         Log.d("GameLoop.java","startLoop");
         isRunning = true;
         start();
     }
 
+    /**
+     * This is the game loop
+     */
     @Override
     public void run() {
         Log.d("GameLoop.java","run()");
@@ -110,6 +124,9 @@ public class GameLoop extends Thread {
         }
     }
 
+    /**
+     * stops the game loop and trys to join the Threads
+     */
     public void stopLoop() {
         Log.d("GameLoop.java","stopLoop");
         isRunning=false;

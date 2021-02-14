@@ -108,6 +108,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         paint.setTextSize(50);
         canvas.drawText("FPS: "+averageFPS,100,200,paint);
     }
+
+    /**
+     * Spawns a popup -> move to abstract Views class???
+     * @param popup
+     */
     public void spawnPopup(PopUp popup){
         mode=DisplayMode.POPUP_VIEW;
         view= new PopUpView(view,popup,context);

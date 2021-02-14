@@ -7,6 +7,11 @@ import android.widget.Button;
 
 import androidx.core.content.ContextCompat;
 
+/**
+ * Popup triggered by back button
+ * asks user if he is trying to exit game
+ * UNDER CONSTRUCTION
+ */
 public class ClosePopUp extends PopUp {
     Button exit;
     Button cancel;

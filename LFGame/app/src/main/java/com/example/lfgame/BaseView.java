@@ -14,6 +14,10 @@ import android.view.View;
 
 import java.util.LinkedList;
 
+/**
+ * Handles how the screen looks if Home Base is viewed
+ * Delegates drawing to its components
+ */
 public class BaseView extends Views{
     Context context;
     LinkedList<Container> containers;
@@ -33,6 +37,11 @@ public class BaseView extends Views{
        canvas.drawBitmap(background,0,0,new Paint());
        drawContainer(canvas);
     }
+
+    /**
+     * Delegates Drawing of Containers to each container
+     * @param canvas
+     */
     private void drawContainer(Canvas canvas){
         //topleft = new Container(context,0,0,200,200);
         //topleft.draw(canvas);
@@ -40,8 +49,15 @@ public class BaseView extends Views{
             c.draw(canvas);
         }
     }
-    //gets called by onTouchEvent in Game via Views
-    //contains what was previously in Game
+
+
+    /**
+     * gets called by onTouchEvent in Game via Views
+     * contains what was previously in Game
+     * YEAH I DONT KNOW THIS COULD LEAD TO DUPLICATE CODE
+     * @param event TouchEvent
+     * @param g The Game
+     */
     public void touched(MotionEvent event, Game g){
         switch(event.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -61,11 +77,15 @@ public class BaseView extends Views{
     //}
 
     //I know static methods aren't great, but you are not the only one who can write ugly code
+    //GOD NO WHAT THE FUCK KILL ME -> LG KTV
     public static int getMarginSpace(){
         return marginSpace;
     }
 
-
+    /**
+     * Creates all Containers in correct distance to each other and the screen
+     * @param context context idk
+     */
     private void createContainer(Context context){
         //How many Pixels in total of the Screens width are covered by containers WIDTH
         int containerRowPixels=getWidthPixels()/5*4;
@@ -75,7 +95,6 @@ public class BaseView extends Views{
         int marginRowNumber= containerRowNumber+1;
         //Space per margin in pixels, sorry i made this ugly with global variable
         marginSpace=marginRowPixels/marginRowNumber;
-        Values.setMarginSpace(marginSpace);
         //Space per container in pixels
         int containerRowSpace=containerRowPixels/containerRowNumber;
         //space that is occupied by the top icons like gold etc.

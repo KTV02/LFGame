@@ -6,6 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Bitmap;
 import android.view.MotionEvent;
 
+/**
+ * Abstract class of each View e.g. BaseView
+ */
 public abstract class Views {
     protected Bitmap background;
 

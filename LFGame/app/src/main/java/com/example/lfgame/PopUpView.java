@@ -10,6 +10,9 @@ import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
+/**
+ * View that displays specific Popup passed in Constructor
+ */
 public class PopUpView extends Views {
     Context context;
     PopUp popup;
