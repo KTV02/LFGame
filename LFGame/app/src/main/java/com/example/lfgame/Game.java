@@ -39,6 +39,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         hud = new Hud(context);
         setFocusable(true);
         System.out.println("Game started du penis");
+
     }
 
     /**

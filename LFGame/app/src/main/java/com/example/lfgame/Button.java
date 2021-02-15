@@ -36,9 +36,16 @@ public class Button implements Clickable {
     }
 
     public void draw(Canvas canvas, Paint paint) {
-        canvas.drawRect(left, top, right, bottom, paint);;
-        paint.setColor(ContextCompat.getColor(context,R.color.black));
-        canvas.drawText(text,left+((right-left)/3),top+(bottom-top)/3,paint);
+
+        paint.setColor(ContextCompat.getColor(context,R.color.white));
+        canvas.drawRect(left, top, right, bottom, paint);;canvas.drawRect(left, top, right, bottom, paint);
+        Paint color=new Paint();
+        color.setColor(ContextCompat.getColor(context,R.color.green));
+        color.setTextSize(35);
+        canvas.drawText(text,left,top+50,color);
+
+
+
 
     }
 
@@ -62,7 +69,7 @@ public class Button implements Clickable {
      *
      * @param text The text to be displayed
      */
-    public void setText(String text) {
+    public void setText(String text ) {
         this.text = text;
     }
 

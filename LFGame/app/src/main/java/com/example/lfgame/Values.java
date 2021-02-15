@@ -1,7 +1,11 @@
 package com.example.lfgame;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.util.Log;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * This class handles Data thats needed Globally STAY STATIC
@@ -9,6 +13,7 @@ import android.util.Log;
 public class Values {
     private static int screenWidth;
     private static int screenHeight;
+    Paint paint = new Paint();
     // WE NEED TO SOLVE THE MARGIN SPACE SITUATION WTF
 
     /**
@@ -32,7 +37,8 @@ public class Values {
 
 
     public static float[] getPopupExitButtonDimensions() {
-        float[] dimensions={200f,400f,200f,400f};
+        float[] dimensions={1800,2020,200,300};
         return dimensions;
     }
+
 }

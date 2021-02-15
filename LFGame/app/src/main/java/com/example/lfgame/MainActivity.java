@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        game.spawnPopup(new ClosePopUp(game.getContext()));
+        game.spawnPopup(new ClosePopUp(game.getContext(),this));
     }
 
     @Override

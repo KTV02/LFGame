@@ -4,9 +4,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
@@ -31,6 +29,7 @@ public class PopUpView extends Views {
     private void addExitButton(Context context){
         float[] dimensions=Values.getPopupExitButtonDimensions();
         exit= new Button(context,dimensions[0],dimensions[1],dimensions[2],dimensions[3]);
+        exit.setText("Back to game");
     }
     @Override
     public void draw(Canvas canvas) {
@@ -45,22 +44,24 @@ public class PopUpView extends Views {
         //draws rectangle from below the HUD to bottom with 1/5 of the screen as margin at the sides -> here you can see last View
         canvas.drawRect(horizontalMargin, Hud.getHeight(),getWidthPixels()-horizontalMargin,getHeightPixels(),popupBackground);
         //draw Specific Popup
-        popup.draw(canvas);
-        popupBackground.setColor(ContextCompat.getColor(context,R.color.white));
         exit.draw(canvas,popupBackground);
+        popup.draw(canvas);
+        popupBackground.setColor(ContextCompat.getColor(context,R.color.blue));
+
+        ;
     }
 
     @Override
     public boolean checkAllElements(MotionEvent event,Game game) {
         if(exit.touched(event.getX(),event.getY())){
-            close(game);
+            closePopup(game);
             return true;
         }else if(popup.touched(event.getX(),event.getY())){
             return true;
         }
         return false;
     }
-    private void close(Game game){
+    private void closePopup(Game game){
         game.setView(backgroundview);
     }
 

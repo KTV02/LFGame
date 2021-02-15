@@ -9,4 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="magenta">#FF09FF</color>
     <color name="poupbackground">#808080</color>
+    <color name="blue">#008080</color>
+    <color name="green">#008000</color>
+    <color name="yellow">#FFFF00</color>
+
+
+
+
 </resources>
