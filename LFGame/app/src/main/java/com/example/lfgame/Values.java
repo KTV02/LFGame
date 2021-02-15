@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
@@ -83,4 +84,5 @@ public class Values {
     public Paint getTextPaint() {
         return textPaint;
     }
+
 }

@@ -37,7 +37,8 @@ public class ClosePopUp extends PopUp {
             //exit game if exit button pressed
             if(exit.touched(x,y)){
                 activity.onPause();
-                System.exit(1);
+                activity.minimize();
+                //System.exit(1);
                 return true;
             }else{
                 return false;

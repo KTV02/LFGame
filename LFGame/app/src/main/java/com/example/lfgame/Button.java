@@ -3,8 +3,11 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -14,7 +17,6 @@ import androidx.core.content.ContextCompat;
  * Works as a simple UI Button
  * More Design customization needed
  */
-//vorher extended View
 public class Button extends View implements Clickable {
     private String text;
     private float left;
@@ -55,13 +57,12 @@ public class Button extends View implements Clickable {
 
 
 
-
-
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawRect(left, top, right, bottom, backgroundColor);
-        canvas.drawText(text,left,top+50,textColor);
+        //fits the Text from left to right into the button
+        canvas.drawText(text,left,top+textColor.getTextSize(),textColor);
 
 
     }
@@ -88,6 +89,28 @@ public class Button extends View implements Clickable {
      */
     public void setText(String text ) {
         this.text = text;
+        setTextSizeForWidth(textColor,right-left,text);
+
+    }
+    private void setTextSizeForWidth(Paint paint, float desiredWidth,
+                                     String text) {
+
+        // Pick a reasonably large value for the test. Larger values produce
+        // more accurate results, but may cause problems with hardware
+        // acceleration. But there are workarounds for that, too; refer to
+        // http://stackoverflow.com/questions/6253528/font-size-too-large-to-fit-in-cache
+        final float testTextSize = 48f;
+
+        // Get the bounds of the text, using our testTextSize.
+        paint.setTextSize(testTextSize);
+        Rect bounds = new Rect();
+        paint.getTextBounds(text, 0, text.length(), bounds);
+
+        // Calculate the desired size as a proportion of our testTextSize.
+        float desiredTextSize = testTextSize * desiredWidth / bounds.width();
+
+        // Set the paint for that size.
+        paint.setTextSize(desiredTextSize);
     }
 
     /**

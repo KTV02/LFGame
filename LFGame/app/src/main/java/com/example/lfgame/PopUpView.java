@@ -60,7 +60,7 @@ public class PopUpView extends Views {
         }
         return false;
     }
-    private void closePopup(Game game){
+    public void closePopup(Game game){
         game.setView(backgroundview);
     }
 

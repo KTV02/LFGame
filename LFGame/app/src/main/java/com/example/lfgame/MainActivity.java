@@ -73,5 +73,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    /**
+     * Minimizes the App
+     * Gets called on Back Button popup
+     * @author Lennart
+     * @since 15.02
+     */
+    public void minimize(){
+        this.moveTaskToBack(true);
+    }
 }
 
