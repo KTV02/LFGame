@@ -42,6 +42,7 @@ public class Values {
 
         textPaint= new Paint();
         textPaint.setColor(Color.rgb(0,0,255));
+        textPaint.setTextSize(50);
 
     }
 
@@ -72,7 +73,7 @@ public class Values {
     }
 
 
-    public static float[] getPopupExitButtonDimensions() {
+    public float[] getPopupExitButtonDimensions() {
         float[] dimensions={1800,2020,200,300};
         return dimensions;
     }
