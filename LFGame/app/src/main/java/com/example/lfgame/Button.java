@@ -3,6 +3,8 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.MotionEvent;
+import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
@@ -10,7 +12,7 @@ import androidx.core.content.ContextCompat;
  * Works as a simple UI Button
  * More Design customization needed
  */
-public class Button implements Clickable {
+public class Button extends View implements Clickable {
     private String text;
     private float left;
     private float right;
@@ -19,6 +21,7 @@ public class Button implements Clickable {
     private Context context;
 
     public Button(Context context,float left,float right, float top,float bottom){
+        super(context);
         this.context=context;
         setPosition(left,right,top,bottom);
     }
@@ -34,6 +37,8 @@ public class Button implements Clickable {
             return true;
         }
     }
+
+
 
     public void draw(Canvas canvas, Paint paint) {
 

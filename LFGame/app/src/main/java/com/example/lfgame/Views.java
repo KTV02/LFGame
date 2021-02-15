@@ -1,5 +1,6 @@
 package com.example.lfgame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -10,7 +11,7 @@ import android.view.MotionEvent;
 /**
  * Abstract class of each View e.g. BaseView
  */
-public abstract class Views {
+public abstract class Views extends Activity {
     protected Bitmap background;
 
 

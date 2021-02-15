@@ -18,7 +18,7 @@ public class Values {
 
     /**
      * Getter for Screenwidth in Pixels
-     * REALLY NEADS TO CALCULATE THIS SHIT EVERY TIME???
+     * REALLY NEEDS TO CALCULATE THIS SHIT EVERY TIME???
      * @return screenwidth
      */
     public static int getScreenWidth(){
@@ -27,7 +27,7 @@ public class Values {
     }
     /**
      * Getter for Screenheight in Pixels
-     * REALLY NEADS TO CALCULATE THIS SHIT EVERY TIME???
+     * REALLY NEEDS TO CALCULATE THIS SHIT EVERY TIME???
      * @return screenheigth
      */
     public static int getScreenHeight(){

@@ -38,7 +38,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         view = new BaseView(context);
         hud = new Hud(context);
         setFocusable(true);
-        System.out.println("Game started du penis");
+
 
     }
 
@@ -140,6 +140,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        if(gameLoop.getState().equals(Thread.State.TERMINATED))
+            gameLoop=new GameLoop(this,holder);
         gameLoop.startLoop();
 
     }

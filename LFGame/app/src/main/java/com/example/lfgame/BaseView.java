@@ -32,9 +32,20 @@ public class BaseView extends Views{
         containers= new LinkedList<>();
         //1 creates 1 container etc...
         createContainer(context);
+        //recovers MainActivity from context object and changes the Content View
+
     }
 
     public void draw(Canvas canvas) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        MainActivity uiActivity = (MainActivity) context;
+        uiActivity.setContentView(R.layout.activity_main);
+
+
        canvas.drawBitmap(background,0,0,new Paint());
        drawContainer(canvas);
     }
