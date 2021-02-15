@@ -3,6 +3,7 @@ package com.example.lfgame;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -14,11 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     Game game;
-
+    Values values;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         //set Window to fullscreen
         Window window = getWindow();
@@ -26,13 +27,18 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
-        setContentView(R.layout.startup);
+
         //content view set to GAME so its objects can be rendered
-        game= new Game(this);
+        values= new Values();
+        game= new Game(this,values);
+        setContentView(game);
 
 
 
-//        setContentView(game);
+
+    }
+    public Values getValues(){
+        return values;
     }
 
     @Override
@@ -60,12 +66,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        game.spawnPopup(new ClosePopUp(game.getContext(),this));
+        game.spawnPopup(new ClosePopUp(game.getContext()));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    /**
+     * Minimizes the App
+     * Gets called on Back Button popup
+     * @author Lennart
+     * @since 15.02
+     */
+    public void minimize(){
+        this.moveTaskToBack(true);
     }
 }
 

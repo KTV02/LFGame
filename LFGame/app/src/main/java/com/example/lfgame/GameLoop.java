@@ -1,8 +1,10 @@
 package com.example.lfgame;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
 public class GameLoop extends Thread {
     private static final double MAX_UPS = 60.0;
@@ -66,6 +68,8 @@ public class GameLoop extends Thread {
         startTime = System.currentTimeMillis();
         while (isRunning) {
             //Update and render Objects in game
+            //get surface from layout baseview
+
             try {
                 canvas = surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {

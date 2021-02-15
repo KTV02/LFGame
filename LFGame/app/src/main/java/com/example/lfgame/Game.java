@@ -3,6 +3,7 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -18,17 +19,18 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private Context context;
     private Views view;
     private Hud hud;
-    private DisplayMode mode;
     private String latestX="";
+    private Values values;
 
 
 
 
-    public Game(Context context) {
+    public Game(Context context,Values values) {
         super(context);
 
+        //create Object that stores global Data
+        this.values= values;
         //get surface holder and add callback
-        mode = DisplayMode.BASE_VIEW;
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
@@ -38,8 +40,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         view = new BaseView(context);
         hud = new Hud(context);
         setFocusable(true);
-
-
     }
 
     /**
@@ -50,6 +50,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     //This Method can now be used for every touch event in every view
     public boolean onTouchEvent(MotionEvent event) {
+            Log.d("Game.java","Touch event registered");
             view.touched(event, this);
             return true;
         }
@@ -115,7 +116,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
      * @param popup
      */
     public void spawnPopup(PopUp popup){
-        mode=DisplayMode.POPUP_VIEW;
         view= new PopUpView(view,popup,context);
     }
 
@@ -140,6 +140,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        //wird momentan glaube ich NIE aufgerufen
         if(gameLoop.getState().equals(Thread.State.TERMINATED))
             gameLoop=new GameLoop(this,holder);
         gameLoop.startLoop();
@@ -162,6 +163,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void pause() {
+        if(view instanceof PopUpView){
+            //if popup is open on screen -> close it
+            ((PopUpView)view).closePopup(this);
+        }
         gameLoop.stopLoop();
     }
 }

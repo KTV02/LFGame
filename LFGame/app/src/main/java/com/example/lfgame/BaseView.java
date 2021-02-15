@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Picture;
+import android.graphics.Rect;
 import android.media.Image;
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -25,29 +26,29 @@ public class BaseView extends Views{
     int containerRowNumber=7;
     int containerColumnNumber=3;
     private static int marginSpace;
+    private Values values;
+    private Rect scaledContainer;
 
     public BaseView(Context  context){
         this.context=context;
+
+        values=((MainActivity)context).getValues();
         background = BitmapFactory.decodeResource(context.getResources(),R.drawable.background);
         containers= new LinkedList<>();
         //1 creates 1 container etc...
         createContainer(context);
-        //recovers MainActivity from context object and changes the Content View
+
+        scaledContainer = new Rect(0, 0, values.getScreenWidth(), values.getScreenHeight());
+
+
 
     }
 
     public void draw(Canvas canvas) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        MainActivity uiActivity = (MainActivity) context;
-        uiActivity.setContentView(R.layout.activity_main);
 
 
-       canvas.drawBitmap(background,0,0,new Paint());
-       drawContainer(canvas);
+      canvas.drawBitmap(background,null,scaledContainer,null);
+      drawContainer(canvas);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class BaseView extends Views{
         game.setLatestX("X: " + event.getX() + "Y: " + event.getY());
         for (Container c : containers) {
             if (c.touched(event.getX(), event.getY())) {
-                c.changeColor();
+                c.click();
                 return true;
             }
 

@@ -3,9 +3,14 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -18,12 +23,24 @@ public class Button extends View implements Clickable {
     private float right;
     private float top;
     private float bottom;
-    private Context context;
+    private Values values;
+    Paint backgroundColor;
+    Paint textColor;
 
+    public Button(Context context,float left,float right, float top,float bottom, Paint backgroundColor, Paint textColor){
+        super(context);
+        this.backgroundColor=backgroundColor;
+        this.textColor= textColor;
+
+        setPosition(left,right,top,bottom);
+    }
     public Button(Context context,float left,float right, float top,float bottom){
         super(context);
-        this.context=context;
+        this.values=((MainActivity) context).getValues();
+        this.backgroundColor=values.getComponentPaint();
+        this.textColor= values.getTextPaint();
         setPosition(left,right,top,bottom);
+
     }
 
     //Needs to be pulled up in abstraction!! Duplicate Code!!
@@ -39,17 +56,12 @@ public class Button extends View implements Clickable {
     }
 
 
-
-
-    public void draw(Canvas canvas, Paint paint) {
-
-        paint.setColor(ContextCompat.getColor(context,R.color.white));
-        canvas.drawRect(left, top, right, bottom, paint);;canvas.drawRect(left, top, right, bottom, paint);
-        Paint color=new Paint();
-        color.setColor(ContextCompat.getColor(context,R.color.green));
-        color.setTextSize(35);
-        canvas.drawText(text,left,top+50,color);
-
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        canvas.drawRect(left, top, right, bottom, backgroundColor);
+        //fits the Text from left to right into the button
+        canvas.drawText(text,left,top+textColor.getTextSize(),textColor);
 
 
 
@@ -77,6 +89,28 @@ public class Button extends View implements Clickable {
      */
     public void setText(String text ) {
         this.text = text;
+        setTextSizeForWidth(textColor,right-left,text);
+
+    }
+    private void setTextSizeForWidth(Paint paint, float desiredWidth,
+                                     String text) {
+
+        // Pick a reasonably large value for the test. Larger values produce
+        // more accurate results, but may cause problems with hardware
+        // acceleration. But there are workarounds for that, too; refer to
+        // http://stackoverflow.com/questions/6253528/font-size-too-large-to-fit-in-cache
+        final float testTextSize = 48f;
+
+        // Get the bounds of the text, using our testTextSize.
+        paint.setTextSize(testTextSize);
+        Rect bounds = new Rect();
+        paint.getTextBounds(text, 0, text.length(), bounds);
+
+        // Calculate the desired size as a proportion of our testTextSize.
+        float desiredTextSize = testTextSize * desiredWidth / bounds.width();
+
+        // Set the paint for that size.
+        paint.setTextSize(desiredTextSize);
     }
 
     /**

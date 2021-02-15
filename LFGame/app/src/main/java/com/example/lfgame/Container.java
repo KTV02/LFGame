@@ -1,15 +1,18 @@
 package com.example.lfgame;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
-public class Container implements Clickable {
+public class Container extends View implements Clickable {
     private int left;
     private int top;
     private int right;
@@ -18,24 +21,31 @@ public class Container implements Clickable {
     Paint color;
 
     private Context context;
+    private Rect scaledContainer;
+    private Bitmap background;
 
     public Container(Context context,int left, int top, int right, int bottom) {
+        super(context);
         this.context = context;
         setPosition(left,top,right,bottom);
-        color = new Paint();
-        int white = ContextCompat.getColor(context, R.color.white);
-        color.setColor(white);
+
+        //sets container into which the container image will be loaded
+        background = BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
+        scaledContainer = new Rect(left, top, right, bottom);
+       // color = new Paint();
+        //int white = ContextCompat.getColor(context, R.color.white);
+        //color.setColor(white);
 
     }
+
 
     public void draw(Canvas canvas) {
-        canvas.drawRect(left, top, right, bottom, color);
+        super.draw(canvas);
+        canvas.drawBitmap(background,null,scaledContainer,null);
+        //canvas.drawRect(left, top, right, bottom, color);
     }
 
-    public void changeColor() {
-        int black = ContextCompat.getColor(context, R.color.black);
-        color.setColor(black);
-    }
+
     public void click(){
         //open buy menu
     }

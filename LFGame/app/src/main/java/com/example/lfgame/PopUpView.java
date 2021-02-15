@@ -16,7 +16,11 @@ public class PopUpView extends Views {
     PopUp popup;
     Views backgroundview;
     Button exit;
+    Values values;
     public PopUpView(Views backgroundview, PopUp popup, Context context){
+        //get Values object from MainActivity.java class
+        MainActivity m=(MainActivity) context;
+        this.values= m.getValues();
         //save last View
         this.backgroundview= backgroundview;
         this.popup=popup;
@@ -28,27 +32,22 @@ public class PopUpView extends Views {
     }
     private void addExitButton(Context context){
         float[] dimensions=Values.getPopupExitButtonDimensions();
-        exit= new Button(context,dimensions[0],dimensions[1],dimensions[2],dimensions[3]);
+        exit= new Button(context,dimensions[0],dimensions[1],dimensions[2],dimensions[3],values.getClosePaint(),values.getPopupPaint());
         exit.setText("Back to game");
     }
     @Override
     public void draw(Canvas canvas) {
         //draw the last View in the Background
         backgroundview.draw(canvas);
-        //set Color and Size Variables for the background of a popup
-        Paint popupBackground=new Paint();
-        int backgroundColor= ContextCompat.getColor(context,R.color.poupbackground);
-        popupBackground.setColor(backgroundColor);
         int horizontalMargin=getWidthPixels()/10;
         //draw standard Popup background as rectangle
         //draws rectangle from below the HUD to bottom with 1/5 of the screen as margin at the sides -> here you can see last View
-        canvas.drawRect(horizontalMargin, Hud.getHeight(),getWidthPixels()-horizontalMargin,getHeightPixels(),popupBackground);
+        canvas.drawRect(horizontalMargin, Hud.getHeight(),getWidthPixels()-horizontalMargin,getHeightPixels(),values.getPopupPaint());
         //draw Specific Popup
-        exit.draw(canvas,popupBackground);
+        exit.draw(canvas);
         popup.draw(canvas);
-        popupBackground.setColor(ContextCompat.getColor(context,R.color.blue));
 
-        ;
+
     }
 
     @Override
@@ -61,7 +60,7 @@ public class PopUpView extends Views {
         }
         return false;
     }
-    private void closePopup(Game game){
+    public void closePopup(Game game){
         game.setView(backgroundview);
     }
 
