@@ -40,6 +40,7 @@ public class Button extends View implements Clickable {
 
 
 
+
     public void draw(Canvas canvas, Paint paint) {
 
         paint.setColor(ContextCompat.getColor(context,R.color.white));
