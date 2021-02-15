@@ -16,22 +16,18 @@ public class ClosePopUp extends PopUp {
     Button exit;
     int color;
     MainActivity activity;
-    public ClosePopUp(Context context,MainActivity activity){
+    public ClosePopUp(Context context){
         super(context);
-        exit= new Button(context,Values.getScreenWidth()/4,Values.getScreenWidth()/2,Values.getScreenHeight()/3,Values.getScreenHeight()/2);
+        exit= new Button(context,values.getScreenWidth()/4,values.getScreenWidth()/2,values.getScreenHeight()/3,values.getScreenHeight()/2);
         exit.setText("Exit Game");
-        color= ContextCompat.getColor(context,R.color.magenta);
-        this.activity=activity;
+        this.activity=(MainActivity) context;
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
 
-        Paint text=new Paint();
-        text.setTextSize(50);
-        text.setColor(color);
-        exit.draw(canvas,text);
+        exit.draw(canvas);
 
     }
 

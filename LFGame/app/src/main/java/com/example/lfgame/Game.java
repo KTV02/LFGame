@@ -20,13 +20,16 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private Hud hud;
     private DisplayMode mode;
     private String latestX="";
+    private Values values;
 
 
 
 
-    public Game(Context context) {
+    public Game(Context context,Values values) {
         super(context);
 
+        //create Object that stores global Data
+        this.values= values;
         //get surface holder and add callback
         mode = DisplayMode.BASE_VIEW;
         SurfaceHolder surfaceHolder = getHolder();
