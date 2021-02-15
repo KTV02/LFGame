@@ -9,7 +9,7 @@ import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
-public class Container implements Clickable {
+public class Container extends View implements Clickable {
     private int left;
     private int top;
     private int right;
@@ -20,6 +20,7 @@ public class Container implements Clickable {
     private Context context;
 
     public Container(Context context,int left, int top, int right, int bottom) {
+        super(context);
         this.context = context;
         setPosition(left,top,right,bottom);
         color = new Paint();

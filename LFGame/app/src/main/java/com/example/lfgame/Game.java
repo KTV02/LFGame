@@ -38,8 +38,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         view = new BaseView(context);
         hud = new Hud(context);
         setFocusable(true);
-
-
     }
 
     /**
@@ -140,6 +138,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        //wird momentan glaube ich NIE aufgerufen
         if(gameLoop.getState().equals(Thread.State.TERMINATED))
             gameLoop=new GameLoop(this,holder);
         gameLoop.startLoop();
