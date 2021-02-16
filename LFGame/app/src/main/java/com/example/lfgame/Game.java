@@ -51,7 +51,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     //This Method can now be used for every touch event in every view
     public boolean onTouchEvent(MotionEvent event) {
             Log.d("Game.java","Touch event registered");
-            view.touched(event, this);
+            if(event.getY()<Hud.getHeight())
+                hud.checkAllElements(event, this);
+             else
+                view.touched(event, this);
             return true;
         }
 
@@ -65,6 +68,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         view.draw(canvas);
         hud.draw(canvas);
+        Gold.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
         showCoordinates(canvas);
@@ -81,7 +85,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         Paint paint= new Paint();
         paint.setColor(ContextCompat.getColor(context,R.color.magenta));
         paint.setTextSize(50);
-        canvas.drawText(""+latestX,1700,100,paint);
+        canvas.drawText(""+latestX,1200,100,paint);
 
     }
 
