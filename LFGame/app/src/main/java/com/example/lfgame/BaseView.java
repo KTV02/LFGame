@@ -82,7 +82,7 @@ public class BaseView extends Views{
         game.setLatestX("X: " + event.getX() + "Y: " + event.getY());
         for (Container c : containers) {
             if (c.touched(event.getX(), event.getY())) {
-                c.click();
+                c.click(game);
                 return true;
             }
 

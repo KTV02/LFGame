@@ -46,8 +46,10 @@ public class Container extends View implements Clickable {
     }
 
 
-    public void click(){
+    public void click(Game game){
         //open buy menu
+        //SPAWN BUY MENU POPUP HERE
+        //game.spawnPopup(buyMenu)
     }
     public void setPosition(int left, int top, int right, int bottom){
         this.left=left;
