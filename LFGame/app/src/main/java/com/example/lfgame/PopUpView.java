@@ -31,7 +31,7 @@ public class PopUpView extends Views {
         background = BitmapFactory.decodeResource(context.getResources(),R.drawable.popupbackground);
     }
     private void addExitButton(Context context){
-        float[] dimensions=Values.getPopupExitButtonDimensions();
+        float[] dimensions=values.getPopupExitButtonDimensions();
         exit= new Button(context,dimensions[0],dimensions[1],dimensions[2],dimensions[3],values.getClosePaint(),values.getPopupPaint());
         exit.setText("Back to game");
     }

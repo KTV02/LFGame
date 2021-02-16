@@ -26,6 +26,7 @@ public abstract class Views extends Activity {
     }
 
     public abstract void draw(Canvas canvas);
+
     public boolean touched(MotionEvent event, Game g){
         switch(event.getAction()){
             case MotionEvent.ACTION_DOWN:

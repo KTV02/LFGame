@@ -56,13 +56,13 @@ public class Button extends View implements Clickable {
     }
 
 
-
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawRect(left, top, right, bottom, backgroundColor);
         //fits the Text from left to right into the button
         canvas.drawText(text,left,top+textColor.getTextSize(),textColor);
+
 
 
     }
