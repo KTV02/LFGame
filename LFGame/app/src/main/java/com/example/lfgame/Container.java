@@ -18,9 +18,6 @@ public class Container extends RectangleButton {
     private int top;
     private int right;
     private int bottom;
-
-    Paint color;
-
     private Context context;
     private Rect scaledContainer;
     private Bitmap background;
@@ -35,18 +32,6 @@ public class Container extends RectangleButton {
         //sets container into which the container image will be loaded
         this.background = background;
         scaledContainer = new Rect(left, top, right, bottom);
-       // color = new Paint();
-        //int white = ContextCompat.getColor(context, R.color.white);
-        //color.setColor(white);
-
-        //
-
-
-
-
-
-
-
     }
 
 
@@ -59,18 +44,31 @@ public class Container extends RectangleButton {
     }
 
 
+    /**
+     * Gets called when Container is clicked on
+     * Spawns a Popup for Buying a Structure
+     * @param game game to spawn Popup on
+     */
     public void click(Game game){
-        //SPAWN BUY MENU POPUP HERE
         StructurePopup popup= new StructurePopup(context);
         game.spawnPopup(popup);
 
     }
+
+    /**
+     * Sets Position of the container to desired coordinates
+     * @param left left side of container (x)
+     * @param top top side of container (y)
+     * @param right right side of container (x)
+     * @param bottom bottom side of container (y)
+     */
     public void setPosition(int left, int top, int right, int bottom){
         this.left=left;
         this.top=top;
         this.right=right;
         this.bottom=bottom;
     }
+
 
 
 

@@ -100,12 +100,22 @@ public abstract class Button extends View{
     }
 
     /**
-     * Returns if Button is on given Coordinates
-     * @param x
-     * @param y
-     * @return
+     * Returns if Button Object is on given Coordinates
+     * @param x x coordinate of Touch event
+     * @param y y coordinate of Touch event
+     * @return boolean if Button Object is at Coordinates of Touch Event
      */
     public abstract boolean isHere(float x, float y);
+
+    /**
+     * Returns Width of the Button Object
+     * @return width in pixels
+     */
     public abstract int getButtonWidth();
+
+    /**
+     * Returns Height of the Button Object
+     * @return height in pixels
+     */
     public abstract int getButtonHeight();
 }

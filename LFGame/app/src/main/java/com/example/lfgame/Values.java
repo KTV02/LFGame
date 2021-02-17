@@ -12,7 +12,7 @@ import android.util.Log;
 import androidx.core.content.ContextCompat;
 
 /**
- * This class handles Data thats needed Globally STAY STATIC
+ * This class handles Data thats needed Globally
  */
 public class Values {
     private int screenWidth;
@@ -23,25 +23,29 @@ public class Values {
     private Paint textPaint;
     private Paint hudButtonPaint;
     private Paint hudTextPaint;
-    // WE NEED TO SOLVE THE MARGIN SPACE SITUATION WTF
+    private int guiSpace;
 
     //final values
     private final int containerRowNumber=7;
     private final int containerColumnNumber=3;
-    private int guiSpace;
+
 
 
     public Values(){
         createPaint();
         getScreenSize();
     }
+
+    /**
+     * Gets Screen Size ONCE when Values Object is created
+     */
     private void getScreenSize(){
         screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
     /**
-     * Defines backgroundcolor of all Popups
+     * Defines Paint objects
      */
     private void createPaint(){
         popupPaint = new Paint();
@@ -55,7 +59,7 @@ public class Values {
         componentPaint.setColor(Color.rgb(0,255,0));
 
         textPaint= new Paint();
-        textPaint.setColor(Color.rgb(0,0,255));
+        textPaint.setColor(Color.rgb(0,0,0));
        //textPaint.setTextSize(20);
 
         //Wanted a lighter grey for Hud Buttons
@@ -67,40 +71,54 @@ public class Values {
 
 
     }
+
+    /**
+     * Returns values needed for Container creation in BaseView
+     * @return number of containers in a row[0] and number of containers in a column[1]
+     */
     public int[] getContainerProperties(){
-
-
-
-
-
-
-        // margin space,container row space, gui space, container height space
         int[] properties ={containerRowNumber,containerColumnNumber};
         return properties;
     }
 
+    /**
+     * Returns the Paint Object for Close Button
+     * @return Paint for Close Button
+     */
     public Paint getClosePaint(){
         return closePaint;
     }
 
+    /**
+     * Returns Paint Object for Popup
+     * @return paint for Popup background
+     */
     public Paint getPopupPaint(){
         return popupPaint;
     }
 
+    /**
+     * Returns Paint object for Hud Button
+     * @return Hud Button Paint
+     */
     public Paint getHudButtonPaint() {return hudButtonPaint;}
 
+    /**
+     * Returns Paint object for Hud text
+     * @return hud text Paint
+     */
     public Paint getHudTextPaint() {return hudTextPaint;}
+
     /**
      * Getter for Screenwidth in Pixels
-     * REALLY NEEDS TO CALCULATE THIS SHIT EVERY TIME???
      * @return screenwidth
      */
     public int getScreenWidth(){
         return screenWidth;
     }
+
     /**
      * Getter for Screenheight in Pixels
-     * REALLY NEEDS TO CALCULATE THIS SHIT EVERY TIME???
      * @return screenheigth
      */
     public int getScreenHeight(){
@@ -108,25 +126,52 @@ public class Values {
     }
 
 
+    /**
+     * Returns Float array with dimensions of the Exit Button for Popups
+     * @return left[0], right[1], top[2], bottom[3]
+     */
     public float[] getPopupExitButtonDimensions() {
         float[] dimensions={1800,2020,200,300};
         return dimensions;
     }
 
+    /**
+     * Returns Paint Object for Components in the Buy Menu
+     * @return buy Menu Paint
+     */
     public Paint getComponentPaint() {
         return componentPaint;
     }
 
+    /**
+     * Returns Paint Object for Text
+     * @return text Paint
+     */
     public Paint getTextPaint() {
         return textPaint;
     }
 
+    /**
+     * set the GuiSpace, gets called in PopUpView when creating Containers
+     * @param guiSpace Space in Pixels covered by the gui at top and bottom
+     */
     public void setGuiSpace(int guiSpace) {
         this.guiSpace=guiSpace;
     }
+
+    /**
+     * Getter for the gui space
+     * @return gui space in Pixels
+     */
     public int getGuiSpace(){
         return guiSpace;
     }
+
+    /**
+     * Returns the Bitmap which functions as Background for the Containers in BaseView
+     * @param context Context to access drawable ressource
+     * @return background as Bitmap
+     */
     public Bitmap getContainerBackground(Context context){
         Bitmap background=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
         return background;
