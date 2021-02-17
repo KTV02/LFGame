@@ -5,12 +5,17 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 public class Gold{
-    static int amount = 0;
-    static Button underAmount;
+    private static int amount = 0;
+    private static RectangleButton underAmount;
+    private static Context context;
 
-   public static void startUP(Context context, float base[]){
-        underAmount= new Button(context,base[2],base[2]-base[4]*0.6f,0,base[3]);
-        underAmount.setText(""+amount);
+   public static void startUP(Context c, float base[], Values v){
+        context = c;
+        //for base[] values look in Hud class
+        underAmount = new RectangleButton(context,base[2]-base[4]*0.65f, base[2],0, base[3], v.getHudButtonPaint(), v.getTextPaint());
+        float width = base[4]*0.65f;
+        underAmount.getPaint(Integer.toString(amount), (int) width);
+        //underAmount.setText(Integer.toString(amount));
     }
 
     public static void setAmount(int a) {
@@ -22,8 +27,9 @@ public class Gold{
     }
 
     public static boolean touched(MotionEvent e, Game g){
-        if(underAmount.touched(e.getX(), e.getY())) {
-            System.out.println("Yay");
+        if(underAmount.isHere(e.getX(), e.getY())) {
+            CollectablePopup popup= new CollectablePopup(context);
+            g.spawnPopup(popup);
             return true;
         }
         else

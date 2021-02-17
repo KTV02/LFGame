@@ -19,10 +19,10 @@ public class Hud extends Views{
     Context context;
     private static int height=2*BaseView.getMarginSpace(); //the height of the HUD interface is 2* the margin between containers;
 
-    public Hud(Context context) {
+    public Hud(Context context, Values values) {
         color = new Paint();
         this.context = context;
-        Gold.startUP(context, topSectionsFiller());
+        Gold.startUP(context, topSectionsFiller(), values);
     }
     //Sets color for the top bar
     //please use niceGrey for further HUD/Menu elements which are grey
@@ -41,9 +41,6 @@ public class Hud extends Views{
     //Draws sections in the topBar
     //At the moment thought to be used for tabs: troops, gold, diamonds
     public void topSections(Canvas canvas, float base[]){
-//        float fullSectionSpace = getWidthPixels()/2;
-//        float oneSection = fullSectionSpace/3;
-//        float[] base = {getWidthPixels()-(oneSection-oneSection*0.02f), 0,getWidthPixels()-oneSection, height};
         Paint color=new Paint();
         color.setColor(ContextCompat.getColor(context,R.color.white));
         for(int i = 0; i<3; i++) {

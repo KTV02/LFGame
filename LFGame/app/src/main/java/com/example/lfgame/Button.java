@@ -25,13 +25,6 @@ public abstract class Button extends View{
 
     /**
      * Use This Constructor if creating a Button with specific Background Color and text Color
-     * @param context
-     * @param left
-     * @param right
-     * @param top
-     * @param bottom
-     * @param backgroundColor
-     * @param textColor
      */
     public Button(Context context, Paint backgroundColor, Paint textColor){
         super(context);
@@ -42,11 +35,6 @@ public abstract class Button extends View{
 
     /**
      * Constructor for Button with standard values
-     * @param context
-     * @param left
-     * @param right
-     * @param top
-     * @param bottom
      */
     public Button(Context context){
         super(context);
