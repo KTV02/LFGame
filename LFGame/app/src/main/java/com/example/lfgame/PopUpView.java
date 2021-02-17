@@ -1,9 +1,12 @@
 package com.example.lfgame;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
 import androidx.core.content.ContextCompat;
@@ -15,8 +18,9 @@ public class PopUpView extends Views {
     Context context;
     PopUp popup;
     Views backgroundview;
-    Button exit;
+    RectangleButton exit;
     Values values;
+
     public PopUpView(Views backgroundview, PopUp popup, Context context){
         //get Values object from MainActivity.java class
         MainActivity m=(MainActivity) context;
@@ -32,8 +36,13 @@ public class PopUpView extends Views {
     }
     private void addExitButton(Context context){
         float[] dimensions=values.getPopupExitButtonDimensions();
-        exit= new Button(context,dimensions[0],dimensions[1],dimensions[2],dimensions[3],values.getClosePaint(),values.getPopupPaint());
+        Paint paint= new Paint();
+        paint.setColor(Color.rgb(0,0,255));
+        exit= new RectangleButton(context,dimensions[0],dimensions[1],dimensions[2],dimensions[3],values.getClosePaint(),paint);
         exit.setText("Back to game");
+
+
+
     }
     @Override
     public void draw(Canvas canvas) {
@@ -47,12 +56,11 @@ public class PopUpView extends Views {
         exit.draw(canvas);
         popup.draw(canvas);
 
-
     }
 
     @Override
     public boolean checkAllElements(MotionEvent event,Game game) {
-        if(exit.touched(event.getX(),event.getY())){
+        if(exit.isHere(event.getX(),event.getY())){
             closePopup(game);
             return true;
         }else if(popup.touched(event.getX(),event.getY())){

@@ -17,80 +17,64 @@ import androidx.core.content.ContextCompat;
  * Works as a simple UI Button
  * More Design customization needed
  */
-public class Button extends View implements Clickable {
-    private String text;
-    private float left;
-    private float right;
-    private float top;
-    private float bottom;
-    private Values values;
-    Paint backgroundColor;
-    Paint textColor;
+public abstract class Button extends View{
+    protected String text;
+    protected Values values;
+    protected Paint backgroundColor;
+    protected Paint textColor;
 
-    public Button(Context context,float left,float right, float top,float bottom, Paint backgroundColor, Paint textColor){
+    /**
+     * Use This Constructor if creating a Button with specific Background Color and text Color
+     * @param context
+     * @param left
+     * @param right
+     * @param top
+     * @param bottom
+     * @param backgroundColor
+     * @param textColor
+     */
+    public Button(Context context, Paint backgroundColor, Paint textColor){
         super(context);
+        this.values=((MainActivity) context).getValues();
         this.backgroundColor=backgroundColor;
         this.textColor= textColor;
-
-        setPosition(left,right,top,bottom);
     }
-    public Button(Context context,float left,float right, float top,float bottom){
+
+    /**
+     * Constructor for Button with standard values
+     * @param context
+     * @param left
+     * @param right
+     * @param top
+     * @param bottom
+     */
+    public Button(Context context){
         super(context);
         this.values=((MainActivity) context).getValues();
         this.backgroundColor=values.getComponentPaint();
         this.textColor= values.getTextPaint();
-        setPosition(left,right,top,bottom);
 
     }
 
-    //Needs to be pulled up in abstraction!! Duplicate Code!!
-    @Override
-    public boolean touched(float x, float y) {
-        if (x > right || x < left) {
-            return false;
-        } else if (y > bottom || y < top) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
 
-    @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-        canvas.drawRect(left, top, right, bottom, backgroundColor);
-        //fits the Text from left to right into the button
-        canvas.drawText(text,left,top+textColor.getTextSize(),textColor);
-
-
-
-    }
-
-    /**
-     * Set Position of Button on Screen
-     *
-     * @param left   left Border in Pixels
-     * @param right  right Border in Pixels
-     * @param top    top Border in Pixels
-     * @param bottom bottom Border in Pixels
-     */
-    public void setPosition(float left, float right, float top, float bottom) {
-        this.left = left;
-        this.right = right;
-        this.top = top;
-        this.bottom = bottom;
-    }
 
     /**
      * Set Text that Button displays
+     * Protected because only accessible by childreen
+     * ALL CHILDREEN OVERLOAD THIS METHOD
+     * width is calculated in subclass an passed up by super()
      *
      * @param text The text to be displayed
      */
-    public void setText(String text ) {
+    public Paint getPaint(String text,int width){
         this.text = text;
-        setTextSizeForWidth(textColor,right-left,text);
+        setTextSizeForWidth(textColor,width,text);
+        return textColor;
 
+    }
+    public void setText(String text){
+        this.text=text;
     }
     private void setTextSizeForWidth(Paint paint, float desiredWidth,
                                      String text) {
@@ -121,4 +105,13 @@ public class Button extends View implements Clickable {
     public String getText() {
         return text;
     }
+
+    /**
+     * Returns if Button is on given Coordinates
+     * @param x
+     * @param y
+     * @return
+     */
+    public abstract boolean isHere(float x, float y);
+    public abstract int getButtonWidth();
 }

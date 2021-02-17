@@ -81,7 +81,7 @@ public class BaseView extends Views{
     private boolean checkContainers(MotionEvent event, Game game) {
         game.setLatestX("X: " + event.getX() + "Y: " + event.getY());
         for (Container c : containers) {
-            if (c.touched(event.getX(), event.getY())) {
+            if (c.isHere(event.getX(), event.getY())) {
                 c.click(game);
                 return true;
             }
@@ -138,9 +138,11 @@ public class BaseView extends Views{
         int right=marginSpace+containerRowSpace;
         int top=marginSpace+guiSpace;
         int bottom=top+containerRowSpace;
+        //set container Bitmap to correct image to be displayed in baseView
+        Bitmap containerBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
         for(int i=0;i<containerColumnNumber;i++) {
             for (int j = 0; j < containerRowNumber; j++) {
-                containers.add(new Container(context, left, top, right, bottom));
+                containers.add(new Container(context, left, top, right, bottom,containerBackground));
                 //move coordinates to the right by one container and one margin
                 left += containerRowSpace + marginSpace;
                 right += marginSpace + containerRowSpace;

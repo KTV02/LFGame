@@ -13,12 +13,12 @@ import androidx.core.content.ContextCompat;
  * UNDER CONSTRUCTION
  */
 public class ClosePopUp extends PopUp {
-    Button exit;
+    RectangleButton exit;
     int color;
     MainActivity activity;
     public ClosePopUp(Context context){
         super(context);
-        exit= new Button(context,values.getScreenWidth()/4,values.getScreenWidth()/2,values.getScreenHeight()/3,values.getScreenHeight()/2);
+        exit= new RectangleButton(context,values.getScreenWidth()/4,values.getScreenWidth()/2,values.getScreenHeight()/3,values.getScreenHeight()/2);
         exit.setText("Exit Game");
         this.activity=(MainActivity) context;
     }
@@ -35,7 +35,7 @@ public class ClosePopUp extends PopUp {
     public boolean touched(float x, float y) {
         {
             //exit game if exit button pressed
-            if(exit.touched(x,y)){
+            if(exit.isHere(x,y)){
                 activity.onPause();
                 activity.minimize();
                 //System.exit(1);

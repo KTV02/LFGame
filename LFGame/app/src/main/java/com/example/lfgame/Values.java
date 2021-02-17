@@ -42,7 +42,7 @@ public class Values {
 
         textPaint= new Paint();
         textPaint.setColor(Color.rgb(0,0,255));
-        textPaint.setTextSize(50);
+       //textPaint.setTextSize(20);
 
     }
 

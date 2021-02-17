@@ -6,13 +6,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
 
-public class Container extends View implements Clickable {
+/**
+ * This creates a rectangular Button filled with an image
+ * Real Button is invisible so circular image get displayed correctly
+ */
+public class Container extends RectangleButton {
     private int left;
     private int top;
     private int right;
@@ -24,17 +25,27 @@ public class Container extends View implements Clickable {
     private Rect scaledContainer;
     private Bitmap background;
 
-    public Container(Context context,int left, int top, int right, int bottom) {
-        super(context);
+
+
+    public Container(Context context,int left, int top, int right, int bottom,Bitmap background) {
+        super(context,left,right,top,bottom);
         this.context = context;
         setPosition(left,top,right,bottom);
 
         //sets container into which the container image will be loaded
-        background = BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
+        this.background = background;
         scaledContainer = new Rect(left, top, right, bottom);
        // color = new Paint();
         //int white = ContextCompat.getColor(context, R.color.white);
         //color.setColor(white);
+
+        //
+
+
+
+
+
+
 
     }
 
@@ -43,6 +54,8 @@ public class Container extends View implements Clickable {
         super.draw(canvas);
         canvas.drawBitmap(background,null,scaledContainer,null);
         //canvas.drawRect(left, top, right, bottom, color);
+
+
     }
 
 
@@ -60,9 +73,9 @@ public class Container extends View implements Clickable {
     }
 
 
+
     @Override
-    public boolean touched(float x, float y) {
-        {
+    public boolean isHere(float x, float y) {
             if(x>right||x<left){
                 return false;
             }else if(y>bottom||y<top){
@@ -70,6 +83,7 @@ public class Container extends View implements Clickable {
             }else{
                 return true;
             }
-        }
+
     }
+
 }
