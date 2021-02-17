@@ -18,10 +18,13 @@ public class Hud extends Views{
     Paint color;
     Context context;
     Values values;
-    private static int height=2*BaseView.getMarginSpace(); //the height of the HUD interface is 2* the margin between containers;
+    private int height;
 
     public Hud(Context context) {
         values=((MainActivity)context).getValues();
+        height=values.getGuiSpace(); //the height of the HUD interface is 2* the margin between containers;
+
+
         color = new Paint();
         this.context = context;
         Gold.startUP(context, topSectionsFiller(), values);
@@ -66,7 +69,7 @@ public class Hud extends Views{
         topBar(canvas);
         topSections(canvas, topSectionsFiller());
     }
-    public static int getHeight(){
+    public int getHeight(){
         return height;
     }
 

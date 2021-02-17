@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 
 public class MainActivity extends AppCompatActivity {
-    Game game;
-    Values values;
+    private Game game;
+    private Values values;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +30,15 @@ public class MainActivity extends AppCompatActivity {
 
         //content view set to GAME so its objects can be rendered
         values= new Values();
-        game= new Game(this,values);
+        game= new Game(this);
         setContentView(game);
 
-
-
-
     }
+
+    /**
+     * returns value Object to access global variables
+     * @return values Object
+     */
     public Values getValues(){
         return values;
     }
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+        Log.d("Main.Activity.java","Back Button Pressed");
         game.spawnPopup(new ClosePopUp(game.getContext()));
     }
 

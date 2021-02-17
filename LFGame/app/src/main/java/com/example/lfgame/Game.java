@@ -25,34 +25,38 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
 
 
 
-    public Game(Context context,Values values) {
+    public Game(Context context) {
         super(context);
 
-        //create Object that stores global Data
-        this.values= values;
+        //get Object that stores global Data
+        this.values= ((MainActivity)context).getValues();
+        this.context= context;
+        view = new BaseView(context);
+        hud = new Hud(context);
+
         //get surface holder and add callback
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
-
-        this.context= context;
         gameLoop= new GameLoop(this,surfaceHolder);
 
-        view = new BaseView(context);
-        hud = new Hud(context);
         setFocusable(true);
     }
 
     /**
      * Delegates touch event to the current view
-     * @param event
+     * @param event Touch event
      * @return if Touch event was used
      */
     @Override
     //This Method can now be used for every touch event in every view
     public boolean onTouchEvent(MotionEvent event) {
+            //TEMPORARY set String of latest Touch to be displayed -> grammar is cool yes
+            latestX="X: " + event.getX() + "Y: " + event.getY();
             Log.d("Game.java","Touch event registered");
-            if(event.getY()<Hud.getHeight())
+            //checks if Hud has been Touched
+            if(event.getY()<values.getGuiSpace())
                 hud.checkAllElements(event, this);
+            //if TouchEvent didnt occur in the Hud it has to be from the View
              else
                 view.touched(event, this);
             return true;
@@ -68,12 +72,13 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         view.draw(canvas);
         hud.draw(canvas);
+        //move gold to hud
         Gold.draw(canvas);
+        //draw updates and frames per second to the screen
         drawUPS(canvas);
         drawFPS(canvas);
+        //TEMPORARY, draws Coordinates of latest touch to the screen
         showCoordinates(canvas);
-
-
 
     }
 
@@ -82,10 +87,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
      * @param canvas
      */
     private void showCoordinates(Canvas canvas){
-        Paint paint= new Paint();
-        paint.setColor(ContextCompat.getColor(context,R.color.magenta));
-        paint.setTextSize(50);
-        canvas.drawText(""+latestX,1200,100,paint);
+       Paint paint=values.getTextPaint();
+       paint.setTextSize(50);
+       canvas.drawText(""+latestX,1200,100,paint);
 
     }
 
@@ -95,9 +99,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
      */
     private void drawUPS(Canvas canvas){
         String averageUPS = Double.toString(gameLoop.getAverageUPS());
-        Paint paint= new Paint();
-        int color = ContextCompat.getColor(context, R.color.magenta);
-        paint.setColor(color);
+        Paint paint = values.getTextPaint();
         paint.setTextSize(50);
         canvas.drawText("UPS: "+averageUPS,200,50,paint);
     }
@@ -108,16 +110,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
      */
     private void drawFPS(Canvas canvas){
         String averageFPS = Double.toString(gameLoop.getAverageFPS());
-        Paint paint= new Paint();
-        int color = ContextCompat.getColor(context, R.color.magenta);
-        paint.setColor(color);
+        Paint paint = values.getTextPaint();
         paint.setTextSize(50);
         canvas.drawText("FPS: "+averageFPS,100,200,paint);
     }
 
     /**
-     * Spawns a popup -> move to abstract Views class???
-     * @param popup
+     * Spawns a given popup
+     * @param popup specific popup to be displayed
      */
     public void spawnPopup(PopUp popup){
         view= new PopUpView(view,popup,context);
@@ -131,14 +131,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         this.view=view;
     }
 
-    /**
-     * setter Method for use in BaseView
-     * very fucking temporary
-     * String s Passes String of Coordinates of Latest touch
-     */
-    public void setLatestX(String s) {
-        latestX = s;
-    }
 
 
 
@@ -161,11 +153,17 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
+
+     // DIESE METHODE WIRD NIE BENUTZT AAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHRGH
     public void update() {
         //Update game state
             view.update();
     }
 
+    /**
+     * Pauses game when called
+     * @author Lennart
+     */
     public void pause() {
         if(view instanceof PopUpView){
             //if popup is open on screen -> close it

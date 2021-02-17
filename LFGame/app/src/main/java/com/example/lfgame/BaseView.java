@@ -21,16 +21,11 @@ import java.util.LinkedList;
  * Delegates drawing to its components
  */
 public class BaseView extends Views{
-    Context context;
-    LinkedList<Container> containers;
-    int containerRowNumber=7;
-    int containerColumnNumber=3;
-    private static int marginSpace;
+    private LinkedList<Container> containers;
     private Values values;
     private Rect scaledContainer;
 
     public BaseView(Context  context){
-        this.context=context;
 
         values=((MainActivity)context).getValues();
         background = BitmapFactory.decodeResource(context.getResources(),R.drawable.background);
@@ -58,12 +53,10 @@ public class BaseView extends Views{
     }
 
     /**
-     * Delegates Drawing of Containers to each container
+     * Delegates Drawing to each container
      * @param canvas
      */
     private void drawContainer(Canvas canvas){
-        //topleft = new Container(context,0,0,200,200);
-        //topleft.draw(canvas);
         for(Container c:containers){
             c.draw(canvas);
         }
@@ -79,7 +72,6 @@ public class BaseView extends Views{
      * @param game game to set Coordinates of latest touch
      */
     private boolean checkContainers(MotionEvent event, Game game) {
-        game.setLatestX("X: " + event.getX() + "Y: " + event.getY());
         for (Container c : containers) {
             if (c.isHere(event.getX(), event.getY())) {
                 c.click(game);
@@ -98,66 +90,102 @@ public class BaseView extends Views{
     //     return containers;
     //}
 
-    //I know static methods aren't great, but you are not the only one who can write ugly code
-    //GOD NO WHAT THE FUCK KILL ME -> LG KTV
-    public static int getMarginSpace(){
-        return marginSpace;
-    }
 
     /**
      * Creates all Containers in correct distance to each other and the screen
      * @param context context idk
      */
     private void createContainer(Context context){
+        //get container Properties, screen Size and layout information from values
+        int containerColumnNumber=values.getContainerProperties()[1];
+        int containerRowNumber= values.getContainerProperties()[0];
         int screenWidth=values.getScreenWidth();
         int screenHeight= values.getScreenHeight();
-        //How many Pixels in total of the Screens width are covered by containers WIDTH
-        int containerRowPixels=screenWidth/5*4;
-        //how many pixels in total of the Screens width are covered in margin space between containers WIDTH
-        int marginRowPixels=screenWidth/5;
-        //how many margin spaces are there horizontally
-        int marginRowNumber= containerRowNumber+1;
-        //Space per margin in pixels, sorry i made this ugly with global variable
-        marginSpace=marginRowPixels/marginRowNumber;
-        //Space per container in pixels
-        int containerRowSpace=containerRowPixels/containerRowNumber;
-        //space that is occupied by the top icons like gold etc.
+
+        // get Margin Space (space between containers)
+        int marginSpace=calculateMarginSpace(screenWidth,containerRowNumber);
+        //space that is occupied by the top icons like gold etc. and in the future by bottom gui
         int guiSpace=2*marginSpace;
-
-        //how many margin spaces are there vertically
-        int marginColumnNumber=containerColumnNumber+1;
-        //how many pixels in total of the screen height are covered by containers
-        int containerColumnPixels=screenHeight-(marginColumnNumber*marginSpace)-2*guiSpace;
-        //how big is one container vertically
-        int containerHeightSpace=containerColumnPixels/containerColumnNumber;
+        values.setGuiSpace(guiSpace);
 
 
+        //get Container Size
+        int[] containerSize=calculateContainerSize(screenWidth,screenHeight,containerRowNumber,containerColumnNumber,marginSpace);
+        int containerWidth=containerSize[0];
+        int containerHeight=containerSize[1];
 
 
         //start coordinates of first container in row
         int left=marginSpace;
-        int right=marginSpace+containerRowSpace;
+        int right=marginSpace+containerWidth;
         int top=marginSpace+guiSpace;
-        int bottom=top+containerRowSpace;
+        int bottom=top+containerWidth;
         //set container Bitmap to correct image to be displayed in baseView
-        Bitmap containerBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
+        Bitmap containerBackground=values.getContainerBackground(context);
+        //actually creates containers
         for(int i=0;i<containerColumnNumber;i++) {
             for (int j = 0; j < containerRowNumber; j++) {
                 containers.add(new Container(context, left, top, right, bottom,containerBackground));
                 //move coordinates to the right by one container and one margin
-                left += containerRowSpace + marginSpace;
-                right += marginSpace + containerRowSpace;
+                left += containerWidth + marginSpace;
+                right += marginSpace + containerWidth;
             }
+            //after each row the horizontal coordinates get reset
             left=marginSpace;
-            right=marginSpace+containerRowSpace;
+            right=marginSpace+containerWidth;
             //start next row of containers
-            top+=containerHeightSpace+marginSpace;
-            bottom+=marginSpace+containerHeightSpace;
+            top+=containerHeight+marginSpace;
+            bottom+=marginSpace+containerHeight;
 
         }
     }
-public void setPosition(int left,int top){
-}
-//Hast du die Methode hier reingemacht Frederik? wenn ja was soll die machen?
+
+    /**
+     * Calculates the correct number of Pixels between the Containers
+     * @param screenWidth the screens width
+     * @param containerRowNumber how many containers there are in one row
+     * @return the number of pixels per margin
+     */
+    private int calculateMarginSpace(int screenWidth, int containerRowNumber) {
+
+        //number of margin spaces horizontally
+        int marginRowNumber= containerRowNumber+1;
+        //Total space of the screen covered by margins
+        int marginRowPixels=screenWidth/5;
+        //space in pixels per margin
+        int marginSpace=marginRowPixels/marginRowNumber;
+        return marginSpace;
+    }
+
+    /**
+     * Calculates the correct width and height of the containers and returns the values as an int Array
+     * @param screenWidth the screens width
+     * @param screenHeight the screens height
+     * @param containerRowNumber number of containers in one row
+     * @param containerColumnNumber numbers of containers per column
+     * @param marginSpace the space between the containers
+     * @return int[] Array of container width[0] and height[1]
+     */
+    private int[] calculateContainerSize(int screenWidth, int screenHeight,int containerRowNumber, int containerColumnNumber,int marginSpace){
+        //CALCULATE CONTAINER WIDTH
+        //how much space horizontally do the containers take up in total pixels
+        int containerRowPixels=screenWidth/5*4;
+        //Width per container in pixels
+        int containerWidth=containerRowPixels/containerRowNumber;
+
+        //CALCULATE CONTAINER HEIGHT
+        //how many margin spaces are there vertically
+        int marginColumnNumber=containerColumnNumber+1;
+        //how many pixels in total of the screen height are covered by containers
+        //4* margin Space because there is space for a gui on the top AND on the bottom
+        int containerColumnPixels=screenHeight-(marginColumnNumber*marginSpace)-(4*marginSpace);
+        //Height per container in pixels
+        int containerHeight=containerColumnPixels/containerColumnNumber;
+        int[] size= {containerWidth,containerHeight};
+        return size;
+
+    }
+
+
 }
 

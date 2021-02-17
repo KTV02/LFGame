@@ -2,6 +2,8 @@ package com.example.lfgame;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -22,6 +24,12 @@ public class Values {
     private Paint hudButtonPaint;
     private Paint hudTextPaint;
     // WE NEED TO SOLVE THE MARGIN SPACE SITUATION WTF
+
+    //final values
+    private final int containerRowNumber=7;
+    private final int containerColumnNumber=3;
+    private int guiSpace;
+
 
     public Values(){
         createPaint();
@@ -58,6 +66,17 @@ public class Values {
         hudTextPaint.setColor(Color.rgb(10, 10, 10));
 
 
+    }
+    public int[] getContainerProperties(){
+
+
+
+
+
+
+        // margin space,container row space, gui space, container height space
+        int[] properties ={containerRowNumber,containerColumnNumber};
+        return properties;
     }
 
     public Paint getClosePaint(){
@@ -102,4 +121,15 @@ public class Values {
         return textPaint;
     }
 
+    public void setGuiSpace(int guiSpace) {
+        this.guiSpace=guiSpace;
+    }
+    public int getGuiSpace(){
+        return guiSpace;
+    }
+    public Bitmap getContainerBackground(Context context){
+        Bitmap background=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
+        return background;
+
+    }
 }

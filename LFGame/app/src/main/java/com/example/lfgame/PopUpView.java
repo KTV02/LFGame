@@ -53,7 +53,7 @@ public class PopUpView extends Views {
         int horizontalMargin=screenWidth/10;
         //draw standard Popup background as rectangle
         //draws rectangle from below the HUD to bottom with 1/5 of the screen as margin at the sides -> here you can see last View
-        canvas.drawRect(horizontalMargin, Hud.getHeight(),screenWidth-horizontalMargin,screenHeight,values.getPopupPaint());
+         canvas.drawRect(horizontalMargin, values.getGuiSpace(),screenWidth-horizontalMargin,screenHeight,values.getPopupPaint());
         //draw Specific Popup
         exit.draw(canvas);
         popup.draw(canvas);
