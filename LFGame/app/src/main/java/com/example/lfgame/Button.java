@@ -61,6 +61,8 @@ public abstract class Button extends View{
     }
     public void setText(String text){
         this.text=text;
+        setTextSizeForWidth(textColor,getButtonWidth(),text);
+        Log.d("Button.java","textSize: "+textColor.getTextSize()+" buttonWidth: "+getButtonWidth());
     }
     private void setTextSizeForWidth(Paint paint, float desiredWidth,
                                      String text) {
