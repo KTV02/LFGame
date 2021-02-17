@@ -15,16 +15,6 @@ public abstract class Views extends Activity {
     protected Bitmap background;
 
 
-
-    public int getWidthPixels()
-    {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
-    }
-
-    public int getHeightPixels(){
-        return Resources.getSystem().getDisplayMetrics().heightPixels;
-    }
-
     public abstract void draw(Canvas canvas);
 
     public boolean touched(MotionEvent event, Game g){

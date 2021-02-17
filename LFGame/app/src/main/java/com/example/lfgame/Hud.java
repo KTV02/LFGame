@@ -17,9 +17,11 @@ public class Hud extends Views{
 
     Paint color;
     Context context;
+    Values values;
     private static int height=2*BaseView.getMarginSpace(); //the height of the HUD interface is 2* the margin between containers;
 
     public Hud(Context context) {
+        values=((MainActivity)context).getValues();
         color = new Paint();
         this.context = context;
         Gold.startUP(context, topSectionsFiller());
@@ -28,14 +30,15 @@ public class Hud extends Views{
     //please use niceGrey for further HUD/Menu elements which are grey
     public void topBar(Canvas canvas){
         int niceGrey = Color.rgb(115,115,115);
-        int left = getWidthPixels();
+        int left = values.getScreenWidth();
         color.setColor(niceGrey);
         canvas.drawRect(left, 0, 0, height, color);
     }
     public float[] topSectionsFiller(){
-        float fullSectionSpace = getWidthPixels()/2;
+        int screenWidth=values.getScreenWidth();
+        float fullSectionSpace = screenWidth/2;
         float oneSection = fullSectionSpace/3;
-        float[] base = {getWidthPixels()-(oneSection-oneSection*0.02f), 0,getWidthPixels()-oneSection, height, oneSection};
+        float[] base = {screenWidth-(oneSection-oneSection*0.02f), 0,screenWidth-oneSection, height, oneSection};
         return base;
     }
     //Draws sections in the topBar
@@ -44,14 +47,15 @@ public class Hud extends Views{
 //        float fullSectionSpace = getWidthPixels()/2;
 //        float oneSection = fullSectionSpace/3;
 //        float[] base = {getWidthPixels()-(oneSection-oneSection*0.02f), 0,getWidthPixels()-oneSection, height};
+        int screenWidth=values.getScreenWidth();
         Paint color=new Paint();
         color.setColor(ContextCompat.getColor(context,R.color.white));
         for(int i = 0; i<3; i++) {
             for (int j = 0; j < 4; j++) {
                 canvas.drawRect(base[0], base[1], base[2], base[3], color);
             }
-            base[0] = getWidthPixels()-((i+2)*base[4]-base[4]*0.02f);
-            base[2] = getWidthPixels()-((i+2)*base[4]);
+            base[0] = screenWidth-((i+2)*base[4]-base[4]*0.02f);
+            base[2] = screenWidth-((i+2)*base[4]);
         }
     }
     @Override

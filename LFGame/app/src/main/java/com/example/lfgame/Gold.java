@@ -6,10 +6,10 @@ import android.view.MotionEvent;
 
 public class Gold{
     static int amount = 0;
-    static Button underAmount;
+    static RectangleButton underAmount;
 
    public static void startUP(Context context, float base[]){
-        underAmount= new Button(context,base[2],base[2]-base[4]*0.6f,0,base[3]);
+        underAmount= new RectangleButton(context,base[2],base[2]-base[4]*0.6f,0,base[3]);
         underAmount.setText(""+amount);
     }
 
@@ -22,7 +22,7 @@ public class Gold{
     }
 
     public static boolean touched(MotionEvent e, Game g){
-        if(underAmount.touched(e.getX(), e.getY())) {
+        if(underAmount.isHere(e.getX(), e.getY())) {
             System.out.println("Yay");
             return true;
         }

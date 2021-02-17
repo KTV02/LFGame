@@ -23,7 +23,11 @@ public class Values {
 
     public Values(){
         createPaint();
-
+        getScreenSize();
+    }
+    private void getScreenSize(){
+        screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
     /**
@@ -59,7 +63,6 @@ public class Values {
      * @return screenwidth
      */
     public int getScreenWidth(){
-        screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         return screenWidth;
     }
     /**
@@ -68,7 +71,6 @@ public class Values {
      * @return screenheigth
      */
     public int getScreenHeight(){
-        screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         return screenHeight;
     }
 

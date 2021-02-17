@@ -109,10 +109,12 @@ public class BaseView extends Views{
      * @param context context idk
      */
     private void createContainer(Context context){
+        int screenWidth=values.getScreenWidth();
+        int screenHeight= values.getScreenHeight();
         //How many Pixels in total of the Screens width are covered by containers WIDTH
-        int containerRowPixels=getWidthPixels()/5*4;
+        int containerRowPixels=screenWidth/5*4;
         //how many pixels in total of the Screens width are covered in margin space between containers WIDTH
-        int marginRowPixels=getWidthPixels()/5;
+        int marginRowPixels=screenWidth/5;
         //how many margin spaces are there horizontally
         int marginRowNumber= containerRowNumber+1;
         //Space per margin in pixels, sorry i made this ugly with global variable
@@ -125,8 +127,7 @@ public class BaseView extends Views{
         //how many margin spaces are there vertically
         int marginColumnNumber=containerColumnNumber+1;
         //how many pixels in total of the screen height are covered by containers
-        int height = getHeightPixels();
-        int containerColumnPixels=getHeightPixels()-(marginColumnNumber*marginSpace)-2*guiSpace;
+        int containerColumnPixels=screenHeight-(marginColumnNumber*marginSpace)-2*guiSpace;
         //how big is one container vertically
         int containerHeightSpace=containerColumnPixels/containerColumnNumber;
 
