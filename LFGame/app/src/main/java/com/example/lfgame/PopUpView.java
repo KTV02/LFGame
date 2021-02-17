@@ -19,6 +19,7 @@ public class PopUpView extends Views {
     PopUp popup;
     Views backgroundview;
     RectangleButton exit;
+    Container exitTest;
     Values values;
 
     public PopUpView(Views backgroundview, PopUp popup, Context context){
@@ -41,7 +42,7 @@ public class PopUpView extends Views {
         exit= new RectangleButton(context,dimensions[0],dimensions[1],dimensions[2],dimensions[3],values.getClosePaint(),paint);
         exit.setText("Back to game");
 
-
+        exitTest= new Container(context,(int)dimensions[0],(int)dimensions[1],(int)dimensions[2],(int)dimensions[3],values.getExitIcon(context));
 
     }
     @Override
@@ -56,6 +57,14 @@ public class PopUpView extends Views {
          canvas.drawRect(horizontalMargin, values.getGuiSpace(),screenWidth-horizontalMargin,screenHeight,values.getPopupPaint());
         //draw Specific Popup
         exit.draw(canvas);
+
+
+
+
+        //exitTest.draw(canvas);
+        //PROBABLY COMPONENT PAINT GREEN PROBLEM
+
+
         popup.draw(canvas);
 
     }

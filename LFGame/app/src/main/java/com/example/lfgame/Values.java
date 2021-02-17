@@ -23,6 +23,7 @@ public class Values {
     private Paint textPaint;
     private Paint hudButtonPaint;
     private Paint hudTextPaint;
+    private Paint invisiblePaint;
     private int guiSpace;
 
     //final values
@@ -56,7 +57,7 @@ public class Values {
         closePaint.setColor(Color.rgb(255,0,0));
 
         componentPaint = new Paint();
-        componentPaint.setColor(Color.rgb(0,255,0));
+        componentPaint.setColor(Color.rgb(0,255,255));
 
         textPaint= new Paint();
         textPaint.setColor(Color.rgb(0,0,0));
@@ -68,6 +69,9 @@ public class Values {
 
         hudTextPaint = new Paint();
         hudTextPaint.setColor(Color.rgb(10, 10, 10));
+
+        invisiblePaint= new Paint();
+        invisiblePaint.setColor(Color.TRANSPARENT);
 
 
     }
@@ -176,5 +180,19 @@ public class Values {
         Bitmap background=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
         return background;
 
+    }
+
+    /**
+     * Returns the Bitmap which functions as Background for the close Icon on Popups
+     * @param context context to access drawable ressource
+     * @return close icon as Bitmap
+     */
+    public Bitmap getExitIcon(Context context){
+        Bitmap background=BitmapFactory.decodeResource(context.getResources(),R.drawable.closeicon);
+        return background;
+    }
+
+    public Paint getInvisiblePaint() {
+        return invisiblePaint;
     }
 }

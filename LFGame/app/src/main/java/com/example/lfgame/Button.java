@@ -43,6 +43,9 @@ public abstract class Button extends View{
         this.textColor= values.getTextPaint();
 
     }
+    public void setBackgroundColor(Paint backgroundColor){
+        this.backgroundColor=backgroundColor;
+    }
 
 
     /**
