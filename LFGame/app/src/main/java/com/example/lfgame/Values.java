@@ -19,6 +19,8 @@ public class Values {
     private Paint closePaint;
     private Paint componentPaint;
     private Paint textPaint;
+    private Paint hudButtonPaint;
+    private Paint hudTextPaint;
     // WE NEED TO SOLVE THE MARGIN SPACE SITUATION WTF
 
     public Values(){
@@ -48,6 +50,14 @@ public class Values {
         textPaint.setColor(Color.rgb(0,0,255));
        //textPaint.setTextSize(20);
 
+        //Wanted a lighter grey for Hud Buttons
+        hudButtonPaint = new Paint();
+        hudButtonPaint.setColor(Color.rgb(160,160,160));
+
+        hudTextPaint = new Paint();
+        hudTextPaint.setColor(Color.rgb(10, 10, 10));
+
+
     }
 
     public Paint getClosePaint(){
@@ -57,6 +67,10 @@ public class Values {
     public Paint getPopupPaint(){
         return popupPaint;
     }
+
+    public Paint getHudButtonPaint() {return hudButtonPaint;}
+
+    public Paint getHudTextPaint() {return hudTextPaint;}
     /**
      * Getter for Screenwidth in Pixels
      * REALLY NEEDS TO CALCULATE THIS SHIT EVERY TIME???
