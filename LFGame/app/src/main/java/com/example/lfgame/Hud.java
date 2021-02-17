@@ -68,6 +68,7 @@ public class Hud extends Views{
     public void draw(Canvas canvas) {
         topBar(canvas);
         topSections(canvas, topSectionsFiller());
+        Gold.draw(canvas);
     }
     public int getHeight(){
         return height;

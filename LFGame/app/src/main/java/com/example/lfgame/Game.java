@@ -72,9 +72,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         view.draw(canvas);
         hud.draw(canvas);
-        //move gold to hud
-        Gold.draw(canvas);
-        //draw updates and frames per second to the screen
         drawUPS(canvas);
         drawFPS(canvas);
         //TEMPORARY, draws Coordinates of latest touch to the screen
