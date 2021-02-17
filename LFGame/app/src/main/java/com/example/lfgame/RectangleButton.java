@@ -51,7 +51,7 @@ public class RectangleButton extends Button{
         canvas.drawRect(left, top, right, bottom, backgroundColor);
         //fits the Text from left to right into the button if there is a text
         if(text!=null) {
-            Paint paint = getPaint(text, getButtonWidth());
+            Paint paint = getPaint(text, getButtonWidth(), getButtonHeight());
             canvas.drawText(text, left, top + textColor.getTextSize(), paint);
         }
         //canvas.drawText("Penis",1900,250,values.getTextPaint());
@@ -84,5 +84,10 @@ public class RectangleButton extends Button{
     @Override
     public int getButtonWidth() {
         return (int) (right-left);
+    }
+
+    @Override
+    public int getButtonHeight() {
+        return (int) (bottom-top);
     }
 }
