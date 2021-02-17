@@ -22,6 +22,7 @@ public class Hud extends Views{
     public Hud(Context context) {
         color = new Paint();
         this.context = context;
+        Gold.startUP(context, topSectionsFiller());
     }
     //Sets color for the top bar
     //please use niceGrey for further HUD/Menu elements which are grey
@@ -31,27 +32,33 @@ public class Hud extends Views{
         color.setColor(niceGrey);
         canvas.drawRect(left, 0, 0, height, color);
     }
-    //Draws sections in the topBar
-    //At the moment thought to be used for tabs: troops, gold, diamonds
-    public void topSections(Canvas canvas){
+    public float[] topSectionsFiller(){
         float fullSectionSpace = getWidthPixels()/2;
         float oneSection = fullSectionSpace/3;
-        float[] base = {getWidthPixels()-(oneSection-oneSection*0.02f), 0,getWidthPixels()-oneSection, height};
+        float[] base = {getWidthPixels()-(oneSection-oneSection*0.02f), 0,getWidthPixels()-oneSection, height, oneSection};
+        return base;
+    }
+    //Draws sections in the topBar
+    //At the moment thought to be used for tabs: troops, gold, diamonds
+    public void topSections(Canvas canvas, float base[]){
+//        float fullSectionSpace = getWidthPixels()/2;
+//        float oneSection = fullSectionSpace/3;
+//        float[] base = {getWidthPixels()-(oneSection-oneSection*0.02f), 0,getWidthPixels()-oneSection, height};
         Paint color=new Paint();
         color.setColor(ContextCompat.getColor(context,R.color.white));
         for(int i = 0; i<3; i++) {
             for (int j = 0; j < 4; j++) {
                 canvas.drawRect(base[0], base[1], base[2], base[3], color);
             }
-            base[0] = getWidthPixels()-((i+2)*oneSection-oneSection*0.02f);
-            base[2] = getWidthPixels()-((i+2)*oneSection);
+            base[0] = getWidthPixels()-((i+2)*base[4]-base[4]*0.02f);
+            base[2] = getWidthPixels()-((i+2)*base[4]);
         }
     }
     @Override
     //Draws elements of HUD
     public void draw(Canvas canvas) {
         topBar(canvas);
-        topSections(canvas);
+        topSections(canvas, topSectionsFiller());
     }
     public static int getHeight(){
         return height;
@@ -65,6 +72,9 @@ public class Hud extends Views{
 
     @Override
     public boolean checkAllElements(MotionEvent event, Game game) {
-        return false;
+        if(Gold.touched(event, game))
+            return true;
+        else
+            return false;
     }
 }

@@ -57,8 +57,6 @@ public abstract class Button extends View{
     }
 
 
-
-
     /**
      * Set Text that Button displays
      * Protected because only accessible by childreen
