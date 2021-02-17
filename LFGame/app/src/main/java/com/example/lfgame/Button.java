@@ -64,26 +64,42 @@ public abstract class Button extends View{
         setTextSizeForWidth(textColor,getButtonWidth(),text);
         Log.d("Button.java","textSize: "+textColor.getTextSize()+" buttonWidth: "+getButtonWidth());
     }
-    private void setTextSizeForWidth(Paint paint, float desiredWidth,
-                                     String text) {
-
-        // Pick a reasonably large value for the test. Larger values produce
-        // more accurate results, but may cause problems with hardware
-        // acceleration. But there are workarounds for that, too; refer to
-        // http://stackoverflow.com/questions/6253528/font-size-too-large-to-fit-in-cache
-        final float testTextSize = 48f;
-
-        // Get the bounds of the text, using our testTextSize.
-        paint.setTextSize(testTextSize);
+//    private void setTextSizeForWidth(Paint paint, float desiredWidth, String text) {
+//
+//        // Pick a reasonably large value for the test. Larger values produce
+//        // more accurate results, but may cause problems with hardware
+//        // acceleration. But there are workarounds for that, too; refer to
+//        // http://stackoverflow.com/questions/6253528/font-size-too-large-to-fit-in-cache
+//        final float testTextSize = 48f;
+//
+//        // Get the bounds of the text, using our testTextSize.
+//        paint.setTextSize(testTextSize);
+//        Rect bounds = new Rect();
+//        paint.getTextBounds(text, 0, text.length(), bounds);
+//
+//        // Calculate the desired size as a proportion of our testTextSize.
+//        float desiredTextSize = testTextSize * desiredWidth / bounds.width();
+//
+//        // Set the paint for that size.
+//        paint.setTextSize(desiredTextSize);
+//    }
+    /**
+     * Retrieve the maximum text size to fit in a given width.
+     * @param str (String): Text to check for size.
+     * @param maxWidth (float): Maximum allowed width.
+     * @return (int): The desired text size.
+     */
+    private int setTextSizeForWidth(Paint paint, float maxWidth, String str)
+    {
+        int size = 0;
         Rect bounds = new Rect();
-        paint.getTextBounds(text, 0, text.length(), bounds);
-
-        // Calculate the desired size as a proportion of our testTextSize.
-        float desiredTextSize = testTextSize * desiredWidth / bounds.width();
-
-        // Set the paint for that size.
-        paint.setTextSize(desiredTextSize);
-    }
+        do {
+            paint.setTextSize(++ size);
+            paint.getTextBounds(str, 0, str.length(), bounds);
+        } while(bounds.width() < maxWidth*0.9f && bounds.height() < BaseView.getMarginSpace());
+        //System.out.println(bounds.height()+""+bounds.width());
+        return size;
+    } //End getMaxTextSize()
 
     /**
      * Get Text that is displayed by Button
