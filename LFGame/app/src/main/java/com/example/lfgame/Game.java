@@ -68,7 +68,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         view.draw(canvas);
         hud.draw(canvas);
-        Gold.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
         showCoordinates(canvas);
