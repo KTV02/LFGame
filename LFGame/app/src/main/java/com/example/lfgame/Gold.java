@@ -1,40 +1,18 @@
 package com.example.lfgame;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.view.MotionEvent;
+import android.graphics.Bitmap;
 
-public class Gold{
+public class Gold {
+    private static Bitmap icon;
+    private static int amount;
 
-    private static int amount = 0;
-    private static RectangleButton underAmount;
-    private static Context context;
-
-   public static void startUP(Context c, float base[], Values v){
-        context = c;
-        //for base[] values look in Hud class
-        underAmount = new RectangleButton(context,base[2]-base[4]*0.65f, base[2],0, base[3], v.getHudButtonPaint(), v.getTextPaint());
-        float width = base[4]*0.65f;
-        underAmount.setText(Integer.toString(amount));
-        //underAmount.setText("ttttttttttttttttttT");
+    public static Bitmap getIcon() {
+        return icon;
     }
 
-    public static void setAmount(int a) {
-        amount = a;
+    public static int getAmount() {
+        return amount;
     }
-
-    public static void draw(Canvas canvas){
-        underAmount.draw(canvas);
-    }
-
-    public static boolean touched(MotionEvent e, Game g){
-        if(underAmount.isHere(e.getX(), e.getY())) {
-            CollectablePopup popup= new CollectablePopup(context);
-            g.spawnPopup(popup);
-            return true;
-        }
-        else
-            return false;
-    }
-
 }
+
+

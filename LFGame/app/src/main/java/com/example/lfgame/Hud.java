@@ -19,6 +19,7 @@ public class Hud extends Views{
     Context context;
     Values values;
     private int height;
+    private RectangleButton underAmount;
 
     public Hud(Context context) {
         values=((MainActivity)context).getValues();
@@ -27,7 +28,7 @@ public class Hud extends Views{
 
         color = new Paint();
         this.context = context;
-        Gold.startUP(context, topSectionsFiller(), values);
+        setGold(context, topSectionsFiller(), values);
     }
     //Sets color for the top bar
     //please use niceGrey for further HUD/Menu elements which are grey
@@ -68,8 +69,29 @@ public class Hud extends Views{
     public void draw(Canvas canvas) {
         topBar(canvas);
         topSections(canvas, topSectionsFiller());
-        Gold.draw(canvas);
+        drawGold(canvas);
+        //Gold.draw(canvas);
     }
+
+    /**
+     * Draw Rectangle that displays Gold
+     * @param canvas the canvas to draw on
+     */
+    private void drawGold(Canvas canvas){
+        underAmount.draw(canvas);
+    }
+    private void setGold(Context c, float base[], Values v){
+        context = c;
+        //for base[] values look in Hud class
+        //MAGIC NUMBERS FOR THE WIN DU HOBO @Frederik
+        underAmount = new RectangleButton(context,base[2]-base[4]*0.65f, base[2],0, base[3], v.getHudButtonPaint(), v.getTextPaint());
+        float width = base[4]*0.65f;
+        underAmount.setText(Integer.toString(Gold.getAmount()));
+        //underAmount.setText("ttttttttttttttttttT");
+    }
+
+
+
     public int getHeight(){
         return height;
     }
@@ -82,8 +104,11 @@ public class Hud extends Views{
 
     @Override
     public boolean checkAllElements(MotionEvent event, Game game) {
-        if(Gold.touched(event, game))
+        if(underAmount.isHere(event.getX(), event.getY())) {
+            CollectablePopup popup= new CollectablePopup(context);
+            game.spawnPopup(popup);
             return true;
+        }
         else
             return false;
     }
