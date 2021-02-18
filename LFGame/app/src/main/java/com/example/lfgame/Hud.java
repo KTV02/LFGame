@@ -75,6 +75,7 @@ public class Hud extends Views{
      */
     private void drawGold(Canvas canvas){
         underAmount.draw(canvas);
+        goldIcon.draw(canvas);
     }
     private void setGold(Context c, float base[], Values v){
         context = c;
