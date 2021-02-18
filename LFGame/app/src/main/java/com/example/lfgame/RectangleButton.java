@@ -43,7 +43,6 @@ public class RectangleButton extends Button{
     public RectangleButton(Context context,float left,float right, float top,float bottom){
         super(context);
         setPosition(left,right,top,bottom);
-
     }
 
     @Override
@@ -52,11 +51,10 @@ public class RectangleButton extends Button{
         canvas.drawRect(left, top, right, bottom, backgroundColor);
         //fits the Text from left to right into the button if there is a text
         if(text!=null) {
-            Paint paint = getPaint(text, getButtonWidth(), getButtonHeight());
-            canvas.drawText(text, left, top + textColor.getTextSize(), paint);
+            setTextSizeForWidth(getButtonWidth(),text, getButtonHeight());
+            canvas.drawText(text, left, top + textColor.getTextSize(), textColor);
+            System.out.println(""+textColor.getTextSize());
         }
-        //canvas.drawText("Penis",1900,250,values.getTextPaint());
-
     }
 
    
