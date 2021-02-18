@@ -22,6 +22,7 @@ public abstract class Button extends View{
     protected Values values;
     protected Paint backgroundColor;
     protected Paint textColor;
+    protected int size;
 
     /**
      * Use This Constructor if creating a Button with specific Background Color and text Color
@@ -31,6 +32,7 @@ public abstract class Button extends View{
         this.values=((MainActivity) context).getValues();
         this.backgroundColor=backgroundColor;
         this.textColor= textColor;
+
     }
 
     /**
@@ -56,15 +58,10 @@ public abstract class Button extends View{
      *
      * @param text The text to be displayed
      */
-    public Paint getPaint(String text,int width, int height){
-        this.text = text;
-        setTextSizeForWidth(textColor,width,text, height);
-        return textColor;
 
-    }
     public void setText(String text){
         this.text=text;
-        setTextSizeForWidth(textColor,getButtonWidth(),text, getButtonHeight());
+        setTextSizeForWidth(getButtonWidth(),text, getButtonHeight());
         Log.d("Button.java","textSize: "+textColor.getTextSize()+" buttonWidth: "+getButtonWidth());
     }
 
@@ -82,14 +79,16 @@ public abstract class Button extends View{
      * @author Frederik Spieß
      * @since 17/02
      */
-    private int setTextSizeForWidth(Paint paint, float maxWidth, String str, float maxHeight)
+    protected int setTextSizeForWidth(float maxWidth, String str, float maxHeight)
     {
         int size = 0;
         Rect bounds = new Rect();
         do {
-            paint.setTextSize(++ size);
-            paint.getTextBounds(str, 0, str.length(), bounds);
-        } while(bounds.width() < maxWidth*0.9f && bounds.height() < (maxHeight/2));
+            textColor.setTextSize(++ size);
+            textColor.getTextBounds(str, 0, str.length(), bounds);
+        } while(bounds.width() < maxWidth*0.9f && bounds.height() < (maxHeight/1.7f));
+        System.out.println(size);
+        this.size = size;
         return size;
     } //End getMaxTextSize()
 

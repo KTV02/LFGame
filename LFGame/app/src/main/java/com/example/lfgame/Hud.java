@@ -87,7 +87,6 @@ public class Hud extends Views{
         underAmount = new RectangleButton(context,base[2]-base[4]*0.65f, base[2],0, base[3], v.getHudButtonPaint(), v.getTextPaint());
         float width = base[4]*0.65f;
         underAmount.setText(Integer.toString(Gold.getAmount()));
-        //underAmount.setText("ttttttttttttttttttT");
     }
 
 

@@ -47,8 +47,8 @@ public class CircularButton extends Button {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawCircle(xCenter,yCenter,radius,backgroundColor);
-        //fit text into circle, MIGHT BE BROKEN
-        canvas.drawText(text,xCenter-radius,(yCenter-radius)+textColor.getTextSize(),getPaint(text,getWidth(), getWidth()));
+        //Text fitting for Circular buttons is not yet working!
+        //canvas.drawText(text,xCenter-radius,(yCenter-radius)+textColor.getTextSize(),getPaint(text,getWidth(), getWidth()));
 
     }
 
