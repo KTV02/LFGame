@@ -28,27 +28,24 @@ public class TroopTrainer extends ProductionStructure {
     }
 
     /**
-     * Returns the Background for the Big Layout
+     * The specific attribute which counts as InfoText is set in here SET IN CONSTRUCTOR
      *
-     * @return Bitmap bigBackground
+     * @param info infoText to be displayed
      */
     @Override
-    public Bitmap getBigBackground() {
-        return null;
+    public void setInfoText(String info) {
+
     }
 
     /**
-     * Returns the Background for the small Layout
+     * The name of the Structure, SET IN CONSTRUCTOR
      *
-     * @return Bitmap smallBackground
+     * @param name name
      */
     @Override
-    public Bitmap getSmallBackground() {
-        return null;
+    public void setName(String name) {
+
     }
 
-    @Override
-    public Bitmap getFitBackground(int width, int height) {
-        return null;
-    }
+
 }

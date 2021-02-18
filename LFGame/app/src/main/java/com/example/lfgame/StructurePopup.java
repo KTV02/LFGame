@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class StructurePopup extends PopUp {
     private LinkedList<Structure> buyableStructures;
-    private LinkedList<Container> containers;
+    private LinkedList<StructurePreviewContainer> containers;
     private Context context;
     private int[] backgroundSize;
 
@@ -61,38 +61,11 @@ public class StructurePopup extends PopUp {
         if(buyableStructures.size()<=5){
             createBigLayout();
         }else if(buyableStructures.size()<=10){
-            createSmallLayout();
+            // create more pages
         }
     }
 
 
-
-    /**
-     * If between 6-10 Structures have to be displayed fit them into two rows
-     */
-    private void createSmallLayout() {
-        int columnSpaces=2;
-
-        int structureWidth=(backgroundSize[2]-backgroundSize[0])/rowSpaces;
-        int left=backgroundSize[0];
-        int right=structureWidth;
-        int top=backgroundSize[1];
-        int popupHeight=backgroundSize[3]-backgroundSize[1];
-        int bottom=popupHeight/2;
-        // fits all Structures into two rows
-        int index=0;
-        for(int i=0;i<columnSpaces;i++) {
-            for (int j = 0; j < rowSpaces; j++) {
-                containers.add(new Container(context, left, right, top, bottom, buyableStructures.get(index).getSmallBackground()));
-                left += structureWidth;
-                right += structureWidth;
-                index++;
-            }
-            top+=popupHeight/2;
-            bottom+=popupHeight/2;
-        }
-
-    }
 
     /**
      * If up to 5 Structures have to be displayed fit them into one row
@@ -103,8 +76,8 @@ public class StructurePopup extends PopUp {
         int right=left+structureWidth;
         int top=backgroundSize[1];
         int bottom=backgroundSize[3];
-        for(Structure s:buyableStructures){
-            containers.add(new Container(context,left,right,top,bottom,s.getBigBackground()));
+        for(Structure structure:buyableStructures){
+            containers.add(new StructurePreviewContainer(context,left,right,top,bottom,values.getPreviewBackground(),structure));
             left+=structureWidth;
             right+=structureWidth;
 

@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -24,10 +22,14 @@ public class Values {
     private Paint hudButtonPaint;
     private Paint hudTextPaint;
     private Paint invisiblePaint;
+    private Paint nameBarPaint;
+    private Paint infoBarPaint;
+    private Paint costBarPaint;
     private int guiSpace;
     private Bitmap containerBackground;
     private Bitmap exitIcon;
     private Bitmap goldIcon;
+    private Bitmap previewBackground;
     private int playerLevel;
     private Context context;
 
@@ -49,6 +51,7 @@ public class Values {
         containerBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
         exitIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.closeicon);
         goldIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.coinselfdrawn);
+        previewBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.smallpopupbackground);
     }
 
     /**
@@ -86,6 +89,15 @@ public class Values {
 
         invisiblePaint= new Paint();
         invisiblePaint.setColor(Color.TRANSPARENT);
+
+        nameBarPaint = new Paint();
+        nameBarPaint.setColor(Color.rgb(255,106,0));
+
+        infoBarPaint= new Paint();
+        infoBarPaint.setColor(Color.rgb(1,255,255));
+
+        costBarPaint= new Paint();
+        costBarPaint.setColor(Color.rgb(255,216,0));
 
 
     }
@@ -267,6 +279,26 @@ public class Values {
      */
     public void increasePlayerLevel(){
         playerLevel+=1;
+    }
+
+    /**
+     * Returns the Background of the Structure Preview in the Structure Popup
+     * @return structure preview Bitmap background
+     */
+    public Bitmap getPreviewBackground() {
+        return previewBackground;
+    }
+
+    public Paint getNameBarPaint() {
+        return nameBarPaint;
+    }
+
+    public Paint getInfoBarPaint() {
+        return infoBarPaint;
+    }
+
+    public Paint getCostBarPaint() {
+        return costBarPaint;
     }
 }
 

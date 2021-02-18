@@ -4,14 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-public class GoldMine extends ResourceProduction{
-    public GoldMine(Context context){
-        bigBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.goldbigdemo);
+public class GoldMine extends ResourceProduction {
+    public GoldMine(Context context) {
+        icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.goldmine);
+        setName("Gold Mine");
+        setInfoText(productionRate+" Gold/h");
         //smallBackground=;
         //fitBackground=;
 
     }
-
 
 
     /**
@@ -21,12 +22,12 @@ public class GoldMine extends ResourceProduction{
      */
     @Override
     public void setLevel(int level) {
-        switch(level){
+        switch (level) {
             case 1:
-                productionRate=60;
+                productionRate = 60;
                 break;
             default:
-                productionRate+=60;
+                productionRate += 60;
 
         }
     }
@@ -43,27 +44,24 @@ public class GoldMine extends ResourceProduction{
     }
 
     /**
-     * Returns the Background for the Big Layout
+     * The specific attribute which counts as InfoText is set in here
      *
-     * @return Bitmap bigBackground
+     * @param infoText infoText to be displayed
      */
     @Override
-    public Bitmap getBigBackground() {
-        return bigBackground;
+    public void setInfoText(String infoText) {
+        this.infoText=infoText;
     }
 
     /**
-     * Returns the Background for the small Layout
+     * The name of the Structure
      *
-     * @return Bitmap smallBackground
+     * @param name name
      */
     @Override
-    public Bitmap getSmallBackground() {
-        return null;
+    public void setName(String name) {
+        this.name=name;
     }
 
-    @Override
-    public Bitmap getFitBackground(int width, int height) {
-        return null;
-    }
+
 }

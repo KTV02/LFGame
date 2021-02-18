@@ -15,13 +15,13 @@ import android.view.View;
  * Real Button is invisible so circular image get displayed correctly
  */
 public class Container extends RectangleButton {
-    private int left;
-    private int top;
-    private int right;
-    private int bottom;
-    private Context context;
+    int left;
+    int top;
+    int right;
+    int bottom;
+    Context context;
     private Rect scaledContainer;
-    private Bitmap background;
+    Bitmap background;
 
 
 
