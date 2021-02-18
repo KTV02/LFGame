@@ -51,7 +51,7 @@ public class RectangleButton extends Button{
         canvas.drawRect(left, top, right, bottom, backgroundColor);
         //fits the Text from left to right into the button if there is a text
         if(text!=null) {
-            setTextSizeForWidth(getButtonWidth(),text, getButtonHeight());
+            textColor.setTextSize(size);
             canvas.drawText(text, left, top + textColor.getTextSize(), textColor);
             System.out.println(""+textColor.getTextSize());
         }

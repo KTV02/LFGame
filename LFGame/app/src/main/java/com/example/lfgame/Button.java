@@ -22,6 +22,7 @@ public abstract class Button extends View{
     protected Values values;
     protected Paint backgroundColor;
     protected Paint textColor;
+    protected int size;
 
     /**
      * Use This Constructor if creating a Button with specific Background Color and text Color
@@ -60,8 +61,6 @@ public abstract class Button extends View{
 
     public void setText(String text){
         this.text=text;
-        //textColor = setTextSizeForWidth(textColor,getButtonWidth(),text, getButtonHeight());
-        //textColor.setTextSize(setTextSizeForWidth(textColor,getButtonWidth(),text, getButtonHeight()));
         setTextSizeForWidth(getButtonWidth(),text, getButtonHeight());
         Log.d("Button.java","textSize: "+textColor.getTextSize()+" buttonWidth: "+getButtonWidth());
     }
@@ -89,8 +88,8 @@ public abstract class Button extends View{
             textColor.getTextBounds(str, 0, str.length(), bounds);
         } while(bounds.width() < maxWidth*0.9f && bounds.height() < (maxHeight/1.7f));
         System.out.println(size);
+        this.size = size;
         return size;
-
     } //End getMaxTextSize()
 
     /**

@@ -16,7 +16,6 @@ public class Gold{
         underAmount = new RectangleButton(context,base[2]-base[4]*0.65f, base[2],0, base[3], v.getHudButtonPaint(), v.getTextPaint());
         float width = base[4]*0.65f;
         underAmount.setText(Integer.toString(amount));
-        //underAmount.setText("ttttttttttttttttttT");
     }
 
     public static void setAmount(int a) {
