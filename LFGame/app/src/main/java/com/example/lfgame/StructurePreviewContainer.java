@@ -44,10 +44,10 @@ public class StructurePreviewContainer extends Container {
      */
     private void placeInformationBars() {
         int backgroundWidth=this.right-this.left;
-        int left=this.left+(backgroundWidth/10); // horizontal margin at the sides
-        int right=this.right-(backgroundWidth/10);
-        int availableHeight=bottom-(structureEnd-top);
-        int spaceAfterIcon=availableHeight/5;
+        int left=this.left+(backgroundWidth/15); // horizontal margin at the sides
+        int right=this.right-(backgroundWidth/15);
+        int availableHeight=bottom-structureEnd;
+        int spaceAfterIcon=availableHeight/10;
         //margins after end of Structure icon and between each information Bar/Rectangle in TOTAL
         int margins=availableHeight/5;
         int margin=margins/3; // Three Margins: After first,second and third bar -> first margin already covered by spaceAfterIcon

@@ -86,7 +86,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private void showCoordinates(Canvas canvas){
        Paint paint=values.getTextPaint();
        paint.setTextSize(50);
-       canvas.drawText(""+latestX,1200,100,paint);
+       canvas.drawText(""+latestX,1000,100,paint);
 
     }
 
