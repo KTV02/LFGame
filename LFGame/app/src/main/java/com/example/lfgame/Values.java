@@ -27,6 +27,7 @@ public class Values {
     private int guiSpace;
     private Bitmap containerBackground;
     private Bitmap exitIcon;
+    private Bitmap goldIcon;
     private int playerLevel;
     private Context context;
 
@@ -47,6 +48,7 @@ public class Values {
     private void setImages(Context context) {
         containerBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
         exitIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.closeicon);
+        goldIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.coinselfdrawn);
     }
 
     /**
@@ -209,6 +211,15 @@ public class Values {
      */
     public Bitmap getExitIcon(Context context){
         return exitIcon;
+    }
+
+    /**
+     * Returns the Bitmap which functions as Coin Icon
+     * @param context context to access drawable ressource
+     * @return Gold icon as Bitmap
+     */
+    public Bitmap getGoldIcon(Context context){
+        return goldIcon;
     }
 
     /**

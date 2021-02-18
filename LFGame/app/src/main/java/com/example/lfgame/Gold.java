@@ -1,14 +1,13 @@
 package com.example.lfgame;
+/**
+ * Gold Icon sits with the other Icons in Values
+ */
 
 import android.graphics.Bitmap;
 
 public class Gold {
-    private static Bitmap icon;
-    private static int amount;
+    private static int amount = 0;
 
-    public static Bitmap getIcon() {
-        return icon;
-    }
 
     public static int getAmount() {
         return amount;

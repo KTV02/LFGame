@@ -15,11 +15,13 @@ import java.util.LinkedList;
 
 public class Hud extends Views{
 
-    Paint color;
-    Context context;
-    Values values;
+    private Paint color;
+    private Context context;
+    private Values values;
     private int height;
     private RectangleButton underAmount;
+    private Container goldIcon;
+
 
     public Hud(Context context) {
         values=((MainActivity)context).getValues();
@@ -48,12 +50,7 @@ public class Hud extends Views{
     //Draws sections in the topBar
     //At the moment thought to be used for tabs: troops, gold, diamonds
     public void topSections(Canvas canvas, float base[]){
-
-//        float fullSectionSpace = getWidthPixels()/2;
-//        float oneSection = fullSectionSpace/3;
-//        float[] base = {getWidthPixels()-(oneSection-oneSection*0.02f), 0,getWidthPixels()-oneSection, height};
         int screenWidth=values.getScreenWidth();
-
         Paint color=new Paint();
         color.setColor(ContextCompat.getColor(context,R.color.white));
         for(int i = 0; i<3; i++) {
@@ -70,7 +67,6 @@ public class Hud extends Views{
         topBar(canvas);
         topSections(canvas, topSectionsFiller());
         drawGold(canvas);
-        //Gold.draw(canvas);
     }
 
     /**
@@ -79,14 +75,16 @@ public class Hud extends Views{
      */
     private void drawGold(Canvas canvas){
         underAmount.draw(canvas);
+        goldIcon.draw(canvas);
     }
     private void setGold(Context c, float base[], Values v){
         context = c;
-        //for base[] values look in Hud class
-        //MAGIC NUMBERS FOR THE WIN DU HOBO @Frederik
+        //for base[] values look in Hud class in topSectionsFiller()
         underAmount = new RectangleButton(context,base[2]-base[4]*0.65f, base[2],0, base[3], v.getHudButtonPaint(), v.getTextPaint());
-        float width = base[4]*0.65f;
+        //float width = base[4]*0.65f;
         underAmount.setText(Integer.toString(Gold.getAmount()));
+        //new Container for goldIcon
+        goldIcon = new Container(context, (int) (base[0]-base[4]),(int) (base[2]-base[4]*0.65f),0,(int) base[3], values.getGoldIcon(context));
     }
 
 
