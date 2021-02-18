@@ -21,6 +21,8 @@ public class StructurePopup extends PopUp {
         this.context=context;
         fillStructures();
         createStructures();
+        //test
+        //createBigLayout();
     }
 
     /**
@@ -37,7 +39,7 @@ public class StructurePopup extends PopUp {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawText("Hier kommt BuyMenu für Structures hin",700,500,values.getTextPaint());
+       // canvas.drawText("Hier kommt BuyMenu für Structures hin",700,500,values.getTextPaint());
         drawContainers(canvas);
         super.draw(canvas);
     }
@@ -60,17 +62,10 @@ public class StructurePopup extends PopUp {
             createBigLayout();
         }else if(buyableStructures.size()<=10){
             createSmallLayout();
-        }else{
-            createFitLayout();
         }
     }
 
-    /**
-     * If over 10 Structures have to be displayed fit them all into the window
-     */
-    private void createFitLayout() {
-        //jo alda gar kein Bock
-    }
+
 
     /**
      * If between 6-10 Structures have to be displayed fit them into two rows
@@ -105,11 +100,14 @@ public class StructurePopup extends PopUp {
     private void createBigLayout() {
         int structureWidth= (backgroundSize[2]-backgroundSize[0])/rowSpaces;
         int left=backgroundSize[0];
-        int right=structureWidth;
+        int right=left+structureWidth;
         int top=backgroundSize[1];
         int bottom=backgroundSize[3];
         for(Structure s:buyableStructures){
             containers.add(new Container(context,left,right,top,bottom,s.getBigBackground()));
+            left+=structureWidth;
+            right+=structureWidth;
+
         }
     }
 

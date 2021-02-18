@@ -3,9 +3,11 @@ package com.example.lfgame;
 import android.graphics.Bitmap;
 
 public abstract class ResourceStructure extends Structure {
-    public abstract int getStoredResources();
+    int resourceStored;
+    public int getStoredResources(){
+        return resourceStored;
+    }
 
-    public abstract Gold getResource();
 
 
 }

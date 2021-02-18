@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 public abstract class Structure {
     protected boolean clickable;
     protected int minLevel;
-    protected int level;
+    int level;
     protected int cost;
     // not static because may change depending on player level
     protected int maxInstances;
@@ -43,6 +43,11 @@ public abstract class Structure {
     }
 
     /**
+     * Set all Attributes of the Structure to the values matching the given level
+     */
+    public abstract void setLevel(int level);
+
+    /**
      * returns the cost of the Structure
      * @return cost
      */
@@ -54,14 +59,7 @@ public abstract class Structure {
      * returns true if minLevel of Player is reached and maxInstances not exceeded
      * @return if Structure is buyable at the moment
      */
-    public boolean isBuyable(int playerLevel){
-        if(playerLevel>=minLevel){
-            if(instances<maxInstances){
-                return true;
-            }
-        }
-        return false;
-    }
+    public abstract boolean isBuyable(int playerLevel);
 
     /**
      * Returns the Background for the Big Layout

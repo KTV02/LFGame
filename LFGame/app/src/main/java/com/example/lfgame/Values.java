@@ -28,6 +28,7 @@ public class Values {
     private Bitmap containerBackground;
     private Bitmap exitIcon;
     private int playerLevel;
+    private Context context;
 
     //final values
     private final int containerRowNumber=7;
@@ -36,7 +37,7 @@ public class Values {
 
 
     public Values(MainActivity m){
-        Context context= m.getApplicationContext();
+        this.context= m.getApplicationContext();
         createPaint();
         getScreenSize();
         setImages(context);
@@ -237,7 +238,7 @@ public class Values {
      * @return all structures
      */
     public Structure[] getStructures() {
-        Structure[] structures ={};
+        Structure[] structures ={new GoldMine(context), new GoldMine(context), new GoldMine(context)};
         return structures;
     }
 
