@@ -27,6 +27,7 @@ public class Values {
     private int guiSpace;
     private Bitmap containerBackground;
     private Bitmap exitIcon;
+    private int playerLevel;
 
     //final values
     private final int containerRowNumber=7;
@@ -39,6 +40,7 @@ public class Values {
         createPaint();
         getScreenSize();
         setImages(context);
+        playerLevel=1;
     }
 
     private void setImages(Context context) {
@@ -208,6 +210,10 @@ public class Values {
         return exitIcon;
     }
 
+    /**
+     * Get Paint object with invisible paint
+     * @return invisible paint
+     */
     public Paint getInvisiblePaint() {
         return invisiblePaint;
     }
@@ -224,6 +230,31 @@ public class Values {
         int bottom=screenHeight;
         int[] size={left,top,right,bottom};
         return size;
+    }
+
+    /**
+     * Returns all Strucutres currently available in this version of the game
+     * @return all structures
+     */
+    public Structure[] getStructures() {
+        Structure[] structures ={};
+        return structures;
+    }
+
+    /**
+     * Returns the Player Level
+     * @return player level
+     */
+    public int getPlayerLevel() {
+        return playerLevel;
+    }
+
+    /**
+     * Increases the Player Level by one
+     * gets called when leveling up
+     */
+    public void increasePlayerLevel(){
+        playerLevel+=1;
     }
 }
 
