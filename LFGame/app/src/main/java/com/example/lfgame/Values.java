@@ -25,6 +25,8 @@ public class Values {
     private Paint hudTextPaint;
     private Paint invisiblePaint;
     private int guiSpace;
+    private Bitmap containerBackground;
+    private Bitmap exitIcon;
 
     //final values
     private final int containerRowNumber=7;
@@ -32,9 +34,16 @@ public class Values {
 
 
 
-    public Values(){
+    public Values(MainActivity m){
+        Context context= m.getApplicationContext();
         createPaint();
         getScreenSize();
+        setImages(context);
+    }
+
+    private void setImages(Context context) {
+        containerBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
+        exitIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.closeicon);
     }
 
     /**
@@ -135,7 +144,16 @@ public class Values {
      * @return left[0], right[1], top[2], bottom[3]
      */
     public float[] getPopupExitButtonDimensions() {
-        float[] dimensions={1800,2020,200,300};
+        //scale to square
+        int[] popupSize=getPopUpViewSize();
+        int width=popupSize[2]-popupSize[0];
+
+        int exitWidth=width/10; // Exit nimmt 1/10 der Breite des PopUp rectangles ein
+        int left=popupSize[2]-exitWidth;
+        int right=popupSize[2];
+        int top=guiSpace;
+        int bottom=guiSpace+exitWidth; // Icon is circular -> width=height
+        float[] dimensions={left,right,top,bottom};
         return dimensions;
     }
 
@@ -177,8 +195,7 @@ public class Values {
      * @return background as Bitmap
      */
     public Bitmap getContainerBackground(Context context){
-        Bitmap background=BitmapFactory.decodeResource(context.getResources(),R.drawable.container);
-        return background;
+        return containerBackground;
 
     }
 
@@ -188,11 +205,25 @@ public class Values {
      * @return close icon as Bitmap
      */
     public Bitmap getExitIcon(Context context){
-        Bitmap background=BitmapFactory.decodeResource(context.getResources(),R.drawable.closeicon);
-        return background;
+        return exitIcon;
     }
 
     public Paint getInvisiblePaint() {
         return invisiblePaint;
     }
+
+    /**
+     * Returns the size of the grey PopUpView rectangle
+     * @return left[0], top[1],right[2], bottom[3] in Pixels
+     */
+    public int[] getPopUpViewSize() {
+        int horizontalMargin=screenWidth/10; //in total 2* 10% (sides of the PopupView) of the screen are not covered in the Popup rectangle
+        int left=horizontalMargin;
+        int top=guiSpace;
+        int right=screenWidth-horizontalMargin; //10% margin on the right side ^^
+        int bottom=screenHeight;
+        int[] size={left,top,right,bottom};
+        return size;
+    }
 }
+

@@ -17,6 +17,7 @@ public class RectangleButton extends Button{
 
     /**
      * Use This Constructor if creating a Button with specific Background Color and text Color
+     * LEFT, RIGHT, TOP, BOTTOM
      * @param context
      * @param left
      * @param right

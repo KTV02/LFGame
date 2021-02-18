@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         //content view set to GAME so its objects can be rendered
-        values= new Values();
+        values= new Values(this);
         game= new Game(this);
         setContentView(game);
 

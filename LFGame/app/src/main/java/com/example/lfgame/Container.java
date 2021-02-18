@@ -25,7 +25,7 @@ public class Container extends RectangleButton {
 
 
 
-    public Container(Context context,int left, int top, int right, int bottom,Bitmap background) {
+    public Container(Context context,int left, int right, int top, int bottom,Bitmap background) {
         super(context,left,right,top,bottom);
         setBackgroundColor(values.getInvisiblePaint());
         this.context = context;

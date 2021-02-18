@@ -125,7 +125,7 @@ public class BaseView extends Views{
         //actually creates containers
         for(int i=0;i<containerColumnNumber;i++) {
             for (int j = 0; j < containerRowNumber; j++) {
-                containers.add(new Container(context, left, top, right, bottom,containerBackground));
+                containers.add(new Container(context, left, right, top, bottom,containerBackground));
                 //move coordinates to the right by one container and one margin
                 left += containerWidth + marginSpace;
                 right += marginSpace + containerWidth;
