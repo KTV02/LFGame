@@ -22,24 +22,33 @@ public class Hud extends Views{
     private RectangleButton underAmount;
     private Container goldIcon;
 
-
+    /**
+     * Assings Vales and starts the setGold "Constructor"
+     * @param context Context
+     */
     public Hud(Context context) {
         values=((MainActivity)context).getValues();
         height=values.getGuiSpace(); //the height of the HUD interface is 2* the margin between containers;
-
-
         color = new Paint();
         this.context = context;
         setGold(context, topSectionsFiller(), values);
     }
-    //Sets color for the top bar
-    //please use niceGrey for further HUD/Menu elements which are grey
+
+    /**
+     * Sets Color for the top Hud Bar and draws it on the canvas
+     * @param canvas Canvas
+     */
     public void topBar(Canvas canvas){
         int niceGrey = Color.rgb(115,115,115);
+        //please use niceGrey for further HUD/Menu elements which are grey
         int left = values.getScreenWidth();
         color.setColor(niceGrey);
         canvas.drawRect(left, 0, 0, height, color);
     }
+
+    /**
+     * @return base float[], coordinates for topSections()
+     */
     public float[] topSectionsFiller(){
         int screenWidth=values.getScreenWidth();
         float fullSectionSpace = screenWidth/2;
@@ -47,7 +56,13 @@ public class Hud extends Views{
         float[] base = {screenWidth-(oneSection-oneSection*0.02f), 0,screenWidth-oneSection, height, oneSection};
         return base;
     }
-    //Draws sections in the topBar
+
+    /**
+     * Draws three sections on the right side of the Hud
+     * using white lines
+     * @param canvas Canvas
+     * @param base float[], coordinates for the white lines from topSectionsFiller()
+     */
     //At the moment thought to be used for tabs: troops, gold, diamonds
     public void topSections(Canvas canvas, float base[]){
         int screenWidth=values.getScreenWidth();
@@ -62,7 +77,10 @@ public class Hud extends Views{
         }
     }
     @Override
-    //Draws elements of HUD
+    /**
+     * Draws elements of the Hud
+     * @param canvas Canvas
+     */
     public void draw(Canvas canvas) {
         topBar(canvas);
         topSections(canvas, topSectionsFiller());
@@ -70,25 +88,35 @@ public class Hud extends Views{
     }
 
     /**
-     * Draw Rectangle that displays Gold
+     * Draws the Gold Button with the amount on in and
+     * the Coin Icon for Gold
      * @param canvas the canvas to draw on
      */
     private void drawGold(Canvas canvas){
         underAmount.draw(canvas);
         goldIcon.draw(canvas);
     }
+
+    /**
+     * setGold acts somewhat like a constructor for Gold, which it doesn't have,
+     * because everything is static
+     * @param c Context, to make Buttons and Containers
+     * @param base float, contains coordinates from the Hud sections, to be Used for the placement of the Gold stuff
+     * @param v Values, to get standerdised Values
+     */
     private void setGold(Context c, float base[], Values v){
         context = c;
         //for base[] values look in Hud class in topSectionsFiller()
         underAmount = new RectangleButton(context,base[2]-base[4]*0.65f, base[2],0, base[3], v.getHudButtonPaint(), v.getTextPaint());
-        //float width = base[4]*0.65f;
         underAmount.setText(Integer.toString(Gold.getAmount()));
         //new Container for goldIcon
         goldIcon = new Container(context, (int) (base[0]-base[4]),(int) (base[2]-base[4]*0.65f),0,(int) base[3], values.getGoldIcon(context));
     }
 
 
-
+    /**
+     * @return the height of the Hud, so basically the topBar
+     */
     public int getHeight(){
         return height;
     }
@@ -100,6 +128,11 @@ public class Hud extends Views{
 
 
     @Override
+    /**
+     * checks all Elements that are drawn on Hud for Click action
+     * @param event MotionEvent
+     * @param game Game, used to spawn PopUps
+     */
     public boolean checkAllElements(MotionEvent event, Game game) {
         if(underAmount.isHere(event.getX(), event.getY())) {
             CollectablePopup popup= new CollectablePopup(context);
