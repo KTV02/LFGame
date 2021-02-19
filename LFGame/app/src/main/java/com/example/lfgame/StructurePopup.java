@@ -99,7 +99,7 @@ public class StructurePopup extends PopUp {
     private void createLayout() {
 
         containers.clear(); //clear the previous 5 container out of the list that gets displayed
-        int structureWidth= (backgroundSize[2]-backgroundSize[0])/rowSpaces;
+        int structureWidth=(int) ((backgroundSize[2]-backgroundSize[0])-values.getNavigationMargin())/rowSpaces;
         int left=backgroundSize[0];
         int right=left+structureWidth;
         int top=backgroundSize[1];

@@ -76,9 +76,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         drawFPS(canvas);
         //TEMPORARY, draws Coordinates of latest touch to the screen
         showCoordinates(canvas);
-        CircularButton test= new CircularButton(context,200,200,200,values.getPopupPaint(),values.getTextPaint());
-        test.setText("Raaaaaaaaasputin");
-        test.draw(canvas);
 
     }
 

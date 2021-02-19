@@ -315,5 +315,13 @@ public class Values {
     public Bitmap getNextArrowBackground() {
         return nextArrowBackground;
     }
+
+    /**
+     * Returns the Margin at the right side of the StructurePopup where the navigation items are displayed
+     * @return
+     */
+    public int getNavigationMargin() {
+        return (int) (getPopupExitButtonDimensions()[1]-getPopupExitButtonDimensions()[0]);
+    }
 }
 
