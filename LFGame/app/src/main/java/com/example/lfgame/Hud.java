@@ -21,7 +21,7 @@ public class Hud extends Views{
     private int height;
     private RectangleButton underAmount;
     private Container goldIcon;
-
+    private Container gearIcon;
     /**
      * Assings Vales and starts the setGold "Constructor"
      * @param context Context
@@ -104,8 +104,7 @@ public class Hud extends Views{
      * @param base float, contains coordinates from the Hud sections, to be Used for the placement of the Gold stuff
      * @param v Values, to get standerdised Values
      */
-    private void setGold(Context c, float base[], Values v){
-        context = c;
+    private void setGold(Context context, float base[], Values v){
         //for base[] values look in Hud class in topSectionsFiller()
         underAmount = new RectangleButton(context,base[2]-base[4]*0.65f, base[2],0, base[3], v.getHudButtonPaint(), v.getTextPaint());
         underAmount.setText(Integer.toString(Gold.getAmount()));
@@ -113,6 +112,9 @@ public class Hud extends Views{
         goldIcon = new Container(context, (int) (base[0]-base[4]),(int) (base[2]-base[4]*0.65f),0,(int) base[3], values.getGoldIcon(context));
     }
 
+    private void placeGear(){
+        //gearIcon = new Container(context,);
+    }
 
     /**
      * @return the height of the Hud, so basically the topBar
