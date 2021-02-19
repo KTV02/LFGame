@@ -3,6 +3,7 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 /**
  * This class creates a round button filled with color
@@ -53,6 +54,15 @@ public class CircularButton extends Button {
     }
 
 
+    /**
+     * Childreen Overwrite this Method and center Text in the middle of specific Button
+     *
+     * @param bounds
+     */
+    @Override
+    void center(Rect bounds,Paint paint) {
+
+    }
 
     @Override
     public boolean isHere(float x, float y) {

@@ -3,6 +3,7 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 
 /**
@@ -13,6 +14,9 @@ public class RectangleButton extends Button{
     private float right;
     private float top;
     private float bottom;
+
+    private float textX;
+    private float textY;
 
 
     /**
@@ -29,8 +33,23 @@ public class RectangleButton extends Button{
     public RectangleButton(Context context, float left, float right, float top, float bottom, Paint backgroundColor, Paint textColor){
         super(context,backgroundColor,textColor);
         setPosition(left,right,top,bottom);
+
+        textX=left;
     }
 
+    @Override
+    void center(Rect bounds,Paint textPaint) {
+        //the space of the button that is not covered by the texts width
+        int margins=getButtonWidth()-bounds.width();
+        int textHeight=bounds.height();
+        //adds decender and acender idk wtf
+        //textHeight -= textPaint.ascent();
+        //textHeight += textPaint.descent();
+        //height space not covered by text
+        int topMargins=getButtonHeight()-textHeight;
+        textX=left+(margins/2);
+        textY=top+(topMargins/2)+textHeight;
+    }
 
     /**
      * Constructor for Button with standard values
@@ -52,7 +71,8 @@ public class RectangleButton extends Button{
         //fits the Text from left to right into the button if there is a text
         if(text!=null) {
             textColor.setTextSize(size);
-            canvas.drawText(text, left, top + textColor.getTextSize(), textColor);
+            //textY= top + textColor.getTextSize();
+            canvas.drawText(text, textX, textY, textColor);
             System.out.println(""+textColor.getTextSize());
         }
     }

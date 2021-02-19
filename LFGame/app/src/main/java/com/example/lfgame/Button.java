@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowInsetsAnimation;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -61,7 +62,7 @@ public abstract class Button extends View{
 
     public void setText(String text){
         this.text=text;
-        setTextSizeForWidth(getButtonWidth(),text, getButtonHeight());
+        this.textColor=setTextSizeForWidth(getButtonWidth(),text, getButtonHeight());
         Log.d("Button.java","textSize: "+textColor.getTextSize()+" buttonWidth: "+getButtonWidth());
     }
 
@@ -71,26 +72,35 @@ public abstract class Button extends View{
      * Height adjustments can be tricky, because in contrast to width, there
      * is a space between the top of the rectangle and the text set in Paint.
      * That space increases proportional to to Font size, which is annoying.
-     * @param paint (Paint): an object of Paint
      * @param str (String): Text to check for size.
      * @param maxWidth (float): Maximum allowed width.
      * @param maxHeight (float): Maximum allowed height.
-     * @return (int): The desired text size.
      * @author Frederik Spieß
      * @since 17/02
      */
-    protected int setTextSizeForWidth(float maxWidth, String str, float maxHeight)
+    private Paint setTextSizeForWidth(float maxWidth, String str, float maxHeight)
     {
+        Paint textSize = new Paint();
         int size = 0;
         Rect bounds = new Rect();
         do {
-            textColor.setTextSize(++ size);
-            textColor.getTextBounds(str, 0, str.length(), bounds);
+            //niiice preincrement usage @drlambogamer
+            textSize.setTextSize(++ size);
+            textSize.getTextBounds(str, 0, str.length(), bounds);
         } while(bounds.width() < maxWidth*0.9f && bounds.height() < (maxHeight/1.7f));
+            //center the text in the middle of the specific button or child class
+            center(bounds,textSize);
+
+
         System.out.println(size);
         this.size = size;
-        return size;
+       return textSize;
     } //End getMaxTextSize()
+
+    /**
+     * Childreen Overwrite this Method and center Text in the middle of specific Button
+     */
+    abstract void center(Rect bounds,Paint textPaint);
 
     /**
      * Get Text that is displayed by Button
