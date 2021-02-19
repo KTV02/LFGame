@@ -89,12 +89,9 @@ public abstract class Button extends View{
             textSize.getTextBounds(str, 0, str.length(), bounds);
         } while(bounds.width() < maxWidth*0.9f && bounds.height() < (maxHeight/1.7f));
             //center the text in the middle of the specific button or child class
-            center(bounds,textSize);
-
-
-        System.out.println(size);
+        center(bounds,textSize);
         this.size = size;
-       return textSize;
+        return textSize;
     } //End getMaxTextSize()
 
     /**
