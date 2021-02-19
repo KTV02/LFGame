@@ -58,9 +58,12 @@ public class StructurePopup extends PopUp {
      * @param canvas
      */
     private void drawContainers(Canvas canvas) {
-            for (Container c : containers) {
-                c.draw(canvas);
-            }
+//            for (Container c : containers) {
+//                c.draw(canvas);
+//            }
+        for(int i = 0; i<containers.size(); i++){
+            containers.get(i).draw(canvas);
+        }
 
     }
 
@@ -95,7 +98,7 @@ public class StructurePopup extends PopUp {
      */
     private void createLayout() {
 
-        containers.clear(); //clear the previos 5 container out of the list that gets displayed
+        containers.clear(); //clear the previous 5 container out of the list that gets displayed
         int structureWidth= (backgroundSize[2]-backgroundSize[0])/rowSpaces;
         int left=backgroundSize[0];
         int right=left+structureWidth;
