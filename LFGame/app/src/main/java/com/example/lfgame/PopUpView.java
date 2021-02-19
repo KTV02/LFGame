@@ -40,10 +40,11 @@ public class PopUpView extends Views {
         int[] size=values.getPopUpViewSize();
         //draw standard Popup background as rectangle
          canvas.drawRect(size[0], size[1],size[2],size[3],values.getPopupPaint());
-        //draw the exit button
-        exit.draw(canvas);
+
         //draw Specific Popup
         popup.draw(canvas);
+        //draw the exit button
+        exit.draw(canvas);
 
     }
 

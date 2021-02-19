@@ -30,6 +30,7 @@ public class Values {
     private Bitmap exitIcon;
     private Bitmap goldIcon;
     private Bitmap previewBackground;
+    private Bitmap nextArrowBackground;
     private int playerLevel;
     private Context context;
 
@@ -52,6 +53,7 @@ public class Values {
         exitIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.closeicon);
         goldIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.coinselfdrawn);
         previewBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.smallpopupbackground);
+        nextArrowBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.nextarrow);
     }
 
     /**
@@ -261,7 +263,7 @@ public class Values {
      * @return all structures
      */
     public Structure[] getStructures() {
-        Structure[] structures ={new GoldMine(context), new GoldMine(context), new GoldMine(context)};
+        Structure[] structures ={new GoldMine(context), new GoldMine(context), new GoldMine(context),new GoldMine(context), new GoldMine(context), new GoldMine(context)};
         return structures;
     }
 
@@ -299,6 +301,10 @@ public class Values {
 
     public Paint getCostBarPaint() {
         return costBarPaint;
+    }
+
+    public Bitmap getNextArrowBackground() {
+        return nextArrowBackground;
     }
 }
 
