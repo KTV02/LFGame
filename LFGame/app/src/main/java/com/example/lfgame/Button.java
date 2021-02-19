@@ -25,6 +25,9 @@ public abstract class Button extends View{
     protected Paint textColor;
     protected int size;
 
+    float textX;
+    float textY;
+
     /**
      * Use This Constructor if creating a Button with specific Background Color and text Color
      */

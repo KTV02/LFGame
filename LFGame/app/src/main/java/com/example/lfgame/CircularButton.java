@@ -49,19 +49,27 @@ public class CircularButton extends Button {
         super.draw(canvas);
         canvas.drawCircle(xCenter,yCenter,radius,backgroundColor);
         //Text fitting for Circular buttons is not yet working!
-        //canvas.drawText(text,xCenter-radius,(yCenter-radius)+textColor.getTextSize(),getPaint(text,getWidth(), getWidth()));
+        textColor.setTextSize(size);
+        canvas.drawText(text,textX,textY,textColor);
 
     }
 
 
     /**
      * Childreen Overwrite this Method and center Text in the middle of specific Button
+     * GETS CALLED WHEN SETTING TEXT SIZE ON TEXT COLOR PAINT OBJECT
      *
      * @param bounds
      */
     @Override
     void center(Rect bounds,Paint paint) {
-
+        //the space of the button that is not covered by the texts width
+        int margins=getButtonWidth()-bounds.width();
+        int textHeight=bounds.height();
+        //height space not covered by text
+        int topMargins=getButtonHeight()-textHeight;
+        textX=(xCenter-radius)+(margins/2);
+        textY=(yCenter-radius)+(topMargins/2)+textHeight;
     }
 
     @Override

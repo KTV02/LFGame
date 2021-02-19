@@ -15,8 +15,7 @@ public class RectangleButton extends Button{
     private float top;
     private float bottom;
 
-    private float textX;
-    private float textY;
+
 
 
     /**

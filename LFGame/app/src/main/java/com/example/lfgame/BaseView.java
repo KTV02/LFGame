@@ -43,6 +43,8 @@ public class BaseView extends Views {
 
 
         drawContainer(canvas);
+
+
     }
 
     @Override
