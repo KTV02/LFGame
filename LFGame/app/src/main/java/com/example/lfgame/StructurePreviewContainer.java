@@ -78,6 +78,14 @@ public class StructurePreviewContainer extends Container {
 
     }
 
+    /**
+     * Returns the structure which this Container Previews
+     * @return structure to buy
+     */
+    public Structure getStructure(){
+        return structure;
+    }
+
 
 
     @Override

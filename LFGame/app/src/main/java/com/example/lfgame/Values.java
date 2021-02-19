@@ -272,7 +272,7 @@ public class Values {
      * @return all structures
      */
     public Structure[] getStructures() {
-        Structure[] structures ={new GoldMine(context), new GoldMine(context), new GoldMine(context),new GoldMine(context), new GoldMine(context), new GoldMine(context)};
+        Structure[] structures ={new GoldMine(context), new GoldMine(context), new GoldMine(context),new GoldMine(context), new GoldMine(context), new GoldMine(context),new GoldMine(context), new GoldMine(context), new GoldMine(context),new GoldMine(context), new GoldMine(context), new GoldMine(context)};
         return structures;
     }
 
@@ -322,6 +322,18 @@ public class Values {
      */
     public int getNavigationMargin() {
         return (int) (getPopupExitButtonDimensions()[1]-getPopupExitButtonDimensions()[0]);
+    }
+
+    public int[] getBuyButtonDimensions() {
+        int popupWidth=getPopUpViewSize()[2]-getPopUpViewSize()[0];
+        int popupHeight=getPopUpViewSize()[3]-getPopUpViewSize()[1];
+        int left= getPopUpViewSize()[0]+popupWidth/3;
+        int right=left+popupWidth/3;
+        int top=popupHeight/2;
+        int bottom=top+popupHeight/3;
+        int[] dimensions= {left,right,top,bottom};
+        return dimensions;
+
     }
 }
 

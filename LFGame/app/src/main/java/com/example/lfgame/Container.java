@@ -44,6 +44,9 @@ public class Container extends RectangleButton {
 
 
     }
+    public void setStructure(Structure structure){
+        background=structure.getIcon();
+    }
 
 
     /**
@@ -52,7 +55,7 @@ public class Container extends RectangleButton {
      * @param game game to spawn Popup on
      */
     public void click(Game game){
-        StructurePopup popup= new StructurePopup(context);
+        StructurePopup popup= new StructurePopup(context,this,game);
         game.spawnPopup(popup);
 
     }

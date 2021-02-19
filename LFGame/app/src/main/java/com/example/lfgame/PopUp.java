@@ -10,12 +10,16 @@ import android.graphics.Paint;
  */
 public abstract class PopUp implements Clickable {
     protected Values values;
+    Context context;
+    int[] backgroundSize;
     public PopUp(Context context){
+        this.context=context;
         // get Values object from MainActivity.java class
         MainActivity m =(MainActivity) context;
         this.values= m.getValues();
+        backgroundSize=values.getPopUpViewSize();
+
     }
-    public void draw(Canvas canvas) {
-    }
+    public abstract void draw(Canvas canvas);
 
 }

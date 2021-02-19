@@ -11,7 +11,6 @@ public class SettingsPopup extends PopUp{
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
     }
 
     @Override

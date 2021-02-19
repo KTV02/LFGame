@@ -9,19 +9,23 @@ public class StructurePopup extends PopUp {
     private LinkedList<Structure> buyableStructures;
     private LinkedList<StructurePreviewContainer> containers;
     private Context context;
-    private int[] backgroundSize;
     private int firstStructure;
-
+    private RectangleButton pages;
+    private Container target;
     private Container nextArrow;
+    private Game game;
 
     private final int rowSpaces=5; //how many structures fit into one row
 
-    public StructurePopup(Context context) {
+    public StructurePopup(Context context,Container target,Game game) {
         super(context);
+        this.game=game;
+        //save the container from which the popup was spawned to set bought structure on this container
+        this.target=target;
         firstStructure=0; //first structure is on index 0
         buyableStructures= new LinkedList<>();
         containers= new LinkedList<>();
-        backgroundSize=values.getPopUpViewSize();
+
         this.context=context;
         fillStructures();
         createStructures();
@@ -43,12 +47,14 @@ public class StructurePopup extends PopUp {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
        // canvas.drawText("Hier kommt BuyMenu für Structures hin",700,500,values.getTextPaint());
         drawContainers(canvas);
         if(nextArrow!=null){
             nextArrow.draw(canvas);
         }
+        //draws the Pages Text at the bottom of the navigation margin
+        pages.draw(canvas);
+        //canvas.drawText(pages,textX,textY,values.getTextPaint());
 
 
     }
@@ -80,21 +86,49 @@ public class StructurePopup extends PopUp {
             int bottom=top+backgroundSize[3]/10; //arrow is 1/10 of the popup window height
             nextArrow= new Container(context,left,right,top,bottom,values.getNextArrowBackground());
         }
+        //set invisible button that contains Pages text
+        int buttonLeft=backgroundSize[2]-values.getNavigationMargin();
+        int buttonTop=backgroundSize[3]-((backgroundSize[3]-backgroundSize[1])/10);
+        pages= new RectangleButton(context,buttonLeft,backgroundSize[2],buttonTop,backgroundSize[3],values.getInvisiblePaint(),values.getClosePaint());
+        //sets correct text to button
+        setPageNumber();
+
     }
 
+    //uff
+
+    /**
+     * Calculates how many pages there are and which is currently displayed
+     */
+    private void setPageNumber() {
+        float pageNumber=(float) buyableStructures.size()/rowSpaces;
+        int totalPages=1;
+        if(pageNumber%1==0){
+            totalPages=(int) pageNumber;
+        }else{
+            totalPages=(int) pageNumber+1;
+        }
+        int currentPage=(firstStructure/rowSpaces)+1;
+        pages.setText(currentPage+"/"+totalPages);
+    }
+
+    /**
+     * Gets called when the next Page arrow is pressed
+     * calls createLayout to draw next Structure Previews to the screen (up to five)
+     */
     public void nextPage(){
         firstStructure+=rowSpaces;
         if(firstStructure>=buyableStructures.size()){
             firstStructure=0;
         }
         createLayout();
-
+        setPageNumber();
     }
 
 
 
     /**
-     * If up to 5 Structures have to be displayed fit them into one row
+     * Draw up to five Structure Previews on the Structure Popup
      */
     private void createLayout() {
 
@@ -128,6 +162,19 @@ public class StructurePopup extends PopUp {
         if(nextArrow.isHere(x,y)){
             nextPage();
             return true;
+        }else if(previewTouched(x,y)){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean previewTouched(float x, float y) {
+        for(StructurePreviewContainer c:containers){
+            if(c.isHere(x,y)){
+                //spawns buy Prompt
+                game.spawnPopup(new BuyPromptPopup(context,c.getStructure(),target));
+                return true;
+            }
         }
         return false;
     }

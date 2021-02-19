@@ -25,8 +25,6 @@ public class ClosePopUp extends PopUp {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
-
         exit.draw(canvas);
 
     }
