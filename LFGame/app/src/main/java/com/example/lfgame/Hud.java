@@ -32,6 +32,7 @@ public class Hud extends Views{
         color = new Paint();
         this.context = context;
         setGold(context, topSectionsFiller(), values);
+        placeGear(context);
     }
 
     /**
@@ -85,6 +86,7 @@ public class Hud extends Views{
         topBar(canvas);
         topSections(canvas, topSectionsFiller());
         drawGold(canvas);
+        gearIcon.draw(canvas);
     }
 
     /**
@@ -112,8 +114,16 @@ public class Hud extends Views{
         goldIcon = new Container(context, (int) (base[0]-base[4]),(int) (base[2]-base[4]*0.65f),0,(int) base[3], values.getGoldIcon(context));
     }
 
-    private void placeGear(){
-        //gearIcon = new Container(context,);
+    /**
+     * Calculates, where the gearIcon for Settings should be placed on the Hud
+     * @param context
+     */
+    private void placeGear(Context context){
+        int left = (values.getScreenWidth())/80;
+        int top = (int) (getHeight()*0.08f);
+        int bottom = (int) (getHeight()*0.92f);
+        //gearIcon = new Container(context, 20, 200, 100, 280, values.getGearIcon(context));
+        gearIcon = new Container(context, left, left+(bottom-top), top, bottom, values.getGearIcon(context));
     }
 
     /**
@@ -138,6 +148,11 @@ public class Hud extends Views{
     public boolean checkAllElements(MotionEvent event, Game game) {
         if(underAmount.isHere(event.getX(), event.getY())) {
             CollectablePopup popup= new CollectablePopup(context);
+            game.spawnPopup(popup);
+            return true;
+        }
+        if(gearIcon.isHere(event.getX(),event.getY())) {
+            SettingsPopup popup = new SettingsPopup(context);
             game.spawnPopup(popup);
             return true;
         }
