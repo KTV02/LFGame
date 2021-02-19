@@ -14,6 +14,7 @@ public abstract class Structure {
     // not static because may change depending on player level
     protected int maxInstances;
     //how many instances of this specific strucuture there are is independent of a Strucutre Object -> Static
+    //I don't get that LG FS
     protected static int instances;
     // for big layout
     Bitmap icon;
