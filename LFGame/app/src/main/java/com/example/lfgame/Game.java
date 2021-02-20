@@ -80,6 +80,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     /**
+     * returns the current View
+     * @return views object
+     */
+    public Views getView(){
+        return view;
+    }
+
+    /**
      * Draw Coordinates of latest Touch to the screen
      * @param canvas
      */

@@ -7,10 +7,12 @@ public class BuyPromptPopup extends PopUp {
     private RectangleButton buy;
     private Structure structure;
     private Container target;
-    public BuyPromptPopup(Context context, Structure structure,Container target) {
+    private Game game;
+    public BuyPromptPopup(Context context, Structure structure,Container target,Game game) {
         super(context);
         this.target=target;
         this.structure=structure;
+        this.game=game;
         setButtons();
     }
 
@@ -23,11 +25,20 @@ public class BuyPromptPopup extends PopUp {
     @Override
     public boolean touched(float x, float y) {
         if(buy.isHere(x,y)){
-            Gold.buy(structure.getCost());
-            target.setStructure(structure);
+            buyStructure();
             return true;
         }
         return false;
+    }
+
+    private void buyStructure() {
+        Gold.buy(structure.getCost());
+        target.setStructure(structure);
+        Views popupView=game.getView();
+        while(popupView instanceof PopUpView) { 
+            ((PopUpView) popupView).closePopup(game);
+            popupView=game.getView();
+        }
     }
 
     @Override

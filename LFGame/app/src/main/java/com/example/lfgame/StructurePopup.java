@@ -169,7 +169,7 @@ public class StructurePopup extends PopUp {
         for(StructurePreviewContainer c:containers){
             if(c.isHere(x,y)){
                 //spawns buy Prompt
-                game.spawnPopup(new BuyPromptPopup(context,c.getStructure(),target));
+                game.spawnPopup(new BuyPromptPopup(context,c.getStructure(),target,game));
                 return true;
             }
         }
