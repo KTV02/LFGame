@@ -30,6 +30,7 @@ public class Values {
     private Bitmap exitIcon;
     private Bitmap goldIcon;
     private Bitmap gearIcon;
+    private Bitmap SettingsBox;
     private Bitmap previewBackground;
     private Bitmap nextArrowBackground;
     private int playerLevel;
@@ -54,6 +55,7 @@ public class Values {
         exitIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.closeicon);
         goldIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable.coinselfdrawn);
         gearIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable.gear);
+        SettingsBox= BitmapFactory.decodeResource(context.getResources(),R.drawable.gear);
         previewBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.smallpopupbackground);
         nextArrowBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.nextarrow);
     }
@@ -244,6 +246,8 @@ public class Values {
      * @return Gear Icon as Bitmap
      */
     public Bitmap getGearIcon(Context context) { return gearIcon; }
+
+    public Bitmap getSettingsBox(Context context) { return SettingsBox; }
 
     /**
      * Get Paint object with invisible paint

@@ -64,9 +64,6 @@ public class StructurePopup extends PopUp {
      * @param canvas
      */
     private void drawContainers(Canvas canvas) {
-//            for (Container c : containers) {
-//                c.draw(canvas);
-//            }
         for(int i = 0; i<containers.size(); i++){
             containers.get(i).draw(canvas);
         }
