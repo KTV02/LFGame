@@ -55,7 +55,7 @@ public class Values {
         exitIcon=BitmapFactory.decodeResource(context.getResources(),R.drawable.closeicon);
         goldIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable.coinselfdrawn);
         gearIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable.gear);
-        SettingsBox= BitmapFactory.decodeResource(context.getResources(),R.drawable.gear);
+        SettingsBox= BitmapFactory.decodeResource(context.getResources(),R.drawable.settingsbox2);
         previewBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.smallpopupbackground);
         nextArrowBackground=BitmapFactory.decodeResource(context.getResources(),R.drawable.nextarrow);
     }

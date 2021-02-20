@@ -25,6 +25,7 @@ public class SettingsPopup extends PopUp{
         settingsBoxes = new LinkedList<>();
         values = m.getValues();
         boxesOnScreen = 5;
+        positionBoxes();
     }
     public void positionBoxes(){
         //left,top,right,bottom
@@ -33,13 +34,15 @@ public class SettingsPopup extends PopUp{
         float top = 2*containerHeight;
         for(int i = 0; i<boxesOnScreen; i++){
             settingsBoxes.add(new Container(context, popUpSize[0],popUpSize[2],(int) top,(int) (top+containerHeight), values.getSettingsBox(context)));
+            top = top+containerHeight;
         }
     }
     @Override
+    //maybe own method later, like StructurePopup
     public void draw(Canvas canvas) {
-//        for(int i = 0; i<containers.size(); i++){
-//            containers.get(i).draw(canvas);
-//        }
+        for(int i = 0; i<settingsBoxes.size(); i++){
+            settingsBoxes.get(i).draw(canvas);
+        }
     }
 
     @Override
