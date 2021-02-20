@@ -27,17 +27,26 @@ public class SettingsPopup extends PopUp{
         boxesOnScreen = 5;
         positionBoxes();
     }
+
+    /**
+     * Fills the LinkedList with the containers
+     * If there are any suggestions for the Box desing, please tell me,
+     * because the grey and yellow looks a bit odd
+     */
     public void positionBoxes(){
         //left,top,right,bottom
         int[] popUpSize = values.getPopUpViewSize();
-        float containerHeight = (popUpSize[3]-popUpSize[1])/6;
-        float top = 2*containerHeight;
+        float top = popUpSize[1]+values.getNavigationMargin();
+        float containerHeight = (popUpSize[3]-top)/5;
         for(int i = 0; i<boxesOnScreen; i++){
             settingsBoxes.add(new Container(context, popUpSize[0],popUpSize[2],(int) top,(int) (top+containerHeight), values.getSettingsBox(context)));
             top = top+containerHeight;
         }
     }
     @Override
+    /**
+     * Draws the containers onto the conavas
+     */
     //maybe own method later, like StructurePopup
     public void draw(Canvas canvas) {
         for(int i = 0; i<settingsBoxes.size(); i++){
