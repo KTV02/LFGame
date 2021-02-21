@@ -96,6 +96,5 @@ public class StructurePreviewContainer extends Container {
         name.draw(canvas);
         info.draw(canvas);
         cost.draw(canvas);
-        //
     }
 }
