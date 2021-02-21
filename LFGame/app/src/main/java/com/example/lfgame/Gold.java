@@ -6,7 +6,7 @@ package com.example.lfgame;
 import android.graphics.Bitmap;
 
 public class Gold {
-    private static int amount = 1000;
+    private static int amount = 200;
 
 
     public static void buy(int cost){

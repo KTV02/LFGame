@@ -35,7 +35,7 @@ public class BuyPromptPopup extends PopUp {
         Gold.buy(structure.getCost());
         target.setStructure(structure);
         Views popupView=game.getView();
-        while(popupView instanceof PopUpView) { 
+        while(popupView instanceof PopUpView) {
             ((PopUpView) popupView).closePopup(game);
             popupView=game.getView();
         }

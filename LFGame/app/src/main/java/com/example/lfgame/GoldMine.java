@@ -9,6 +9,7 @@ public class GoldMine extends ResourceProduction {
         icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.goldmine);
         setName("Gold Mine");
         setInfoText(productionRate+" Gold/h");
+        cost=100;
         //smallBackground=;
         //fitBackground=;
 
@@ -42,6 +43,7 @@ public class GoldMine extends ResourceProduction {
     public boolean isBuyable(int playerLevel) {
         return true;
     }
+
 
     /**
      * The specific attribute which counts as InfoText is set in here

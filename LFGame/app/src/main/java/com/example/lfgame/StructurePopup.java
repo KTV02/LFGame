@@ -137,7 +137,8 @@ public class StructurePopup extends PopUp {
         int bottom=backgroundSize[3];
 
         for(int i=firstStructure;i<(firstStructure+rowSpaces)&&i<buyableStructures.size();i++){
-            containers.add(new StructurePreviewContainer(context,left,right,top,bottom,values.getPreviewBackground(),buyableStructures.get(i)));
+            Structure currentStructure=buyableStructures.get(i);
+            containers.add(new StructurePreviewContainer(context,left,right,top,bottom,values.getPreviewBackground(),currentStructure,currentStructure.isAffordable()));
             left+=structureWidth;
             right+=structureWidth;
         }
@@ -168,8 +169,20 @@ public class StructurePopup extends PopUp {
     private boolean previewTouched(float x, float y) {
         for(StructurePreviewContainer c:containers){
             if(c.isHere(x,y)){
-                //spawns buy Prompt
-                game.spawnPopup(new BuyPromptPopup(context,c.getStructure(),target,game));
+                if(c.getStructure().isAffordable()) {
+                    //spawns buy Prompt
+                    game.spawnPopup(new BuyPromptPopup(context, c.getStructure(), target, game));
+                }else{
+                    //spawn Popup that informs about missing money
+                    int[] parentDimensions=values.getPopUpViewSize();
+                    //Popup will be half height and 1/3 of the Structure Popups width
+                    int parentXCenter=(parentDimensions[2]-parentDimensions[0])/2;
+                    int parentYCenter=(parentDimensions[3]-parentDimensions[1])/2;
+                    int halfInfoWidth=(parentDimensions[2]-parentDimensions[0])/6;
+                    int halfInfoHeight=(parentDimensions[3]-parentDimensions[1])/4;
+                    int[] informationDimensions={parentXCenter-halfInfoWidth,parentXCenter+halfInfoWidth,parentYCenter-halfInfoHeight,parentYCenter+halfInfoHeight};
+                    game.spawnPopup(new InformationPopup(context,informationDimensions,"This Item is too expensive!"));
+                }
                 return true;
             }
         }

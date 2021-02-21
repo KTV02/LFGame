@@ -14,6 +14,7 @@ public class PopUpView extends Views {
     Views backgroundview;
     Container exit;
     Values values;
+    int[] size;
 
     public PopUpView(Views backgroundview, PopUp popup, Context context){
         //get Values object from MainActivity.java class
@@ -25,9 +26,11 @@ public class PopUpView extends Views {
         this.context=context;
         addExitButton(context);
 
-
+        size=popup.getSize();
         background = BitmapFactory.decodeResource(context.getResources(),R.drawable.popupbackground);
     }
+
+
     private void addExitButton(Context context){
         float[] dimensions=values.getPopupExitButtonDimensions();
         exit= new Container(context,(int)dimensions[0],(int)dimensions[1],(int)dimensions[2],(int)dimensions[3],values.getExitIcon(context));
@@ -37,7 +40,6 @@ public class PopUpView extends Views {
     public void draw(Canvas canvas) {
         //draw the last View in the Background
         backgroundview.draw(canvas);
-        int[] size=values.getPopUpViewSize();
         //draw standard Popup background as rectangle
          canvas.drawRect(size[0], size[1],size[2],size[3],values.getPopupPaint());
 

@@ -3,6 +3,7 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 
 /**
@@ -15,12 +16,15 @@ public class StructurePreviewContainer extends Container {
     private RectangleButton name;
     private RectangleButton info;
     private RectangleButton cost;
+    private boolean affordable;
     private int structureEnd;
-    public StructurePreviewContainer(Context context, int left, int right, int top, int bottom,Bitmap background,Structure structure) {
+
+    private RectangleButton filter;
+    public StructurePreviewContainer(Context context, int left, int right, int top, int bottom,Bitmap background,Structure structure,boolean affordable) {
         super(context, left, right, top, bottom, background);
         this.structure=structure;
         setPosition(left,top,right,bottom);
-
+        this.affordable= affordable;
         //size of the Background image
         this.background=background;
         scaledContainer=new Rect(left,top,right,bottom);
@@ -28,6 +32,18 @@ public class StructurePreviewContainer extends Container {
         placeStructure();
         placeInformationBars();
         placeText();
+        if(!affordable){
+            greyFilter();
+        }
+    }
+
+    /**
+     * Adds a rectangle that acts as a greyFilter to indicate Structure is not affordable
+     */
+    private void greyFilter() {
+        Paint transparent= new Paint(R.color.magenta);
+        transparent.setAlpha(200);
+        filter= new RectangleButton(context,left,right,top,bottom,transparent,values.getTextPaint());
     }
 
     /**
@@ -96,6 +112,9 @@ public class StructurePreviewContainer extends Container {
         name.draw(canvas);
         info.draw(canvas);
         cost.draw(canvas);
+        if(!affordable){
+            filter.draw(canvas);
+        }
         //
     }
 }

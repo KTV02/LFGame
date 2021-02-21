@@ -95,6 +95,7 @@ public class Hud extends Views{
      * @param canvas the canvas to draw on
      */
     private void drawGold(Canvas canvas){
+        underAmount.setText(Integer.toString(Gold.getAmount()));
         underAmount.draw(canvas);
         goldIcon.draw(canvas);
     }

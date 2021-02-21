@@ -72,6 +72,19 @@ public abstract class Structure {
     public abstract boolean isBuyable(int playerLevel);
 
     /**
+     * Returns true if Player has enough money to buy the specific structure that overrides this
+     * @param playerMoney the Amount of money the player has in total
+     * @return boolean if structure is affordable
+     */
+    public boolean isAffordable(){
+       if(Gold.getAmount()>=cost){
+           return true;
+       }else{
+           return false;
+       }
+    }
+
+    /**
      * Returns the Structure icon
      * @return Bitmap bigBackground
      */
