@@ -17,6 +17,8 @@ import java.util.LinkedList;
 public class SettingsPopup extends PopUp{
     private LinkedList<Container> settingsBoxes;
     private int boxesOnScreen;
+    private int[] popUpSize;
+    private RectangleButton topText;
     Values values;
 
     public SettingsPopup(Context context) {
@@ -24,25 +26,47 @@ public class SettingsPopup extends PopUp{
         MainActivity m = (MainActivity) context;
         settingsBoxes = new LinkedList<>();
         values = m.getValues();
+        //left,top,right,bottom
+        popUpSize = values.getPopUpViewSize();
         boxesOnScreen = 5;
         positionBoxes();
+        topText();
     }
+
+    /**
+     * Fills the LinkedList with the containers
+     * If there are any suggestions for the Box desing, please tell me,
+     * because the grey and yellow looks a bit odd
+     */
     public void positionBoxes(){
-        //left,top,right,bottom
-        int[] popUpSize = values.getPopUpViewSize();
-        float containerHeight = (popUpSize[3]-popUpSize[1])/6;
-        float top = 2*containerHeight;
+        float top = popUpSize[1]+values.getNavigationMargin();
+        float containerHeight = (popUpSize[3]-top)/5;
         for(int i = 0; i<boxesOnScreen; i++){
             settingsBoxes.add(new Container(context, popUpSize[0],popUpSize[2],(int) top,(int) (top+containerHeight), values.getSettingsBox(context)));
             top = top+containerHeight;
         }
     }
+
+    /**
+     * Draws Button with Text on it, Text not yet drawn, colors not final
+     * Textsize is 1.0, need to find out why
+     */
+    public void topText(){
+        //was eine Zeile ey
+        topText = new RectangleButton(context,popUpSize[0]+popUpSize[2]*0.05f, popUpSize[0]+popUpSize[2]*0.5f,popUpSize[1]+values.getNavigationMargin()*0.9f, popUpSize[1]+values.getNavigationMargin()*0.1f, values.getHudButtonPaint(), values.getClosePaint());
+        topText.setText("Settings");
+        //topText.size = 90;
+    }
     @Override
+    /**
+     * Draws the containers onto the conavas
+     */
     //maybe own method later, like StructurePopup
     public void draw(Canvas canvas) {
         for(int i = 0; i<settingsBoxes.size(); i++){
             settingsBoxes.get(i).draw(canvas);
         }
+        topText.draw(canvas);
     }
 
     @Override

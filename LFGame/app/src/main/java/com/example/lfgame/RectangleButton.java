@@ -72,7 +72,7 @@ public class RectangleButton extends Button{
             textColor.setTextSize(size);
             //textY= top + textColor.getTextSize();
             canvas.drawText(text, textX, textY, textColor);
-            System.out.println(""+textColor.getTextSize());
+            //System.out.println(""+textColor.getTextSize());
         }
     }
 

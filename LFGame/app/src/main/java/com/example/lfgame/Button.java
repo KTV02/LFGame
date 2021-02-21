@@ -87,13 +87,13 @@ public abstract class Button extends View{
         int size = 0;
         Rect bounds = new Rect();
         do {
-            //niiice preincrement usage @drlambogamer
             textSize.setTextSize(++ size);
             textSize.getTextBounds(str, 0, str.length(), bounds);
         } while(bounds.width() < maxWidth*0.9f && bounds.height() < (maxHeight/1.7f));
             //center the text in the middle of the specific button or child class
         center(bounds,textSize);
         this.size = size;
+        System.out.println(size);
         return textSize;
     } //End getMaxTextSize()
 
