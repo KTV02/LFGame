@@ -41,9 +41,7 @@ public class RectangleButton extends Button{
         //the space of the button that is not covered by the texts width
         int margins=getButtonWidth()-bounds.width();
         int textHeight=bounds.height();
-        //adds decender and acender idk wtf
-        //textHeight -= textPaint.ascent();
-        //textHeight += textPaint.descent();
+
         //height space not covered by text
         int topMargins=getButtonHeight()-textHeight;
         textX=left+(margins/2);

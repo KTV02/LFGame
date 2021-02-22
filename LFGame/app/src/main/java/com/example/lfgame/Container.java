@@ -29,7 +29,7 @@ public class Container extends RectangleButton {
         super(context,left,right,top,bottom);
         setBackgroundColor(values.getInvisiblePaint());
         this.context = context;
-        setPosition(left,top,right,bottom);
+        setPosition(left,right,top,bottom);
 
         //sets container into which the container image will be loaded
         this.background = background;
@@ -67,7 +67,7 @@ public class Container extends RectangleButton {
      * @param right right side of container (x)
      * @param bottom bottom side of container (y)
      */
-    public void setPosition(int left, int top, int right, int bottom){
+    public void setPosition(int left, int right, int top, int bottom){
         this.left=left;
         this.top=top;
         this.right=right;

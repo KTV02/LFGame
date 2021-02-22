@@ -23,7 +23,7 @@ public class StructurePreviewContainer extends Container {
     public StructurePreviewContainer(Context context, int left, int right, int top, int bottom,Bitmap background,Structure structure,boolean affordable) {
         super(context, left, right, top, bottom, background);
         this.structure=structure;
-        setPosition(left,top,right,bottom);
+        setPosition(left,right,top,bottom);
         this.affordable= affordable;
         //size of the Background image
         this.background=background;

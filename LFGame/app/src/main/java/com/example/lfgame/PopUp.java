@@ -32,8 +32,16 @@ public abstract class PopUp implements Clickable {
      * @param dimensions left[0], right[1], top[2], bottom[3]
      */
     public PopUp(Context context,int[] dimensions){
+        //yes this is not really efficient fuck off
+        this(context);
         backgroundSize=dimensions;
+
     }
+
+    /**
+     * Returns size of the whole popup
+     * @return left[0], right[1], top[2], bottom[3]
+     */
     public int[] getSize(){
         return backgroundSize;
     }

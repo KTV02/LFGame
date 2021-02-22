@@ -169,11 +169,12 @@ public class Values {
     public float[] getPopupExitButtonDimensions() {
         //scale to square
         int[] popupSize=getPopUpViewSize();
-        int width=popupSize[2]-popupSize[0];
+        int width=popupSize[1]-popupSize[0];
 
         int exitWidth=width/10; // Exit nimmt 1/10 der Breite des PopUp rectangles ein
-        int left=popupSize[2]-exitWidth;
-        int right=popupSize[2];
+        int right=popupSize[1];
+        int left=right-exitWidth;
+
         int top=guiSpace;
         int bottom=guiSpace+exitWidth; // Icon is circular -> width=height
         float[] dimensions={left,right,top,bottom};
@@ -259,7 +260,7 @@ public class Values {
 
     /**
      * Returns the size of the grey PopUpView rectangle
-     * @return left[0], top[1],right[2], bottom[3] in Pixels
+     * @return left[0],right[1],top[2], bottom[3] in Pixels
      */
     public int[] getPopUpViewSize() {
         int horizontalMargin=screenWidth/10; //in total 2* 10% (sides of the PopupView) of the screen are not covered in the Popup rectangle
@@ -267,7 +268,7 @@ public class Values {
         int top=guiSpace;
         int right=screenWidth-horizontalMargin; //10% margin on the right side ^^
         int bottom=screenHeight;
-        int[] size={left,top,right,bottom};
+        int[] size={left,right,top,bottom};
         return size;
     }
 
@@ -329,8 +330,8 @@ public class Values {
     }
 
     public int[] getBuyButtonDimensions() {
-        int popupWidth=getPopUpViewSize()[2]-getPopUpViewSize()[0];
-        int popupHeight=getPopUpViewSize()[3]-getPopUpViewSize()[1];
+        int popupWidth=getPopUpViewSize()[1]-getPopUpViewSize()[0];
+        int popupHeight=getPopUpViewSize()[3]-getPopUpViewSize()[2];
         int left= getPopUpViewSize()[0]+popupWidth/3;
         int right=left+popupWidth/3;
         int top=popupHeight/2;

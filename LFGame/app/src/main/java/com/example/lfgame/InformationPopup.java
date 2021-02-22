@@ -3,7 +3,7 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.widget.TextView;
-//NOT FINISHED YET
+
 public class InformationPopup extends PopUp {
     RectangleButton info;
 
@@ -11,11 +11,11 @@ public class InformationPopup extends PopUp {
      * Use this if creating a Popup with custom Size
      *
      * @param context    context
-     * @param dimensions custom size
+     * @param dimensions custom size left[0], right[1], top[2], bottom[3]
      */
     public InformationPopup(Context context, int[] dimensions,String infotext) {
         super(context,dimensions);
-        this.context=context;
+        //sets custom popup size
         setInfoBox(infotext,dimensions);
     }
 
@@ -23,6 +23,7 @@ public class InformationPopup extends PopUp {
 
     public InformationPopup(Context context,String infotext){
         super(context);
+        //sets standard popup size
         setInfoBox(infotext,backgroundSize);
     }
 

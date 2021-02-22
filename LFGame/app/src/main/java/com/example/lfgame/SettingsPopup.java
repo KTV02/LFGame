@@ -26,7 +26,7 @@ public class SettingsPopup extends PopUp{
         MainActivity m = (MainActivity) context;
         settingsBoxes = new LinkedList<>();
         values = m.getValues();
-        //left,top,right,bottom
+        //left,top,right,bottom -> LEFT;RIGHT;TOP;BOTTOM
         popUpSize = values.getPopUpViewSize();
         boxesOnScreen = 5;
         positionBoxes();
@@ -39,10 +39,10 @@ public class SettingsPopup extends PopUp{
      * because the grey and yellow looks a bit odd
      */
     public void positionBoxes(){
-        float top = popUpSize[1]+values.getNavigationMargin();
+        float top = popUpSize[2]+values.getNavigationMargin();
         float containerHeight = (popUpSize[3]-top)/5;
         for(int i = 0; i<boxesOnScreen; i++){
-            settingsBoxes.add(new Container(context, popUpSize[0],popUpSize[2],(int) top,(int) (top+containerHeight), values.getSettingsBox(context)));
+            settingsBoxes.add(new Container(context, popUpSize[0],popUpSize[1],(int) top,(int) (top+containerHeight), values.getSettingsBox(context)));
             top = top+containerHeight;
         }
     }
@@ -53,7 +53,7 @@ public class SettingsPopup extends PopUp{
      */
     public void topText(){
         //was eine Zeile ey
-        topText = new RectangleButton(context,popUpSize[0]+popUpSize[2]*0.05f, popUpSize[0]+popUpSize[2]*0.5f,popUpSize[1]+values.getNavigationMargin()*0.9f, popUpSize[1]+values.getNavigationMargin()*0.1f, values.getHudButtonPaint(), values.getClosePaint());
+        topText = new RectangleButton(context,popUpSize[0]+popUpSize[1]*0.05f, popUpSize[0]+popUpSize[1]*0.5f,popUpSize[2]+values.getNavigationMargin()*0.9f, popUpSize[2]+values.getNavigationMargin()*0.1f, values.getHudButtonPaint(), values.getClosePaint());
         topText.setText("Settings");
         //topText.size = 90;
     }

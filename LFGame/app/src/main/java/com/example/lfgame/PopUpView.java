@@ -16,6 +16,12 @@ public class PopUpView extends Views {
     Values values;
     int[] size;
 
+    /**
+     * Create a Popup view
+     * @param backgroundview the view drawn in the background
+     * @param popup the popup to be displayed
+     * @param context the context
+     */
     public PopUpView(Views backgroundview, PopUp popup, Context context){
         //get Values object from MainActivity.java class
         MainActivity m=(MainActivity) context;
@@ -41,7 +47,8 @@ public class PopUpView extends Views {
         //draw the last View in the Background
         backgroundview.draw(canvas);
         //draw standard Popup background as rectangle
-         canvas.drawRect(size[0], size[1],size[2],size[3],values.getPopupPaint());
+
+        canvas.drawRect(size[0], size[2],size[1],size[3],values.getPopupPaint());
 
         //draw Specific Popup
         popup.draw(canvas);

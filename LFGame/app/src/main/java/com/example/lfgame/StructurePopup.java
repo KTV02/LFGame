@@ -78,14 +78,14 @@ public class StructurePopup extends PopUp {
         if(buyableStructures.size()>5){
          //create next Arrow
             int left=(int) values.getPopupExitButtonDimensions()[0]; //arrow width starts at the same point like exit button
-            int right=backgroundSize[2];
+            int right=backgroundSize[1];
             int top=backgroundSize[3]/2; //start at about half the screen height
             int bottom=top+backgroundSize[3]/10; //arrow is 1/10 of the popup window height
             nextArrow= new Container(context,left,right,top,bottom,values.getNextArrowBackground());
         }
         //set invisible button that contains Pages text
-        int buttonLeft=backgroundSize[2]-values.getNavigationMargin();
-        int buttonTop=backgroundSize[3]-((backgroundSize[3]-backgroundSize[1])/10);
+        int buttonLeft=backgroundSize[1]-values.getNavigationMargin();
+        int buttonTop=backgroundSize[3]-((backgroundSize[3]-backgroundSize[2])/10);
         pages= new RectangleButton(context,buttonLeft,backgroundSize[2],buttonTop,backgroundSize[3],values.getInvisiblePaint(),values.getClosePaint());
         //sets correct text to button
         setPageNumber();
@@ -130,10 +130,11 @@ public class StructurePopup extends PopUp {
     private void createLayout() {
 
         containers.clear(); //clear the previous 5 container out of the list that gets displayed
-        int structureWidth=(int) ((backgroundSize[2]-backgroundSize[0])-values.getNavigationMargin())/rowSpaces;
+        //the width of the image of the structure to be displayed (top section of Structure Preview Container)
+        int structureWidth=(int) ((backgroundSize[1]-backgroundSize[0])-values.getNavigationMargin())/rowSpaces;
         int left=backgroundSize[0];
         int right=left+structureWidth;
-        int top=backgroundSize[1];
+        int top=backgroundSize[2];
         int bottom=backgroundSize[3];
 
         for(int i=firstStructure;i<(firstStructure+rowSpaces)&&i<buyableStructures.size();i++){
@@ -176,10 +177,10 @@ public class StructurePopup extends PopUp {
                     //spawn Popup that informs about missing money
                     int[] parentDimensions=values.getPopUpViewSize();
                     //Popup will be half height and 1/3 of the Structure Popups width
-                    int parentXCenter=(parentDimensions[2]-parentDimensions[0])/2;
-                    int parentYCenter=(parentDimensions[3]-parentDimensions[1])/2;
-                    int halfInfoWidth=(parentDimensions[2]-parentDimensions[0])/6;
-                    int halfInfoHeight=(parentDimensions[3]-parentDimensions[1])/4;
+                    int parentXCenter=(parentDimensions[1]-parentDimensions[0])/2;
+                    int parentYCenter=(parentDimensions[3]-parentDimensions[2])/2;
+                    int halfInfoWidth=(parentDimensions[1]-parentDimensions[0])/6;
+                    int halfInfoHeight=(parentDimensions[3]-parentDimensions[2])/4;
                     int[] informationDimensions={parentXCenter-halfInfoWidth,parentXCenter+halfInfoWidth,parentYCenter-halfInfoHeight,parentYCenter+halfInfoHeight};
                     game.spawnPopup(new InformationPopup(context,informationDimensions,"This Item is too expensive!"));
                 }
