@@ -16,6 +16,7 @@ import java.util.LinkedList;
 
 public class SettingsPopup extends PopUp{
     private LinkedList<Container> settingsBoxes;
+    private LinkedList<RectangleButton> textButtons;
     private int boxesOnScreen;
     private int[] popUpSize;
     private RectangleButton topText;
@@ -25,6 +26,7 @@ public class SettingsPopup extends PopUp{
         super(context);
         MainActivity m = (MainActivity) context;
         settingsBoxes = new LinkedList<>();
+        textButtons = new LinkedList<>();
         values = m.getValues();
         //left,top,right,bottom -> LEFT;RIGHT;TOP;BOTTOM
         popUpSize = values.getPopUpViewSize();
@@ -34,37 +36,46 @@ public class SettingsPopup extends PopUp{
     }
 
     /**
-     * Fills the LinkedList with the containers
-     * If there are any suggestions for the Box desing, please tell me,
-     * because the grey and yellow looks a bit odd
+     * Fills the LinkedList with the containers, texts for and containers and on/off Buttons
      */
     public void positionBoxes(){
         float top = popUpSize[2]+values.getNavigationMargin();
+        float width = popUpSize[1]-popUpSize[0];
         float containerHeight = (popUpSize[3]-top)/5;
         for(int i = 0; i<boxesOnScreen; i++){
             settingsBoxes.add(new Container(context, popUpSize[0],popUpSize[1],(int) top,(int) (top+containerHeight), values.getSettingsBox(context)));
+            //left, right, top, bottom
+            textButtons.add(new RectangleButton(context, popUpSize[0], popUpSize[1]*0.6f,top+containerHeight*0.15f,top+containerHeight*0.85f, values.getInvisiblePaint(), values.getClosePaint()));
             top = top+containerHeight;
         }
+        texts();
     }
 
     /**
-     * Draws Button with Text on it, Text not yet drawn, colors not final
-     * Textsize is 1.0, need to find out why
+     * Sets the texts for the different Settings
+     */
+    public void texts(){
+        textButtons.get(0).setText("Sound");
+        textButtons.get(1).setText("FPS");
+    }
+
+    /**
+     * Draws Button with Text on it, for the "Headline"
      */
     public void topText(){
-        //was eine Zeile ey
-        topText = new RectangleButton(context,popUpSize[0]+popUpSize[1]*0.05f, popUpSize[0]+popUpSize[1]*0.5f,popUpSize[2]+values.getNavigationMargin()*0.9f, popUpSize[2]+values.getNavigationMargin()*0.1f, values.getHudButtonPaint(), values.getClosePaint());
+        //was eine Zeile ey! Ja isses echt du larry @drlambogamer LG KTV
+        topText = new RectangleButton(context,popUpSize[0]+popUpSize[1]*0.05f, popUpSize[0]+popUpSize[1]*0.5f,popUpSize[2]+values.getNavigationMargin()*0.1f, popUpSize[2]+values.getNavigationMargin()*0.9f, values.getHudButtonPaint(), values.getClosePaint());
         topText.setText("Settings");
-        //topText.size = 90;
     }
     @Override
     /**
-     * Draws the containers onto the conavas
+     * Draws the containers onto the conavas and texts and on/off Buttons
      */
     //maybe own method later, like StructurePopup
     public void draw(Canvas canvas) {
         for(int i = 0; i<settingsBoxes.size(); i++){
             settingsBoxes.get(i).draw(canvas);
+            textButtons.get(i).draw(canvas);
         }
         topText.draw(canvas);
     }
