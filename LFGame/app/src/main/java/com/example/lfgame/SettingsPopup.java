@@ -52,8 +52,8 @@ public class SettingsPopup extends PopUp{
      * Textsize is 1.0, need to find out why
      */
     public void topText(){
-        //was eine Zeile ey
-        topText = new RectangleButton(context,popUpSize[0]+popUpSize[2]*0.05f, popUpSize[0]+popUpSize[2]*0.5f,popUpSize[1]+values.getNavigationMargin()*0.9f, popUpSize[1]+values.getNavigationMargin()*0.1f, values.getHudButtonPaint(), values.getClosePaint());
+        //was eine Zeile ey, left, right, top, bottom
+        topText = new RectangleButton(context,popUpSize[0]+popUpSize[2]*0.05f, popUpSize[0]+popUpSize[2]*0.5f,popUpSize[1]+values.getNavigationMargin()*0.1f, popUpSize[1]+values.getNavigationMargin()*0.9f, values.getHudButtonPaint(), values.getClosePaint());
         topText.setText("Settings");
         //topText.size = 90;
     }
