@@ -62,11 +62,10 @@ public abstract class Button extends View{
      *
      * @param text The text to be displayed
      */
-
     public void setText(String text){
         this.text=text;
         this.textColor=setTextSizeForWidth(getButtonWidth(),text, getButtonHeight());
-        Log.d("Button.java","textSize: "+textColor.getTextSize()+" buttonWidth: "+getButtonWidth());
+        //Log.d("Button.java","textSize: "+textColor.getTextSize()+" buttonWidth: "+getButtonWidth());
     }
 
     /**
@@ -93,7 +92,6 @@ public abstract class Button extends View{
             //center the text in the middle of the specific button or child class
         center(bounds,textSize);
         this.size = size;
-        System.out.println(size);
         return textSize;
     } //End getMaxTextSize()
 

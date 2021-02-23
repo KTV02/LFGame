@@ -25,6 +25,7 @@ public class Values {
     private Paint nameBarPaint;
     private Paint infoBarPaint;
     private Paint costBarPaint;
+    private Paint green;
     private int guiSpace;
     private Bitmap containerBackground;
     private Bitmap exitIcon;
@@ -70,6 +71,7 @@ public class Values {
 
     /**
      * Defines Paint objects
+     * componentPaint and infoBarPaint are basically the same, maybe delete one
      */
     private void createPaint(){
         popupPaint = new Paint();
@@ -81,6 +83,9 @@ public class Values {
 
         componentPaint = new Paint();
         componentPaint.setColor(Color.rgb(0,255,255));
+
+        green = new Paint();
+        green.setColor(Color.rgb(0,255,0));
 
         textPaint= new Paint();
         textPaint.setColor(Color.rgb(0,0,0));
@@ -188,6 +193,8 @@ public class Values {
     public Paint getComponentPaint() {
         return componentPaint;
     }
+
+    public Paint getGreen() { return green; }
 
     /**
      * Returns Paint Object for Text

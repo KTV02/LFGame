@@ -153,7 +153,7 @@ public class Hud extends Views{
             return true;
         }
         if(gearIcon.isHere(event.getX(),event.getY())) {
-            SettingsPopup popup = new SettingsPopup(context);
+            SettingsPopup popup = new SettingsPopup(context, game);
             game.spawnPopup(popup);
             return true;
         }

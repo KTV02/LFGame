@@ -2,8 +2,6 @@ package com.example.lfgame;
 /**
  * This Class is the Popup which pops up, when you press the Settings Icon
  * It also contains the Settings themselfes
- * If this bitch needs to have multiple pages (more than 5 Settings)
- * we need to make a parent class for this and StructurePopup
  * @since 20.02
  * @author The G himself
  */
@@ -11,6 +9,7 @@ package com.example.lfgame;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 
 import java.util.LinkedList;
 
@@ -18,11 +17,12 @@ public class SettingsPopup extends PopUp{
     private LinkedList<Container> settingsBoxes;
     private LinkedList<RectangleButton> textButtons;
     private int boxesOnScreen;
+    private int actuallyFilled;
     private int[] popUpSize;
     private RectangleButton topText;
     Values values;
 
-    public SettingsPopup(Context context) {
+    public SettingsPopup(Context context, Game game) {
         super(context);
         MainActivity m = (MainActivity) context;
         settingsBoxes = new LinkedList<>();
@@ -31,6 +31,7 @@ public class SettingsPopup extends PopUp{
         //left,top,right,bottom -> LEFT;RIGHT;TOP;BOTTOM
         popUpSize = values.getPopUpViewSize();
         boxesOnScreen = 5;
+        actuallyFilled = 2;
         positionBoxes();
         topText();
     }
@@ -40,15 +41,28 @@ public class SettingsPopup extends PopUp{
      */
     public void positionBoxes(){
         float top = popUpSize[2]+values.getNavigationMargin();
-        float width = popUpSize[1]-popUpSize[0];
+        //float width = popUpSize[1]-popUpSize[0];
         float containerHeight = (popUpSize[3]-top)/5;
         for(int i = 0; i<boxesOnScreen; i++){
             settingsBoxes.add(new Container(context, popUpSize[0],popUpSize[1],(int) top,(int) (top+containerHeight), values.getSettingsBox(context)));
-            //left, right, top, bottom
+            //Text color doesn't work?
             textButtons.add(new RectangleButton(context, popUpSize[0], popUpSize[1]*0.6f,top+containerHeight*0.15f,top+containerHeight*0.85f, values.getInvisiblePaint(), values.getClosePaint()));
+            if(i<actuallyFilled) {
+                textButtons.add(new RectangleButton(context, popUpSize[1] * 0.7f, popUpSize[1] * 0.9f, top + containerHeight * 0.25f, top + containerHeight * 0.75f, values.getClosePaint(), values.getTextPaint()));
+            }
             top = top+containerHeight;
         }
         texts();
+    }
+    public void buttonChange(RectangleButton rb){
+        if(rb.getText().equals("Off")){
+            rb.setText("On");
+            rb.setBackgroundColor(values.getGreen());
+        }
+        else{
+            rb.setText("Off");
+            rb.setBackgroundColor(values.getClosePaint());
+        }
     }
 
     /**
@@ -56,7 +70,13 @@ public class SettingsPopup extends PopUp{
      */
     public void texts(){
         textButtons.get(0).setText("Sound");
-        textButtons.get(1).setText("FPS");
+        textButtons.get(2).setText("FPS");
+        for(int i = 0; i<textButtons.size(); i++){
+            if(i%2 == 1 && i<2*actuallyFilled){
+                textButtons.get(i).setText("Off");
+            }
+        }
+        //textButtons.get(4).setText("Lösch dich digga");
     }
 
     /**
@@ -75,6 +95,8 @@ public class SettingsPopup extends PopUp{
     public void draw(Canvas canvas) {
         for(int i = 0; i<settingsBoxes.size(); i++){
             settingsBoxes.get(i).draw(canvas);
+        }
+        for(int i = 0; i<textButtons.size(); i++){
             textButtons.get(i).draw(canvas);
         }
         topText.draw(canvas);
@@ -82,6 +104,16 @@ public class SettingsPopup extends PopUp{
 
     @Override
     public boolean touched(float x, float y) {
-        return false;
+        for(int i = 0; i<textButtons.size(); i++){
+            if(i%2 == 1 && i<2*actuallyFilled){
+                if(textButtons.get(i).isHere(x,y)) {
+                    buttonChange(textButtons.get(i));
+                    if(textButtons.get(i-1).getText().equals("FPS")){
+
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
