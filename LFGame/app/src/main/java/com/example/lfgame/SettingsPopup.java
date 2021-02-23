@@ -78,7 +78,6 @@ public class SettingsPopup extends PopUp{
                 textButtons.get(i).setText("Off");
             }
         }
-        //textButtons.get(4).setText("Lösch dich digga");
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.example.lfgame;
 
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     private Game game;
     private Values values;
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String GOLD_AMOUNT = "goldAmount";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +35,22 @@ public class MainActivity extends AppCompatActivity {
         values= new Values(this);
         game= new Game(this);
         setContentView(game);
-
+        loadData();
+    }
+    public void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(GOLD_AMOUNT, Gold.getAmount());
+        //editor.putInt(GOLD_AMOUNT, 123);
+        //System.out.println(Gold.getAmount() + "save");
+        editor.apply();
+        editor.clear().apply();
+    }
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        //System.out.println(sharedPreferences.getInt(GOLD_AMOUNT, 100) + "load");
+        Gold.setAmount(sharedPreferences.getInt(GOLD_AMOUNT, 200));
+        //Gold.setAmount(200);
     }
 
     /**
@@ -63,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        saveData();
     }
 
     @Override
@@ -74,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        saveData();
         super.onDestroy();
     }
 

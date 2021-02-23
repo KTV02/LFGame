@@ -6,7 +6,9 @@ package com.example.lfgame;
 import android.graphics.Bitmap;
 
 public class Gold {
-    private static int amount = 200;
+    //amount is at the moment set in MainActivity, because of experiments with saving the Game state
+    //33 is just for testing, to see when something went wrong
+    private static int amount = 33;
 
 
     public static void buy(int cost){
@@ -14,6 +16,9 @@ public class Gold {
     }
     public static int getAmount() {
         return amount;
+    }
+    public static void setAmount(int i){
+        amount = i;
     }
 }
 
