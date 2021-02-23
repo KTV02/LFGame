@@ -21,6 +21,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
     private Hud hud;
     private String latestX="";
     private Values values;
+    private boolean fpsOn;
 
 
 
@@ -72,8 +73,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         view.draw(canvas);
         hud.draw(canvas);
-        drawUPS(canvas);
-        drawFPS(canvas);
+        if(fpsOn) {
+            drawUPS(canvas);
+            drawFPS(canvas);
+        }
         //TEMPORARY, draws Coordinates of latest touch to the screen
         showCoordinates(canvas);
 
@@ -118,6 +121,13 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         Paint paint = values.getTextPaint();
         paint.setTextSize(50);
         canvas.drawText("FPS: "+averageFPS,100,200,paint);
+    }
+
+    /**
+     * switches drawing of the FPS/UPS on/off
+     */
+    public void switchFps(){
+        fpsOn = !fpsOn;
     }
 
     /**

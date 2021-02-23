@@ -20,6 +20,7 @@ public class SettingsPopup extends PopUp{
     private int actuallyFilled;
     private int[] popUpSize;
     private RectangleButton topText;
+    private Game game;
     Values values;
 
     public SettingsPopup(Context context, Game game) {
@@ -32,6 +33,7 @@ public class SettingsPopup extends PopUp{
         popUpSize = values.getPopUpViewSize();
         boxesOnScreen = 5;
         actuallyFilled = 2;
+        this.game = game;
         positionBoxes();
         topText();
     }
@@ -109,7 +111,7 @@ public class SettingsPopup extends PopUp{
                 if(textButtons.get(i).isHere(x,y)) {
                     buttonChange(textButtons.get(i));
                     if(textButtons.get(i-1).getText().equals("FPS")){
-
+                        game.switchFps();
                     }
                 }
             }
