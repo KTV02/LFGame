@@ -39,7 +39,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
         gameLoop= new GameLoop(this,surfaceHolder);
-
         setFocusable(true);
     }
 
@@ -79,7 +78,16 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         }
         //TEMPORARY, draws Coordinates of latest touch to the screen
         showCoordinates(canvas);
+    }
 
+    public void saveData(){
+        view.saveData();
+        //hud.saveData();
+    }
+
+    public void loadData(){
+        view.loadData();
+        //hud.loadData();
     }
 
     /**

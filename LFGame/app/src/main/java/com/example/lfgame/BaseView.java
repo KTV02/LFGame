@@ -53,6 +53,16 @@ public class BaseView extends Views {
 
     }
 
+    @Override
+    public void saveData() {
+
+    }
+
+    @Override
+    public void loadData() {
+
+    }
+
     /**
      * Delegates Drawing to each container
      *

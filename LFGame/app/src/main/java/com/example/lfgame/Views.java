@@ -39,6 +39,8 @@ public abstract class Views extends Activity {
      * @return
      */
     public abstract boolean checkAllElements(MotionEvent event,Game game);
+    public abstract void saveData();
+    public abstract void loadData();
     public abstract void update();
 
 

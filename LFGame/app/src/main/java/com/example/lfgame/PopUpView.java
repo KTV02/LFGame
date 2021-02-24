@@ -31,7 +31,6 @@ public class PopUpView extends Views {
         this.popup=popup;
         this.context=context;
         addExitButton(context);
-
         size=popup.getSize();
         background = BitmapFactory.decodeResource(context.getResources(),R.drawable.popupbackground);
     }
@@ -67,9 +66,26 @@ public class PopUpView extends Views {
         }
         return false;
     }
+
+    /**
+     * Methods in here for compiling,
+     * maybe we need them later
+     */
+    @Override
+    public void saveData() {
+
+    }
+
+    @Override
+    public void loadData() {
+
+    }
+
     public void closePopup(Game game){
         game.setView(backgroundview);
     }
+
+
 
     @Override
     public void update() {

@@ -45,11 +45,13 @@ public class MainActivity extends AppCompatActivity {
         //System.out.println(Gold.getAmount() + "save");
         editor.apply();
         editor.clear().apply();
+        game.saveData();
     }
     public void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         //System.out.println(sharedPreferences.getInt(GOLD_AMOUNT, 100) + "load");
         Gold.setAmount(sharedPreferences.getInt(GOLD_AMOUNT, 200));
+        game.loadData();
         //Gold.setAmount(200);
     }
 

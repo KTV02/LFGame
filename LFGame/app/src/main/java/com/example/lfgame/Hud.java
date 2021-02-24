@@ -160,4 +160,14 @@ public class Hud extends Views{
         else
             return false;
     }
+
+    @Override
+    public void saveData() {
+
+    }
+
+    @Override
+    public void loadData() {
+
+    }
 }
