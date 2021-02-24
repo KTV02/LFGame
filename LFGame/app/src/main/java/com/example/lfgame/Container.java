@@ -23,6 +23,7 @@ public class Container extends RectangleButton {
     private Rect scaledContainer;
     Bitmap background;
     private boolean confirmed;
+    private Structure structure;
 
 
 
@@ -45,7 +46,12 @@ public class Container extends RectangleButton {
 
     }
     public void setStructure(Structure structure){
+        this.structure = structure;
         background=structure.getIcon();
+    }
+
+    public Structure getStructure(){
+        return structure;
     }
 
     /**

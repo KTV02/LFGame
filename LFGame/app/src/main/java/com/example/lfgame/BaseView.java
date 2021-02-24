@@ -22,20 +22,21 @@ import java.util.LinkedList;
  */
 public class BaseView extends Views {
     private LinkedList<Container> containers;
+    //contains all Structures you can ever Build in the game
+    private LinkedList<String> allExistingStructures;
+    private String saveString;
     private Values values;
     private Rect scaledContainer;
 
     public BaseView(Context context) {
 
         values = ((MainActivity) context).getValues();
+        allExistingStructures = values.getAllStructures();
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         containers = new LinkedList<>();
         //1 creates 1 container etc...
         createContainer(context);
-
         scaledContainer = new Rect(0, 0, values.getScreenWidth(), values.getScreenHeight());
-
-
     }
 
     public void draw(Canvas canvas) {
@@ -60,7 +61,25 @@ public class BaseView extends Views {
 
     @Override
     public void loadData() {
+        for(int i = 0; i<containers.size(); i++){
+            saveString = saveString + "00";
+        }
+        //leeren SaveString auf den richtigen String setzten
+        for(char c: saveString.toCharArray()){
+            if(c == '1'){
+                //Container an der stelle der 1 / 2 o.ä. .setStructure
+                //Structure nach Buchstabe setzten
+                //alternativ LinkedList mit Gson/Json
+            }
+        }
+    }
 
+    public void alterSaveString(int i, Structure s){
+            //s.getClass().getSimpleName().equals(allExistingStructures.get(0)
+            char[] chars = saveString.toCharArray();
+            chars[2*i-2] = 1;
+            chars[2*i-1] = (char) (allExistingStructures.indexOf(s.getClass().getSimpleName())+41);
+            saveString = String.valueOf(chars);
     }
 
     /**
@@ -87,17 +106,13 @@ public class BaseView extends Views {
                 c.click(game);
                 if(c.confirmed()){
                     c.setConfirmed(false);
-                    alterSaveString(containers.indexOf(c));
+                    alterSaveString(containers.indexOf(c), c.getStructure());
                 }
                 return true;
             }
 
         }
         return false;
-    }
-
-    public void alterSaveString(int i){
-
     }
 
     public void update() {

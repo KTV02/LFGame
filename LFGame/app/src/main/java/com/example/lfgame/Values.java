@@ -9,6 +9,8 @@ import android.graphics.Paint;
 
 import androidx.core.content.ContextCompat;
 
+import java.util.LinkedList;
+
 /**
  * This class handles Data thats needed Globally
  */
@@ -288,6 +290,11 @@ public class Values {
         return structures;
     }
 
+    public LinkedList<String> getAllStructures(){
+        LinkedList<String> list = new LinkedList<>();
+        list.add("Goldmine");
+        return list;
+    }
     /**
      * Returns the Player Level
      * @return player level
