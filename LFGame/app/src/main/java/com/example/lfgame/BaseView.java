@@ -85,11 +85,19 @@ public class BaseView extends Views {
         for (Container c : containers) {
             if (c.isHere(event.getX(), event.getY())) {
                 c.click(game);
+                if(c.confirmed()){
+                    c.setConfirmed(false);
+                    alterSaveString(containers.indexOf(c));
+                }
                 return true;
             }
 
         }
         return false;
+    }
+
+    public void alterSaveString(int i){
+
     }
 
     public void update() {

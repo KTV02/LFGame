@@ -22,6 +22,7 @@ public class Container extends RectangleButton {
     Context context;
     private Rect scaledContainer;
     Bitmap background;
+    private boolean confirmed;
 
 
 
@@ -30,7 +31,6 @@ public class Container extends RectangleButton {
         setBackgroundColor(values.getInvisiblePaint());
         this.context = context;
         setPosition(left,right,top,bottom);
-
         //sets container into which the container image will be loaded
         this.background = background;
         scaledContainer = new Rect(left, top, right, bottom);
@@ -48,7 +48,6 @@ public class Container extends RectangleButton {
         background=structure.getIcon();
     }
 
-
     /**
      * Gets called when Container is clicked on
      * Spawns a Popup for Buying a Structure
@@ -58,6 +57,12 @@ public class Container extends RectangleButton {
         StructurePopup popup= new StructurePopup(context,this,game);
         game.spawnPopup(popup);
 
+    }
+    public void setConfirmed(boolean b){
+        confirmed = b;
+    }
+    public boolean confirmed(){
+        return confirmed;
     }
 
     /**
