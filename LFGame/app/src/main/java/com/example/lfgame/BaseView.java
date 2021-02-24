@@ -68,6 +68,11 @@ public class BaseView extends Views {
 
     @Override
     public void saveData() {
+//        for(Container c: containers) {
+//            if(c.confirmed()){
+//                addStructure(containers.indexOf(c), c.getStructure());
+//            }
+//        }
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -98,17 +103,16 @@ public class BaseView extends Views {
 //        }
     }
     public void fillSaveString(){
+        //hardcoded 21 only for testing purposes!!!
         for(int i = 0; i<21; i++){
             saveString = saveString + "0";
         }
     }
 
     public void addStructure(int i, Structure s){
-            //s.getClass().getSimpleName().equals(allExistingStructures.get(0)#
             structures.add(s);
             char[] chars = saveString.toCharArray();
             chars[i] = 1;
-            //chars[2*i-1] = (char) (allExistingStructures.indexOf(s.getClass().getSimpleName())+41);
             saveString = String.valueOf(chars);
     }
 
@@ -134,10 +138,6 @@ public class BaseView extends Views {
         for (Container c : containers) {
             if (c.isHere(event.getX(), event.getY())) {
                 c.click(game);
-                if(c.confirmed()){
-                    c.setConfirmed(false);
-                    addStructure(containers.indexOf(c), c.getStructure());
-                }
                 return true;
             }
 
