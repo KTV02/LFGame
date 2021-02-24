@@ -1,5 +1,6 @@
 package com.example.lfgame;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +14,11 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -24,16 +29,23 @@ public class BaseView extends Views {
     private LinkedList<Container> containers;
     //contains all Structures you can ever Build in the game
     private LinkedList<String> allExistingStructures;
-    private String saveString;
+    private ArrayList<Structure> structures;
+    private String saveString = "";
     private Values values;
+    private Context context;
     private Rect scaledContainer;
+    public static final String SHARED_PREF = "sharedPrefs";
+    public static final String ALL_STRUCTURES = "allStructures";
+    public static final String SAVE_STRING = "saveString";
 
     public BaseView(Context context) {
-
+        this.context = context;
         values = ((MainActivity) context).getValues();
         allExistingStructures = values.getAllStructures();
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         containers = new LinkedList<>();
+        structures = new ArrayList<>();
+        fillSaveString();
         //1 creates 1 container etc...
         createContainer(context);
         scaledContainer = new Rect(0, 0, values.getScreenWidth(), values.getScreenHeight());
@@ -56,29 +68,47 @@ public class BaseView extends Views {
 
     @Override
     public void saveData() {
-
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(structures);
+        editor.putString(ALL_STRUCTURES, json);
+        editor.putString(SAVE_STRING, saveString);
+        editor.apply();
     }
 
     @Override
     public void loadData() {
-        for(int i = 0; i<containers.size(); i++){
-            saveString = saveString + "00";
-        }
-        //leeren SaveString auf den richtigen String setzten
-        for(char c: saveString.toCharArray()){
-            if(c == '1'){
-                //Container an der stelle der 1 / 2 o.ä. .setStructure
-                //Structure nach Buchstabe setzten
-                //alternativ LinkedList mit Gson/Json
-            }
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(ALL_STRUCTURES, null);
+        saveString = sharedPreferences.getString(SAVE_STRING, saveString);
+        Type type = new TypeToken<ArrayList<Structure>>() {}.getType();
+        structures = gson.fromJson(json, type);
+//        if(structures == null){
+//            structures = new ArrayList<>();
+//        }
+//        //leeren SaveString auf den richtigen String setzten
+//        for(char c: saveString.toCharArray()){
+//            if(c == '1') {
+//                //Container an der stelle der 1 / 2 o.ä. .setStructure
+//                //Structure nach Buchstabe setzten
+//                //alternativ LinkedList mit Gson/Json
+//            }
+//        }
+    }
+    public void fillSaveString(){
+        for(int i = 0; i<21; i++){
+            saveString = saveString + "0";
         }
     }
 
-    public void alterSaveString(int i, Structure s){
-            //s.getClass().getSimpleName().equals(allExistingStructures.get(0)
+    public void addStructure(int i, Structure s){
+            //s.getClass().getSimpleName().equals(allExistingStructures.get(0)#
+            structures.add(s);
             char[] chars = saveString.toCharArray();
-            chars[2*i-2] = 1;
-            chars[2*i-1] = (char) (allExistingStructures.indexOf(s.getClass().getSimpleName())+41);
+            chars[i] = 1;
+            //chars[2*i-1] = (char) (allExistingStructures.indexOf(s.getClass().getSimpleName())+41);
             saveString = String.valueOf(chars);
     }
 
@@ -106,7 +136,7 @@ public class BaseView extends Views {
                 c.click(game);
                 if(c.confirmed()){
                     c.setConfirmed(false);
-                    alterSaveString(containers.indexOf(c), c.getStructure());
+                    addStructure(containers.indexOf(c), c.getStructure());
                 }
                 return true;
             }
@@ -136,7 +166,8 @@ public class BaseView extends Views {
         int containerRowNumber = values.getContainerProperties()[0];
         int screenWidth = values.getScreenWidth();
         int screenHeight = values.getScreenHeight();
-
+        //Counts the structures
+        int structureCounter = 0;
         // get Margin Space (space between containers)
         int marginSpace = calculateMarginSpace(screenWidth, containerRowNumber);
         //space that is occupied by the top icons like gold etc. and in the future by bottom gui
@@ -157,11 +188,21 @@ public class BaseView extends Views {
         int bottom = top + containerWidth;
         //set container Bitmap to correct image to be displayed in baseView
         Bitmap containerBackground = values.getContainerBackground(context);
+        int counter = 0;
         //actually creates containers
         for (int i = 0; i < containerColumnNumber; i++) {
             for (int j = 0; j < containerRowNumber; j++) {
-                containers.add(new Container(context, left, right, top, bottom, containerBackground));
+                if(saveString.toCharArray()[counter] == '0') {
+                    containers.add(new Container(context, left, right, top, bottom, containerBackground));
+                }
+                else{
+                    Container c = new Container(context, left, right, top, bottom, containerBackground);
+                    c.setStructure(structures.get(structureCounter));
+                    containers.add(c);
+                    structureCounter++;
+                }
                 //move coordinates to the right by one container and one margin
+                counter++;
                 left += containerWidth + marginSpace;
                 right += marginSpace + containerWidth;
             }
