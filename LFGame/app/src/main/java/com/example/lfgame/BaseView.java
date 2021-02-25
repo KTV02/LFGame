@@ -46,16 +46,12 @@ public class BaseView extends Views {
         containers = new LinkedList<>();
         fillSaveString();
         scaledContainer = new Rect(0, 0, values.getScreenWidth(), values.getScreenHeight());
-        createContainer(context);
+        //createContainer(context);
     }
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(background, null, scaledContainer, null);
-
-
         drawContainer(canvas);
-
-
     }
 
     @Override
@@ -78,6 +74,7 @@ public class BaseView extends Views {
         editor.putString(ALL_STRUCTURES, json);
         editor.putString(SAVE_STRING, saveString);
         editor.apply();
+        //editor.clear().apply();
     }
 
     @Override
@@ -92,7 +89,7 @@ public class BaseView extends Views {
             struc = new ArrayList<>();
         }
         //trust me...
-        //createContainer(context);
+        createContainer(context);
     }
     public void fillSaveString(){
         //hardcoded 21 only for testing purposes!!!

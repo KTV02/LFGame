@@ -47,7 +47,7 @@ public class Container extends RectangleButton {
     }
     public void setStructure(Structure structure){
         this.structure = structure;
-        background=structure.getIcon();
+        background= BitmapFactory.decodeResource(context.getResources(), R.drawable.goldmine);
     }
 
     public Structure getStructure(){
