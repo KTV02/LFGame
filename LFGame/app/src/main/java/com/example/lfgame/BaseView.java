@@ -32,7 +32,7 @@ public class BaseView extends Views {
     private Values values;
     private Context context;
     private Rect scaledContainer;
-    public ArrayList<Structure> struc;
+    public ArrayList<GoldMine> struc;
     public static final String SHARED_PREF = "sharedPrefs";
     public static final String ALL_STRUCTURES = "allStructures";
     public static final String SAVE_STRING = "saveString";
@@ -41,13 +41,12 @@ public class BaseView extends Views {
         this.context = context;
         values = ((MainActivity) context).getValues();
         //allExistingStructures = values.getAllStructures();
-        //struc = new ArrayList<>();
+        struc = new ArrayList<>();
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         containers = new LinkedList<>();
         fillSaveString();
-        //1 creates 1 container etc...
-        createContainer(context);
         scaledContainer = new Rect(0, 0, values.getScreenWidth(), values.getScreenHeight());
+        createContainer(context);
     }
 
     public void draw(Canvas canvas) {
@@ -87,11 +86,13 @@ public class BaseView extends Views {
         Gson gson = new Gson();
         String json = sharedPreferences.getString(ALL_STRUCTURES, null);
         saveString = sharedPreferences.getString(SAVE_STRING, saveString);
-        Type type = new TypeToken<ArrayList<Structure>>() {}.getType();
-//        struc = gson.fromJson(json, type);
+        Type type = new TypeToken<ArrayList<GoldMine>>() {}.getType();
+        struc = gson.fromJson(json, type);
         if (struc == null){
             struc = new ArrayList<>();
         }
+        //trust me...
+        //createContainer(context);
     }
     public void fillSaveString(){
         //hardcoded 21 only for testing purposes!!!
@@ -101,7 +102,7 @@ public class BaseView extends Views {
     }
 
     public void addStructure(int i, Structure s){
-            struc.add(s);
+            struc.add((GoldMine) s);
             char[] chars = saveString.toCharArray();
             chars[i] = '1';
             saveString = String.valueOf(chars);
