@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -28,12 +27,12 @@ import java.util.LinkedList;
 public class BaseView extends Views {
     private LinkedList<Container> containers;
     //contains all Structures you can ever Build in the game
-    private LinkedList<String> allExistingStructures;
-    private ArrayList<Structure> structures;
+    //private LinkedList<String> allExistingStructures;
     private String saveString = "";
     private Values values;
     private Context context;
     private Rect scaledContainer;
+    public ArrayList<Structure> struc;
     public static final String SHARED_PREF = "sharedPrefs";
     public static final String ALL_STRUCTURES = "allStructures";
     public static final String SAVE_STRING = "saveString";
@@ -41,10 +40,10 @@ public class BaseView extends Views {
     public BaseView(Context context) {
         this.context = context;
         values = ((MainActivity) context).getValues();
-        allExistingStructures = values.getAllStructures();
+        //allExistingStructures = values.getAllStructures();
+        //struc = new ArrayList<>();
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         containers = new LinkedList<>();
-        structures = new ArrayList<>();
         fillSaveString();
         //1 creates 1 container etc...
         createContainer(context);
@@ -76,7 +75,7 @@ public class BaseView extends Views {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(structures);
+        String json = gson.toJson(struc);
         editor.putString(ALL_STRUCTURES, json);
         editor.putString(SAVE_STRING, saveString);
         editor.apply();
@@ -89,18 +88,10 @@ public class BaseView extends Views {
         String json = sharedPreferences.getString(ALL_STRUCTURES, null);
         saveString = sharedPreferences.getString(SAVE_STRING, saveString);
         Type type = new TypeToken<ArrayList<Structure>>() {}.getType();
-        structures = gson.fromJson(json, type);
-//        if(structures == null){
-//            structures = new ArrayList<>();
-//        }
-//        //leeren SaveString auf den richtigen String setzten
-//        for(char c: saveString.toCharArray()){
-//            if(c == '1') {
-//                //Container an der stelle der 1 / 2 o.ä. .setStructure
-//                //Structure nach Buchstabe setzten
-//                //alternativ LinkedList mit Gson/Json
-//            }
-//        }
+//        struc = gson.fromJson(json, type);
+        if (struc == null){
+            struc = new ArrayList<>();
+        }
     }
     public void fillSaveString(){
         //hardcoded 21 only for testing purposes!!!
@@ -110,9 +101,9 @@ public class BaseView extends Views {
     }
 
     public void addStructure(int i, Structure s){
-            structures.add(s);
+            struc.add(s);
             char[] chars = saveString.toCharArray();
-            chars[i] = 1;
+            chars[i] = '1';
             saveString = String.valueOf(chars);
     }
 
@@ -197,7 +188,7 @@ public class BaseView extends Views {
                 }
                 else{
                     Container c = new Container(context, left, right, top, bottom, containerBackground);
-                    c.setStructure(structures.get(structureCounter));
+                    c.setStructure(struc.get(structureCounter));
                     containers.add(c);
                     structureCounter++;
                 }
