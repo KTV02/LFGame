@@ -46,7 +46,7 @@ public class BaseView extends Views {
         containers = new LinkedList<>();
         fillSaveString();
         scaledContainer = new Rect(0, 0, values.getScreenWidth(), values.getScreenHeight());
-        //createContainer(context);
+        createContainer(context, false);
     }
 
     public void draw(Canvas canvas) {
@@ -89,7 +89,7 @@ public class BaseView extends Views {
             struc = new ArrayList<>();
         }
         //trust me...
-        createContainer(context);
+        createContainer(context, true);
     }
     public void fillSaveString(){
         //hardcoded 21 only for testing purposes!!!
@@ -149,7 +149,7 @@ public class BaseView extends Views {
      *
      * @param context context idk
      */
-    private void createContainer(Context context) {
+    private void createContainer(Context context, boolean b) {
         //get container Properties, screen Size and layout information from values
         int containerColumnNumber = values.getContainerProperties()[1];
         int containerRowNumber = values.getContainerProperties()[0];
@@ -179,29 +179,30 @@ public class BaseView extends Views {
         Bitmap containerBackground = values.getContainerBackground(context);
         int counter = 0;
         //actually creates containers
-        for (int i = 0; i < containerColumnNumber; i++) {
-            for (int j = 0; j < containerRowNumber; j++) {
-                if(saveString.toCharArray()[counter] == '0') {
-                    containers.add(new Container(context, left, right, top, bottom, containerBackground));
+        if (b) {
+            for (int i = 0; i < containerColumnNumber; i++) {
+                for (int j = 0; j < containerRowNumber; j++) {
+                    if (saveString.toCharArray()[counter] == '0') {
+                        containers.add(new Container(context, left, right, top, bottom, containerBackground));
+                    } else {
+                        Container c = new Container(context, left, right, top, bottom, containerBackground);
+                        c.setStructure(struc.get(structureCounter));
+                        containers.add(c);
+                        structureCounter++;
+                    }
+                    //move coordinates to the right by one container and one margin
+                    counter++;
+                    left += containerWidth + marginSpace;
+                    right += marginSpace + containerWidth;
                 }
-                else{
-                    Container c = new Container(context, left, right, top, bottom, containerBackground);
-                    c.setStructure(struc.get(structureCounter));
-                    containers.add(c);
-                    structureCounter++;
-                }
-                //move coordinates to the right by one container and one margin
-                counter++;
-                left += containerWidth + marginSpace;
-                right += marginSpace + containerWidth;
-            }
-            //after each row the horizontal coordinates get reset
-            left = marginSpace;
-            right = marginSpace + containerWidth;
-            //start next row of containers
-            top += containerHeight + marginSpace;
-            bottom += marginSpace + containerHeight;
+                //after each row the horizontal coordinates get reset
+                left = marginSpace;
+                right = marginSpace + containerWidth;
+                //start next row of containers
+                top += containerHeight + marginSpace;
+                bottom += marginSpace + containerHeight;
 
+            }
         }
     }
 
