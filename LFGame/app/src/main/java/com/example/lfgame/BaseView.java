@@ -68,11 +68,11 @@ public class BaseView extends Views {
 
     @Override
     public void saveData() {
-//        for(Container c: containers) {
-//            if(c.confirmed()){
-//                addStructure(containers.indexOf(c), c.getStructure());
-//            }
-//        }
+        for(Container c: containers) {
+            if(c.confirmed()){
+                addStructure(containers.indexOf(c), c.getStructure());
+            }
+        }
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
