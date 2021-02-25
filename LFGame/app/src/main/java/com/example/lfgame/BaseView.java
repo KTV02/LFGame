@@ -44,7 +44,6 @@ public class BaseView extends Views {
         struc = new ArrayList<>();
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         containers = new LinkedList<>();
-        fillSaveString();
         scaledContainer = new Rect(0, 0, values.getScreenWidth(), values.getScreenHeight());
         createContainer(context, false);
     }
@@ -91,9 +90,8 @@ public class BaseView extends Views {
         //trust me...
         createContainer(context, true);
     }
-    public void fillSaveString(){
-        //hardcoded 21 only for testing purposes!!!
-        for(int i = 0; i<21; i++){
+    public void fillSaveString(int g){
+        for(int i = 0; i<g; i++){
             saveString = saveString + "0";
         }
     }
@@ -153,6 +151,7 @@ public class BaseView extends Views {
         //get container Properties, screen Size and layout information from values
         int containerColumnNumber = values.getContainerProperties()[1];
         int containerRowNumber = values.getContainerProperties()[0];
+        fillSaveString((containerColumnNumber*containerRowNumber));
         int screenWidth = values.getScreenWidth();
         int screenHeight = values.getScreenHeight();
         //Counts the structures
@@ -186,6 +185,7 @@ public class BaseView extends Views {
                         containers.add(new Container(context, left, right, top, bottom, containerBackground));
                     } else {
                         Container c = new Container(context, left, right, top, bottom, containerBackground);
+                        struc.get(structureCounter).setIcon(context);
                         c.setStructure(struc.get(structureCounter));
                         containers.add(c);
                         structureCounter++;

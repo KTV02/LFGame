@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 
 public class GoldMine extends ResourceProduction {
     public GoldMine(Context context) {
-        icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.goldmine);
+        setIcon(context);
         setName("Gold Mine");
         setInfoText(productionRate+" Gold/h");
         cost=100;
@@ -31,6 +31,10 @@ public class GoldMine extends ResourceProduction {
                 productionRate += 60;
 
         }
+    }
+
+    public void setIcon(Context context){
+        icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.goldmine);
     }
 
     /**
