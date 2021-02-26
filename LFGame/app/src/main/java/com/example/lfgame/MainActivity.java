@@ -37,22 +37,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(game);
         loadData();
     }
+
+    /**
+     * Saves the amount of Gold. Works in MainActivity because static.
+     * Could be moved out.
+     * @author Fred
+     * @since 23/02
+     */
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(GOLD_AMOUNT, Gold.getAmount());
-        //editor.putInt(GOLD_AMOUNT, 123);
-        //System.out.println(Gold.getAmount() + "save");
         editor.apply();
+        //switches saving of goldAmount on/off
         editor.clear().apply();
         game.saveData();
     }
+
+    /**
+     * loads Gold amount
+     */
     public void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        //System.out.println(sharedPreferences.getInt(GOLD_AMOUNT, 100) + "load");
         Gold.setAmount(sharedPreferences.getInt(GOLD_AMOUNT, 200));
         game.loadData();
-        //Gold.setAmount(200);
     }
 
     /**

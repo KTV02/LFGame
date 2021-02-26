@@ -37,7 +37,10 @@ public class Container extends RectangleButton {
         scaledContainer = new Rect(left, top, right, bottom);
     }
 
-
+    /**
+     * Draws Container onto Canvas
+     * @param canvas Canvas
+     */
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawBitmap(background,null,scaledContainer,null);
@@ -45,11 +48,20 @@ public class Container extends RectangleButton {
 
 
     }
+
+    /**
+     * Sets structure in a Container. Now with indirect getIcon() Method,
+     * so it can be used in BaseView
+     * @param structure
+     */
     public void setStructure(Structure structure){
         this.structure = structure;
         background= structure.getIcon();
     }
 
+    /**
+     * @return Structure in Container
+     */
     public Structure getStructure(){
         return structure;
     }
@@ -64,6 +76,12 @@ public class Container extends RectangleButton {
         game.spawnPopup(popup);
 
     }
+
+    /**
+     * Sets Confirmed. if confirmed == true means that there is a
+     * structure on the container
+     * @param b
+     */
     public void setConfirmed(boolean b){
         confirmed = b;
     }
@@ -86,8 +104,12 @@ public class Container extends RectangleButton {
     }
 
 
-
-
+    /**
+     * Checks if Container is at certain Position
+     * @param x float
+     * @param y float
+     * @return boolean, true when touched
+     */
     @Override
     public boolean isHere(float x, float y) {
             if(x>right||x<left){

@@ -56,6 +56,11 @@ public class SettingsPopup extends PopUp{
         }
         texts();
     }
+
+    /**
+     * Changes the Button from on to off and back
+     * @param rb Button
+     */
     public void buttonChange(RectangleButton rb){
         if(rb.getText().equals("Off")){
             rb.setText("On");
@@ -104,6 +109,10 @@ public class SettingsPopup extends PopUp{
     }
 
     @Override
+    /**
+     * check every Button when Popup is touched, which isn't great
+     * at the moment only Fps has a function
+     */
     public boolean touched(float x, float y) {
         for(int i = 0; i<textButtons.size(); i++){
             if(i%2 == 1 && i<2*actuallyFilled){

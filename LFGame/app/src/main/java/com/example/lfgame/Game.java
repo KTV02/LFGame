@@ -72,6 +72,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         view.draw(canvas);
         hud.draw(canvas);
+        //Settings not saved, so that's not nice :D
         if(fpsOn) {
             drawUPS(canvas);
             drawFPS(canvas);
@@ -80,6 +81,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback{
         showCoordinates(canvas);
     }
 
+    /**
+     * Delegation down from MainActivity
+     */
     public void saveData(){
         view.saveData();
         //hud.saveData();

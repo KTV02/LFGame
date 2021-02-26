@@ -10,9 +10,6 @@ public class GoldMine extends ResourceProduction {
         setName("Gold Mine");
         setInfoText(productionRate+" Gold/h");
         cost=100;
-        //smallBackground=;
-        //fitBackground=;
-
     }
 
 
@@ -33,6 +30,11 @@ public class GoldMine extends ResourceProduction {
         }
     }
 
+    /**
+     * Sets icon in Structure
+     * Was straigt in Contructor before
+     * @param context
+     */
     public void setIcon(Context context){
         icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.goldmine);
     }

@@ -31,8 +31,12 @@ public class BuyPromptPopup extends PopUp {
         return false;
     }
 
+    /**
+     * gets called when a structure buy is confirmed
+     */
     private void buyStructure() {
         Gold.buy(structure.getCost());
+        //confiremd is set true
         target.setConfirmed(true);
         target.setStructure(structure);
         Views popupView=game.getView();

@@ -23,16 +23,16 @@ import java.util.LinkedList;
 /**
  * Handles how the screen looks if Home Base is viewed
  * Delegates drawing to its components
+ *
  */
 public class BaseView extends Views {
     private LinkedList<Container> containers;
-    //contains all Structures you can ever Build in the game
-    //private LinkedList<String> allExistingStructures;
     private String saveString = "";
     private Values values;
     private Context context;
     private Rect scaledContainer;
     public ArrayList<GoldMine> struc;
+    //Constants as keys for shared Preferences
     public static final String SHARED_PREF = "sharedPrefs";
     public static final String ALL_STRUCTURES = "allStructures";
     public static final String SAVE_STRING = "saveString";
@@ -40,25 +40,41 @@ public class BaseView extends Views {
     public BaseView(Context context) {
         this.context = context;
         values = ((MainActivity) context).getValues();
-        //allExistingStructures = values.getAllStructures();
         struc = new ArrayList<>();
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         containers = new LinkedList<>();
         scaledContainer = new Rect(0, 0, values.getScreenWidth(), values.getScreenHeight());
+        //create Container gets called with false as Parameter, because we only need the measurements
+        //calculated for the Hud, not the actual containers
         createContainer(context, false);
     }
 
+    /**
+     * Draws Background and all Containers/Structures in Containers on the screen
+     * @param canvas
+     */
     public void draw(Canvas canvas) {
         canvas.drawBitmap(background, null, scaledContainer, null);
         drawContainer(canvas);
     }
 
+    /**
+     * Calls checkContainers
+     * @param event MotionEvent from Game
+     * @param game Instance of Game
+     * @return if container has been touched
+     */
     @Override
     public boolean checkAllElements(MotionEvent event, Game game) {
         return checkContainers(event, game);
-
     }
 
+    /**
+     * Gets called in Game. First checking what containers have been confirmed to be
+     * a structure. It also saves the Savestring "0100.." and all Structures as a json String
+     * @author Fred
+     * @since 24/02
+     */
     @Override
     public void saveData() {
         for(Container c: containers) {
@@ -73,9 +89,17 @@ public class BaseView extends Views {
         editor.putString(ALL_STRUCTURES, json);
         editor.putString(SAVE_STRING, saveString);
         editor.apply();
+        //Same as in MainActivity, to disable saving/clearing saves
         //editor.clear().apply();
     }
 
+    /**
+     * Gets called in Game. Gets saveString and transforms json back to Objects.
+     * TypeToken doesn't work with abstract classes, that's why GoldMine is Hardcoded
+     * at the moment
+     * @author Fred
+     * @since 24/02
+     */
     @Override
     public void loadData() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
@@ -87,15 +111,29 @@ public class BaseView extends Views {
         if (struc == null){
             struc = new ArrayList<>();
         }
-        //trust me...
+        //Now the actual containers get drawn
         createContainer(context, true);
     }
+
+    /**
+     * Gets called in createContainer. Fills saveString with as many "0" as there are Containers on Screen
+     * @param g int, Amount of Containers on Screen
+     * @author Fred
+     * @since 24/02
+     */
     public void fillSaveString(int g){
         for(int i = 0; i<g; i++){
             saveString = saveString + "0";
         }
     }
 
+    /**
+     * Adds structure to struc list and alters saveString
+     * @param i int, index of Container in containers
+     * @param s Structure
+     * @author Fred
+     * @since 24/02
+     */
     public void addStructure(int i, Structure s){
             struc.add((GoldMine) s);
             char[] chars = saveString.toCharArray();
@@ -105,7 +143,6 @@ public class BaseView extends Views {
 
     /**
      * Delegates Drawing to each container
-     *
      * @param canvas
      */
     private void drawContainer(Canvas canvas) {
@@ -135,15 +172,9 @@ public class BaseView extends Views {
     public void update() {
     }
 
-
-    // Not needed at the moment because of Refactoring, left it in anyways
-    //public LinkedList<Container> getContainer(){
-    //     return containers;
-    //}
-
-
     /**
-     * Creates all Containers in correct distance to each other and the screen
+     * Creates all Containers in correct distance to each other and the screen.
+     * Also draws the structures from struc according to saveString
      *
      * @param context context idk
      */
